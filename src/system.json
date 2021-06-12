@@ -1,0 +1,30 @@
+{
+  "name": "mythic",
+  "title": "Halo Mythic 4.0",
+  "description": "",
+  "version": "0.1.0",
+  "author": "Maximilian Maihöfner",
+  "authors": [
+    {
+      "name": "",
+      "email": "",
+      "url": ""
+    }
+  ],
+  "scripts": [],
+  "esmodules": ["mythic.js"],
+  "styles": ["mythic.css"],
+  "packs": [],
+  "languages": [],
+  "gridDistance": 1,
+  "gridUnits": "",
+  "minimumCoreVersion": "0.5.0",
+  "compatibleCoreVersion": "0.5.0",
+  "url": "",
+  "manifest": "",
+  "download": "",
+  "license": "",
+  "readme": "",
+  "bugs": "",
+  "changelog": ""
+}

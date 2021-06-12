@@ -1,0 +1,7 @@
+node_modules/
+foundryconfig.json
+dist/
+
+.vscode/
+.idea/
+
