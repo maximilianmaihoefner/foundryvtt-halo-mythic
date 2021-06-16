@@ -1,30 +1,28 @@
 {
   "name": "mythic",
   "title": "Halo Mythic 4.0",
-  "description": "",
+  "description": "Unoffical Halo Tabletop RPG.",
   "version": "0.1.0",
+  "minimumCoreVersion": "0.8.6",
+  "compatibleCoreVersion": "0.8.6",
+  "templateVersion": 2,
   "author": "Maximilian Maihöfner",
-  "authors": [
-    {
-      "name": "",
-      "email": "",
-      "url": ""
-    }
-  ],
-  "scripts": [],
   "esmodules": ["mythic.js"],
   "styles": ["mythic.css"],
+  "scripts": [],
   "packs": [],
-  "languages": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
   "gridDistance": 1,
   "gridUnits": "",
-  "minimumCoreVersion": "0.5.0",
-  "compatibleCoreVersion": "0.5.0",
-  "url": "",
+  "primaryTokenAttribute": null,
+  "secondaryTokenAttribute": null,
   "manifest": "",
   "download": "",
-  "license": "",
-  "readme": "",
-  "bugs": "",
-  "changelog": ""
+  "license": ""
 }

@@ -1,10 +1,201 @@
 {
   "Actor": {
-    "types": [],
-    "templates": []
+    "types": ["character"],
+    "templates": {
+      "base": {}
+    },
+    "character": {
+      "infos": {
+        "soldierType": "",
+        "faction": "",
+        "rank": "",
+        "height": "",
+        "weight": "",
+        "specialisation": "",
+        "gender": "",
+        "race": "",
+        "upbringing": "",
+        "environment": "",
+        "lifestyle": ""
+      },
+      "characteristics": {
+        "str": {
+          "rawValue": 0,
+          "advancement": 0,
+          "min": 0
+        },
+        "t": {
+          "rawValue": 0,
+          "advancement": 0,
+          "min": 0
+        },
+        "ag": {
+          "rawValue": 0,
+          "advancement": 0,
+          "min": 0
+        },
+        "wfr": {
+          "rawValue": 0,
+          "advancement": 0,
+          "min": 0
+        },
+        "wfm": {
+          "rawValue": 0,
+          "advancement": 0,
+          "min": 0
+        },
+        "int": {
+          "rawValue": 0,
+          "advancement": 0,
+          "min": 0
+        },
+        "per": {
+          "rawValue": 0,
+          "advancement": 0,
+          "min": 0
+        },
+        "cr": {
+          "rawValue": 0,
+          "advancement": 0,
+          "min": 0
+        },
+        "ch": {
+          "rawValue": 0,
+          "advancement": 0,
+          "min": 0
+        },
+        "ld": {
+          "rawValue": 0,
+          "advancement": 0,
+          "min": 0
+        }
+      },
+      "mythicCharacteristics": {
+        "str": {
+          "value": 0
+        },
+        "t": {
+          "value": 0
+        },
+        "ag": {
+          "value": 0
+        }
+      },
+      "skills": {
+        "appeal": {
+          "advancement": 0
+        },
+        "athletics": {
+          "advancement": 0
+        },
+        "camouflage": {
+          "advancement": 0
+        },
+        "command": {
+          "advancement": 0
+        },
+        "deception": {
+          "advancement": 0
+        },
+        "demolition": {
+          "advancement": 0
+        },
+        "cryptography": {
+          "advancement": 0
+        },
+        "evasion": {
+          "advancement": 0
+        },
+        "gambling": {
+          "advancement": 0
+        },
+        "interrogation": {
+          "advancement": 0
+        },
+        "intimidation": {
+          "advancement": 0
+        },
+        "investigation": {
+          "advancement": 0
+        },
+        "medicationHuman": {
+          "advancement": 0
+        },
+        "medicationCovenant": {
+          "advancement": 0
+        },
+        "medicationMgalekgolo": {
+          "advancement": 0
+        },
+        "navigationGroundAir": {
+          "advancement": 0
+        },
+        "navigationSpace": {
+          "advancement": 0
+        },
+        "navigationSlipspace": {
+          "advancement": 0
+        },
+        "negotiation": {
+          "advancement": 0
+        },
+        "pilotGround": {
+          "advancement": 0
+        },
+        "pilotAir": {
+          "advancement": 0
+        },
+        "pilotSpace": {
+          "advancement": 0
+        },
+        "security": {
+          "advancement": 0
+        },
+        "stunting": {
+          "advancement": 0
+        },
+        "survival": {
+          "advancement": 0
+        },
+        "technologyHuman": {
+          "advancement": 0
+        },
+        "technologyCovenant": {
+          "advancement": 0
+        },
+        "technologyForerunner": {
+          "advancement": 0
+        }
+      },
+      "educations": [],
+      "languages": []
+    }
   },
   "Item": {
-    "types": [],
-    "templates": []
+    "types": ["meleeWeapon", "rangedWeapon"],
+    "templates": {
+      "weapon": {
+        "alias": "",
+        "fireModes": [""],
+        "weaponType": "",
+        "damageRoll": "",
+        "baseDamage": "",
+        "piercing": "",
+        "range": "",
+        "cost": "",
+        "weight": "",
+        "description": "",
+        "attachments": []
+      }
+    },
+    "meleeWeapon": {
+      "templates": ["weapon"]
+    },
+    "rangedWeapon": {
+      "templates": ["weapon"],
+      "magazin": "",
+      "ammunition": "",
+      "reload": ""
+    }
   }
 }

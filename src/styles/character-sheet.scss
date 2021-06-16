@@ -1,0 +1,9 @@
+.character-sheet {
+    .sheet-header {
+        flex-direction: column !important;
+    }
+    .header-fields {
+        display: flex;
+        flex-direction: row;
+    }
+}

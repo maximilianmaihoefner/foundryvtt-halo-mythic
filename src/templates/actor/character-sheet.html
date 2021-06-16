@@ -1,0 +1,210 @@
+<form class="{{cssClass}} character-sheet flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <div style="display: flex; flex-direction: row; width: 100%">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+      <h1 class="charname">
+        <input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+      </h1>
+    </div>
+    <div class="header-fields">
+      <div>
+        <div>
+          <label for="faction">Faction</label>
+          <select id="faction" name="data.infos.faction" data-type="String">
+            {{#select data.infos.faction}}
+            <option value="Human">Human</option>
+            <option value="Covenant">Covenant</option>
+            <option value="Forerunner">Forerunner</option>
+            {{/select}}
+          </select>
+        </div>
+        <div>
+          <label for="soldierType">Soldier Type</label>
+          <input id="soldierType" name="data.infos.soldierType" type="text" value="{{data.infos.soldierType}}"
+                 placeholder="Soldier Type"/>
+        </div>
+        <input name="data.infos.rank" type="text" value="{{data.infos.rank}}" placeholder="Rank"/>
+        <input name="data.infos.height" type="text" value="{{data.infos.height}}" placeholder="Height"
+               data-dtype="Number"/>
+        <input name="data.infos.weight" type="text" value="{{data.infos.weight}}" placeholder="Weight"
+               data-dtype="Number"/>
+        <input name="data.infos.specialisation" type="text" value="{{data.infos.specialisation}}"
+               placeholder="Specialisation"/>
+      </div>
+      <div>
+        <!--        <input name="data.infos.playerName" type="text" value="{{data.infos.playerName}}" placeholder="Player Name"/>-->
+        <input name="data.infos.gender" type="text" value="{{data.infos.gender}}" placeholder="Gender"/>
+        <input name="data.infos.race" type="text" value="{{data.infos.race}}" placeholder="Race"/>
+        <input name="data.infos.upbringing" type="text" value="{{data.infos.upbringing}}" placeholder="Upbringing"/>
+        <input name="data.infos.environment" type="text" value="{{data.infos.environment}}" placeholder="Environment"/>
+        <input name="data.infos.lifestyle" type="text" value="{{data.infos.lifestyle}}" placeholder="Lifestyle"/>
+      </div>
+    </div>
+  </header>
+  <div class="characteristics" style="display: flex; flex-direction: row; flex: 0">
+    {{#each data.characteristics as |characteristic key|}}
+    <div class="characteristic" style="width: 70px">
+      <label style="width: 100%; text-align: center;" for="data.characteristics.{{key}}.value" class="resource-label">
+        {{characteristic.labelShort}}
+      </label>
+      <input type="number" min="{{characteristic.min}}" name="data.characteristics.{{key}}.rawValue"
+             value="{{characteristic.rawValue}}" data-dtype="Number"/>
+      <select name="data.characteristics.{{key}}.advancement" style="width: 70px;" data-type="Number">
+        {{#select characteristic.advancement}}
+        <option value="0">N/A (+0)</option>
+        <!-- 200xp -->
+        <option value="1">Simple (+5)</option>
+        <!-- 400xp -->
+        <option value="2">Rookie (+10)</option>
+        <!-- 800xp -->
+        <option value="3">Intermediate (+15)</option>
+        <!-- 1200xp -->
+        <option value="4">Trained (+20)</option>
+        <!-- 1600xp -->
+        <option value="5">Mastery (+25)</option>
+        {{/select}}
+      </select>
+<!--      <div>{{characteristic.mod}}</div>-->
+      <button style="" class="rollable" data-roll="floor((@characteristics.{{key}}.value + @bonus - 1d100) / 10)" data-label="{{characteristic.label}}">{{characteristic.value}}</button>
+    </div>
+    {{/each}}
+  </div>
+
+  <br/>
+
+  <div style="display: flex; flex-direction: row; justify-content: space-between">
+    <div class="mythic-characteristics">
+      <h3 style="text-align: center">Mythic Characteristics</h3>
+      <div style="flex-direction: row; display: flex;">
+        {{#each data.mythicCharacteristics as |characteristic key|}}
+        <div class="mythic-characteristic" style="width: 50px">
+          <input style="text-align: center" type="number" min="{{characteristic.min}}"
+                 name="data.mythicCharacteristics.{{key}}.value" value="{{characteristic.value}}" data-dtype="Number"/>
+          <div style="text-align: center" class="resource-label">
+            {{characteristic.label}} {{key}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    <div class="movement">
+      <h3 style="text-align: center">Movement</h3>
+      <div style="flex-direction: row; display: flex;">
+        {{#each data.movement as |move key|}}
+        <div class="move" style="width: 50px">
+          <input readonly style="text-align: center" type="number" min="0" name="data.movement.{{key}}" value="{{move}}"
+                 data-dtype="Number"/>
+          <div style="text-align: center" class="resource-label">
+            {{key}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    <div class="carrying">
+      <h3 style="text-align: center">Carrying Capacity</h3>
+      <div style="flex-direction: row; display: flex;">
+        {{#each data.carryingCapacity as |carry key|}}
+        <div class="carry" style="width: 50px">
+          <input readonly style="text-align: center" type="number" min="0" name="data.carryingCapacity.{{key}}"
+                 value="{{carry}}" data-dtype="Number"/>
+          <div style="text-align: center" class="resource-label">
+            {{key}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="core">Core</a>
+    <a class="item" data-tab="equipment">Equipment</a>
+    <a class="item" data-tab="medical">Medical</a>
+    <a class="item" data-tab="advancements">Advancements</a>
+    <a class="item" data-tab="debug">Debug</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Tab content goes here --}}
+    <div class="tab" data-group="primary" data-tab="core">
+      <div style="display: flex; flex-direction: row">
+        <div class="skills" style="width: 50%">
+          {{#each data.skills as |skill key|}}
+          <div class="skill" style="display: flex; flex-direction: row; justify-content: space-between">
+            <div style="width: 200px;">
+              {{skill.label}}
+              {{#if skill.adv}}
+              Adv.
+              {{/if}}
+            </div>
+            <select name="data.skills.{{key}}.characteristic" style="width: 50px;" data-type="Number">
+              {{#select skill.characteristic}}
+              {{#each skill.defaultCharacteristics as |char key|}}
+              <option value="{{char}}">{{char}}</option>
+              {{/each}}
+              <option disabled>───</option>
+              {{#each skill.otherCharacteristics as |char key|}}
+              <option value="{{char}}">{{char}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+            <select name="data.skills.{{key}}.advancement" style="width: 100px;" data-type="Number">
+              {{#select skill.advancement}}
+              <option value="0">N/A ({{#if skill.adv}}-40{{else}}-20{{/if}})</option>
+              <option value="1">Trained (+0)</option>
+              <option value="2">+10</option>
+              <option value="3">+20</option>
+              {{/select}}
+            </select>
+            <button class="rollable" style="width: 50px"
+                    data-roll="floor((@skills.{{key}}.value + @bonus - 1d100) / 10)"
+                    data-label="{{skill.label}}">
+              {{skill.value}}
+            </button>
+          </div>
+          {{/each}}
+        </div>
+        <div class="educations">
+          <div>
+            {{#each data.educations as |education key|}}
+            <div>
+              <input name="data.educations.{{key}}.name" value="{{education.name}}" placeholder="Name"/>
+            </div>
+            {{/each}}
+          </div>
+          <button class="addEducation">Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="tab" data-group="primary" data-tab="equipment">
+      {{#each items as |item key|}}
+      <div>{{json item}}</div>
+
+      <div style="display: flex; flex-direction: row;">
+        {{#ifCond item.type "meleeWeapon"}}
+        <button class="rollable"
+                data-roll="floor((@characteristics.wfm.value + @bonus - 1d100) / 10)"
+                data-label="{{item.name}} Hit">Hit</button>
+        {{/ifCond}}
+        {{#ifCond item.type "rangedWeapon"}}
+        <button class="rollable"
+                data-roll="floor((@characteristics.wfr.value + @bonus - 1d100) / 10)"
+                data-label="{{item.name}} Hit">Hit</button>
+        {{/ifCond}}
+        <button class="rollable"
+                data-roll="{{item.data.baseDamage}} + {{item.data.damageRoll}} + @bonus"
+                data-label="{{item.name}} Damage">Damage</button>
+        <button class="item-delete" data-item-id="{{item._id}}">Remove</button>
+      </div>
+      {{/each}}
+    </div>
+    <div class="tab" data-group="primary" data-tab="medical"></div>
+    <div class="tab" data-group="primary" data-tab="advancements"></div>
+    <div class="tab" data-group="primary" data-tab="debug">
+      {{json data}}
+    </div>
+  </section>
+</form>

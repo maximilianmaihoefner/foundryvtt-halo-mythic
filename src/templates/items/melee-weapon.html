@@ -1,0 +1,38 @@
+<form class="{{cssClass}} melee-weapon-sheet flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <div style="display: flex; flex-direction: row; width: 100%">
+      <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" height="100" width="100"/>
+      <h1 class="charname">
+        <input name="name" type="text" value="{{item.name}}" placeholder="Name"/>
+      </h1>
+    </div>
+    <div>
+      <input name="data.alias" value="{{data.alias}}" placeholder="Weapon Alias"/>
+      {{#each data.fireModes as |fireMode key|}}
+        <input name="data.fireModes.{{key}}.value" value="fireMode.value" placeholder="Rate of Fire"/>
+        <select name="data.fireModes.{{key}}.mode" data-type="String">
+          {{#select fireMode.mode}}
+          <option value="automatic">Automatic</option>
+          <option value="burst">Burst</option>
+          <option value="drawback">Drawback</option>
+          <option value="flamethrowers">Flamethrowers and Defoliants</option>
+          <option value="flintlock">Flintlock</option>
+          <option value="pumpaction">Pump Action</option>
+          <option value="semiautomatic">Semi-Automatic</option>
+          <option value="sustained">Sustained</option>
+          <option value="charge">Charge</option>
+          {{/select}}
+        </select>
+        <input name="data.fireModes.{{key}}" value="{{mode}}.mode" placeholder="Fire Mode"/>
+      {{/each}}
+      <input name="data.weaponType" value="{{data.weaponType}}" placeholder="Weapon Type"/>
+      <input name="data.damageRoll" value="{{data.damageRoll}}" placeholder="Damage Roll"/>
+      <input name="data.baseDamage" value="{{data.baseDamage}}" placeholder="Base Damage"/>
+      <input name="data.piercing" value="{{data.piercing}}" placeholder="piercing"/>
+      <input name="data.range" value="{{data.range}}" placeholder="range"/>
+      <input name="data.cost" value="{{data.cost}}" placeholder="cost"/>
+      <input name="data.weight" value="{{data.weight}}" placeholder="weight"/>
+      <input name="data.description" value="{{data.description}}" placeholder="description"/>
+    </div>
+  </header>
+</form>
