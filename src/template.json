@@ -167,8 +167,9 @@
           "advancement": 0
         }
       },
-      "educations": [],
-      "languages": []
+      "educations": {},
+      "languages": {},
+      "abilities": {}
     }
   },
   "Item": {

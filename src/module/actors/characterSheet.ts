@@ -74,6 +74,9 @@ export class MythicCharacterSheet extends ActorSheet {
     html.find('.rollable').on('click', this._onRoll.bind(this));
 
     html.find('.addEducation').on('click', this._addEducation.bind(this));
+    html.find('.remove-education').on('click', this._removeEducation.bind(this));
+    html.find('.addLanguage').on('click', this._addLanguage.bind(this));
+    html.find('.remove-language').on('click', this._removeLanguage.bind(this));
 
     // Delete Inventory Item
     html.find('.item-delete').on('click', async event => {
@@ -122,17 +125,90 @@ export class MythicCharacterSheet extends ActorSheet {
     const newEducation = {
       name: '',
       characteristic: '',
-      mod: 0,
+      advancement: 0,
     };
 
     // @ts-ignore
     if (this.actor.data.data.educations) {
       // @ts-ignore
-      this.actor.data.data.educations.push(newEducation);
+      const educations = Object.values(this.actor.data.data.educations);
+      educations.push(newEducation);
+
+      await this.actor.update({
+        'data.educations': { ...educations },
+      });
     } else {
-      // @ts-ignore
-      this.actor.data.data.educations = [newEducation];
+      await this.actor.update({
+        'data.educations': {0: newEducation},
+      });
     }
     console.log(this.actor.data.data);
+  }
+
+  async _removeEducation(event) {
+    event.preventDefault();
+
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    // @ts-ignore
+    if (dataset.key && this.actor.data.data.educations) {
+      // @ts-ignore
+      const educations = this.actor.data.data.educations;
+      delete educations[dataset.key];
+
+      // TODO setting the attribute to null before setting the actual wanted value is the only way I found of actually removing
+      // something from the object, but this makes the list flicker for a moment... there has to be a better way...
+      // https://gitlab.com/foundrynet/foundryvtt/-/issues/1617
+      await this.actor.update({
+        'data.educations': null,
+      });
+      await this.actor.update({
+        'data.educations': {...Object.values(educations)},
+      });
+    }
+  }
+
+  async _addLanguage(event) {
+    event.preventDefault();
+
+    // @ts-ignore
+    if (this.actor.data.data.languages) {
+      // @ts-ignore
+      const languages = Object.values(this.actor.data.data.languages);
+      languages.push('');
+
+      await this.actor.update({
+        'data.languages': { ...languages },
+      });
+    } else {
+      await this.actor.update({
+        'data.languages': {0: ''},
+      });
+    }
+  }
+
+  async _removeLanguage(event) {
+    event.preventDefault();
+
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    // @ts-ignore
+    if (dataset.key && this.actor.data.data.languages) {
+      // @ts-ignore
+      const languages = this.actor.data.data.languages;
+      delete languages[dataset.key];
+
+      // TODO setting the attribute to null before setting the actual wanted value is the only way I found of actually removing
+      // something from the object, but this makes the list flicker for a moment... there has to be a better way...
+      // https://gitlab.com/foundrynet/foundryvtt/-/issues/1617
+      await this.actor.update({
+        'data.languages': null,
+      });
+      await this.actor.update({
+        'data.languages': {...Object.values(languages)},
+      });
+    }
   }
 }

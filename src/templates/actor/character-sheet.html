@@ -43,13 +43,13 @@
   </header>
   <div class="characteristics" style="display: flex; flex-direction: row; flex: 0">
     {{#each data.characteristics as |characteristic key|}}
-    <div class="characteristic" style="width: 70px">
+    <div class="characteristic" style="width: 10%">
       <label style="width: 100%; text-align: center;" for="data.characteristics.{{key}}.value" class="resource-label">
         {{characteristic.labelShort}}
       </label>
       <input type="number" min="{{characteristic.min}}" name="data.characteristics.{{key}}.rawValue"
              value="{{characteristic.rawValue}}" data-dtype="Number"/>
-      <select name="data.characteristics.{{key}}.advancement" style="width: 70px;" data-type="Number">
+      <select name="data.characteristics.{{key}}.advancement" style="width: 100%;" data-type="Number">
         {{#select characteristic.advancement}}
         <option value="0">N/A (+0)</option>
         <!-- 200xp -->
@@ -117,7 +117,6 @@
     </div>
   </div>
 
-  {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="core">Core</a>
     <a class="item" data-tab="equipment">Equipment</a>
@@ -126,12 +125,11 @@
     <a class="item" data-tab="debug">Debug</a>
   </nav>
 
-  {{!-- Sheet Body --}}
   <section class="sheet-body">
-    {{!-- Tab content goes here --}}
     <div class="tab" data-group="primary" data-tab="core">
-      <div style="display: flex; flex-direction: row">
-        <div class="skills" style="width: 50%">
+      <div style="display: flex; flex-direction: row; justify-content: space-between;">
+        <div class="skills" style="width: 49%">
+          <h3>Skills</h3>
           {{#each data.skills as |skill key|}}
           <div class="skill" style="display: flex; flex-direction: row; justify-content: space-between">
             <div style="width: 200px;">
@@ -167,16 +165,41 @@
           </div>
           {{/each}}
         </div>
-        <div class="educations">
-          <div>
-            {{#each data.educations as |education key|}}
+        <div style="width: 49%; display: flex; flex-direction: column;">
+          <div class="educations">
+            <h3>Educations</h3>
             <div>
-              <input name="data.educations.{{key}}.name" value="{{education.name}}" placeholder="Name"/>
+              {{#each data.educations as |education key|}}
+              <div>
+                <input name="data.educations.{{key}}.name" value="{{education.name}}" placeholder="Name" data-type="String"/>
+                <select name="data.educations.{{key}}.advancement" data-type="Number">
+                  {{#select education.advancement}}
+                  <option value="0">+5</option>
+                  <option value="1">+10</option>
+                  {{/select}}
+                </select>
+                <button class="remove-education" data-key="{{key}}">X</button>
+              </div>
+              {{/each}}
             </div>
-            {{/each}}
+            <button class="addEducation">Add</button>
           </div>
-          <button class="addEducation">Add</button>
+          <div class="languages">
+            <h3>Languages</h3>
+            <div>
+              {{#each data.languages as |language key|}}
+              <div>
+                <input name="data.languages.{{key}}" value="{{language}}" placeholder="Language"/>
+                <button class="remove-language" data-key="{{key}}">X</button>
+              </div>
+              {{/each}}
+            </div>
+            <button class="addLanguage">Add</button>
+          </div>
         </div>
+      </div>
+      <div class="abilities" style="display: flex; flex-direction: row; justify-content: space-between;">
+
       </div>
     </div>
     <div class="tab" data-group="primary" data-tab="equipment">
