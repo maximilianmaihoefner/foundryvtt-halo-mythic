@@ -81,6 +81,34 @@
           "value": 0
         }
       },
+      "wounds": {
+        "current": 0,
+        "max": 0
+      },
+      "fatigue": {
+        "current": 0,
+        "max": 0
+      },
+      "luck": {
+        "current": 0,
+        "max": 0
+      },
+      "supportPoints": {
+        "current": 0,
+        "max": 0
+      },
+      "shields": {
+        "current": 0,
+        "max": 0,
+        "delay": 0,
+        "charge": 0
+      },
+      "armor": {
+        "head": 0,
+        "chest": 0,
+        "arms": 0,
+        "legs": 0
+      },
       "skills": {
         "appeal": {
           "advancement": 0

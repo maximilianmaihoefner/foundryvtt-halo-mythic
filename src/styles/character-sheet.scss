@@ -7,6 +7,11 @@
         flex-direction: row;
     }
 
+    .center-text {
+        width: 100%;
+        text-align: center;
+    }
+
     .educations {
         display: flex;
         flex-direction: column;
@@ -15,5 +20,27 @@
     .languages {
         display: flex;
         flex-direction: column;
+    }
+    .things {
+        h3 {
+            width: 100%;
+            text-align: center;
+        }
+        input {
+            width: 60px;
+            margin: 0 12.5%;
+        }
+    }
+    .shields {
+        input {
+            width: 60px;
+            margin: 0;
+        }
+    }
+    .armor {
+        input {
+            width: 60px;
+            margin: 0;
+        }
     }
 }
