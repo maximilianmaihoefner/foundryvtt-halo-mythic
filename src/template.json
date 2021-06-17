@@ -197,7 +197,22 @@
       },
       "educations": {},
       "languages": {},
-      "abilities": {}
+      "abilities": {},
+      "factionTrainings": {
+        "human": false,
+        "covenant": false,
+        "forerunner": false
+      },
+      "weaponTrainings": {
+        "basic": false,
+        "infantry": false,
+        "vehicle": false,
+        "melee": false,
+        "heavy": false,
+        "advanced": false,
+        "longRange": false,
+        "explosive": false
+      }
     }
   },
   "Item": {

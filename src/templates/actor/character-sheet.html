@@ -64,8 +64,10 @@
         <option value="5">Mastery (+25)</option>
         {{/select}}
       </select>
-<!--      <div>{{characteristic.mod}}</div>-->
-      <button style="" class="rollable" data-roll="floor((@characteristics.{{key}}.value + @bonus - 1d100) / 10)" data-label="{{characteristic.label}}">{{characteristic.value}}</button>
+      <!--      <div>{{characteristic.mod}}</div>-->
+      <button style="" class="rollable" data-roll="floor((@characteristics.{{key}}.value + @bonus - 1d100) / 10)"
+              data-label="{{characteristic.label}}">{{characteristic.value}}
+      </button>
     </div>
     {{/each}}
   </div>
@@ -122,40 +124,50 @@
   <div class="things" style="display: flex; flex-direction: row; justify-content: space-between">
     <div style="width: 12%; display: flex; flex-direction: column; justify-content: space-around">
       <h3>Wounds</h3>
-      <input type="number" data-dtype="Number" name="data.wounds.current" value="{{data.wounds.current}}" placeholder="Current"/>
+      <input type="number" data-dtype="Number" name="data.wounds.current" value="{{data.wounds.current}}"
+             placeholder="Current"/>
       <input type="number" data-dtype="Number" name="data.wounds.max" value="{{data.wounds.max}}" placeholder="Max"/>
     </div>
     <div style="width: 12%; display: flex; flex-direction: column">
       <h3>Fatigue</h3>
-      <input type="number" data-dtype="Number" name="data.fatigue.current" value="{{data.fatigue.current}}" placeholder="Current"/>
+      <input type="number" data-dtype="Number" name="data.fatigue.current" value="{{data.fatigue.current}}"
+             placeholder="Current"/>
       <input type="number" data-dtype="Number" name="data.fatigue.max" value="{{data.fatigue.max}}" placeholder="Max"/>
     </div>
     <div style="width: 12%; display: flex; flex-direction: column">
       <h3>Luck</h3>
-      <input type="number" data-dtype="Number" name="data.luck.current" value="{{data.luck.current}}" placeholder="Current"/>
+      <input type="number" data-dtype="Number" name="data.luck.current" value="{{data.luck.current}}"
+             placeholder="Current"/>
       <input type="number" data-dtype="Number" name="data.luck.max" value="{{data.luck.max}}" placeholder="Max"/>
     </div>
     <div style="width: 12%; display: flex; flex-direction: column">
       <h3>Support Pts.</h3>
-      <input type="number" data-dtype="Number" name="data.supportPoints.current" value="{{data.supportPoints.current}}" placeholder="Current"/>
-      <input type="number" data-dtype="Number" name="data.supportPoints.max" value="{{data.supportPoints.max}}" placeholder="Max"/>
+      <input type="number" data-dtype="Number" name="data.supportPoints.current" value="{{data.supportPoints.current}}"
+             placeholder="Current"/>
+      <input type="number" data-dtype="Number" name="data.supportPoints.max" value="{{data.supportPoints.max}}"
+             placeholder="Max"/>
     </div>
     <div class="shields" style="width: 18%; display: flex; flex-direction: column">
       <h3>Shields</h3>
       <div style="width: 50%; display: flex; flex-direction: row">
-        <input type="number" data-dtype="Number" name="data.shields.current" value="{{data.shields.current}}" placeholder="Current"/>
-        <input type="number" data-dtype="Number" name="data.shields.charge" value="{{data.shields.charge}}" placeholder="Charge"/>
+        <input type="number" data-dtype="Number" name="data.shields.current" value="{{data.shields.current}}"
+               placeholder="Current"/>
+        <input type="number" data-dtype="Number" name="data.shields.charge" value="{{data.shields.charge}}"
+               placeholder="Charge"/>
       </div>
       <div style="width: 50%; display: flex; flex-direction: row">
-        <input type="number" data-dtype="Number" name="data.shields.max" value="{{data.shields.max}}" placeholder="Max"/>
-        <input type="number" data-dtype="Number" name="data.shields.delay" value="{{data.shields.delay}}" placeholder="Delay"/>
+        <input type="number" data-dtype="Number" name="data.shields.max" value="{{data.shields.max}}"
+               placeholder="Max"/>
+        <input type="number" data-dtype="Number" name="data.shields.delay" value="{{data.shields.delay}}"
+               placeholder="Delay"/>
       </div>
     </div>
     <div class="armor" style="width: 18%; display: flex; flex-direction: column">
       <h3>Armor</h3>
       <div style="width: 50%; display: flex; flex-direction: row">
         <input type="number" data-dtype="Number" name="data.armor.head" value="{{data.armor.head}}" placeholder="Head"/>
-        <input type="number" data-dtype="Number" name="data.armor.chest" value="{{data.armor.chest}}" placeholder="Chest"/>
+        <input type="number" data-dtype="Number" name="data.armor.chest" value="{{data.armor.chest}}"
+               placeholder="Chest"/>
       </div>
       <div style="width: 50%; display: flex; flex-direction: row">
         <input type="number" data-dtype="Number" name="data.armor.arms" value="{{data.armor.arms}}" placeholder="Arms"/>
@@ -220,7 +232,8 @@
             <div>
               {{#each data.educations as |education key|}}
               <div style="display: flex; flex-direction: row;">
-                <input type="text" data-dtype="String" name="data.educations.{{key}}.name" value="{{education.name}}" placeholder="Name" data-type="String"/>
+                <input type="text" data-dtype="String" name="data.educations.{{key}}.name" value="{{education.name}}"
+                       placeholder="Name" data-type="String"/>
                 <select name="data.educations.{{key}}.advancement" data-type="Number">
                   {{#select education.advancement}}
                   <option value="0">+5</option>
@@ -238,7 +251,8 @@
             <div>
               {{#each data.languages as |language key|}}
               <div style="display: flex; flex-direction: row;">
-                <input type="text" data-dtype="String" name="data.languages.{{key}}" value="{{language}}" placeholder="Language"/>
+                <input type="text" data-dtype="String" name="data.languages.{{key}}" value="{{language}}"
+                       placeholder="Language"/>
                 <button class="remove-language" data-key="{{key}}">X</button>
               </div>
               {{/each}}
@@ -259,22 +273,56 @@
         {{#ifCond item.type "meleeWeapon"}}
         <button class="rollable"
                 data-roll="floor((@characteristics.wfm.value + @bonus - 1d100) / 10)"
-                data-label="{{item.name}} Hit">Hit</button>
+                data-label="{{item.name}} Hit">Hit
+        </button>
         {{/ifCond}}
         {{#ifCond item.type "rangedWeapon"}}
         <button class="rollable"
                 data-roll="floor((@characteristics.wfr.value + @bonus - 1d100) / 10)"
-                data-label="{{item.name}} Hit">Hit</button>
+                data-label="{{item.name}} Hit">Hit
+        </button>
         {{/ifCond}}
         <button class="rollable"
                 data-roll="{{item.data.baseDamage}} + {{item.data.damageRoll}} + @bonus"
-                data-label="{{item.name}} Damage">Damage</button>
+                data-label="{{item.name}} Damage">Damage
+        </button>
         <button class="item-delete" data-item-id="{{item._id}}">Remove</button>
       </div>
       {{/each}}
     </div>
     <div class="tab" data-group="primary" data-tab="medical"></div>
-    <div class="tab" data-group="primary" data-tab="advancements"></div>
+    <div class="tab" data-group="primary" data-tab="advancements">
+      <div>
+        <h3>Faction Trainings</h3>
+        {{#each data.factionTrainings as |training key|}}
+        {{key}}
+        <input
+            type="checkbox"
+            data-dtype="Boolean"
+            name="data.factionTrainings.{{key}}"
+            value="{{training}}"
+            {{#if training}}
+            checked
+            {{/if}}
+        />
+        {{/each}}
+      </div>
+      <div>
+        <h3>Weapon Trainings</h3>
+        {{#each data.weaponTrainings as |training key|}}
+        {{key}}
+        <input
+            type="checkbox"
+            data-dtype="Boolean"
+            name="data.weaponTrainings.{{key}}"
+            value="{{training}}"
+            {{#if training}}
+            checked
+            {{/if}}
+        />
+        {{/each}}
+      </div>
+    </div>
     <div class="tab" data-group="primary" data-tab="debug">
       {{json data}}
     </div>
