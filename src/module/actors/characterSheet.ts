@@ -139,10 +139,9 @@ export class MythicCharacterSheet extends ActorSheet {
       });
     } else {
       await this.actor.update({
-        'data.educations': {0: newEducation},
+        'data.educations': { 0: newEducation },
       });
     }
-    console.log(this.actor.data.data);
   }
 
   async _removeEducation(event) {
@@ -151,20 +150,9 @@ export class MythicCharacterSheet extends ActorSheet {
     const element = event.currentTarget;
     const dataset = element.dataset;
 
-    // @ts-ignore
-    if (dataset.key && this.actor.data.data.educations) {
-      // @ts-ignore
-      const educations = this.actor.data.data.educations;
-      delete educations[dataset.key];
-
-      // TODO setting the attribute to null before setting the actual wanted value is the only way I found of actually removing
-      // something from the object, but this makes the list flicker for a moment... there has to be a better way...
-      // https://gitlab.com/foundrynet/foundryvtt/-/issues/1617
+    if (dataset.key) {
       await this.actor.update({
-        'data.educations': null,
-      });
-      await this.actor.update({
-        'data.educations': {...Object.values(educations)},
+        'data.educations': { [`-=${dataset.key}`]: null },
       });
     }
   }
@@ -183,7 +171,7 @@ export class MythicCharacterSheet extends ActorSheet {
       });
     } else {
       await this.actor.update({
-        'data.languages': {0: ''},
+        'data.languages': { 0: '' },
       });
     }
   }
@@ -194,20 +182,9 @@ export class MythicCharacterSheet extends ActorSheet {
     const element = event.currentTarget;
     const dataset = element.dataset;
 
-    // @ts-ignore
-    if (dataset.key && this.actor.data.data.languages) {
-      // @ts-ignore
-      const languages = this.actor.data.data.languages;
-      delete languages[dataset.key];
-
-      // TODO setting the attribute to null before setting the actual wanted value is the only way I found of actually removing
-      // something from the object, but this makes the list flicker for a moment... there has to be a better way...
-      // https://gitlab.com/foundrynet/foundryvtt/-/issues/1617
+    if (dataset.key) {
       await this.actor.update({
-        'data.languages': null,
-      });
-      await this.actor.update({
-        'data.languages': {...Object.values(languages)},
+        'data.languages': { [`-=${dataset.key}`]: null },
       });
     }
   }
