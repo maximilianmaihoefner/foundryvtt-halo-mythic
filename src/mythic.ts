@@ -32,7 +32,10 @@ Hooks.once('init', async function () {
   // Debug flags
   CONFIG.debug.hooks = false;
 
-  // Combat.prototype.rollInitiative = rollInitiative;
+  // @ts-ignore
+  CONFIG.Combat.initiative.formula = "1d10 + @characteristics.ag.mod";
+  // @ts-ignore
+  Combatant.prototype._getInitiativeFormula = _getInitiativeFormula;
 
   Actors.unregisterSheet('core', ActorSheet);
   Actors.registerSheet('mythic', MythicCharacterSheet, { types: ['character'], makeDefault: true });
@@ -79,46 +82,9 @@ Hooks.once('ready', function () {
 });
 
 // Add any additional hooks if necessary
+export const _getInitiativeFormula = function() {
+  const actor = this.actor;
+  if ( !actor ) return "1d10";
 
-/**
- * Overide of rollInititative to prevent messages in chat windows
- * Roll initiative for one or multiple Combatants within the Combat entity
- * @param {Array|string} ids        A Combatant id or Array of ids for which to roll
- * @param {string|null} formula     A non-default initiative formula to roll. Otherwise the system default is used.
- * @param {Object} messageOptions   Additional options with which to customize created Chat Messages
- * @return {Promise.<Combat>}       A promise which resolves to the updated Combat entity once updates are complete.
- */
-async function rollMythicInitiative(ids/*, formula=null, messageOptions={}*/) {
-  // Structure input data
-  ids = typeof ids === 'string' ? [ids] : ids;
-  const currentId = this.combatant.id;
-
-  // Iterate over Combatants, performing an initiative roll for each
-  const [updates] = ids.reduce((results, id) => {
-    let [updates] = results;
-
-    // Get Combatant data
-    const c = this.combatants.get(id);
-    if (!c) return results;
-
-    // Roll initiative
-    const initiative = c.actor.rollInitiative(!!c.getFlag('CoC7', 'hasGun'));
-    updates.push({ _id: id, initiative: initiative });
-
-    // Return the Roll and the chat data
-    return results;
-  }, [[], []]);
-  if (!updates.length) return this;
-
-  // Update multiple combatants
-  await this.updateEmbeddedDocuments('Combatant', updates);
-
-  // Ensure the turn order remains with the same combatant
-  await this.update({ turn: this.turns.findIndex(t => t.id === currentId) });
-
-  // Create multiple chat messages
-  // await CONFIG.ChatMessage.entityClass.create(messages);
-
-  // Return the updated Combat
-  return this;
-}
+  return "1d10 + " + actor.data.data.characteristics.ag.mod;
+};
