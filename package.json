@@ -8,6 +8,7 @@
     "build": "gulp build && gulp link",
     "build:watch": "gulp watch",
     "lint": "eslint --ext .ts,.js .",
+    "test": "jest",
     "clean": "gulp clean && gulp link --clean",
     "update": "npm install --save-dev gitlab:foundry-projects/foundry-pc/foundry-pc-types"
   },
