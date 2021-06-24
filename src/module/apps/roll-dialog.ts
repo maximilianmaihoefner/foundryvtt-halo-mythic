@@ -4,8 +4,11 @@
  * @since 06/13/2021
  */
 export class RollDialog extends Dialog {
-  static async create(templateData: {}): Promise<{ bonus: number }> {
-    const template = await renderTemplate('systems/mythic/templates/apps/roll-dialog.html', templateData);
+  static async create(templateData: object): Promise<{ bonus: number }> {
+    const template = await renderTemplate(
+      'systems/mythic/templates/apps/roll-dialog.html',
+      templateData
+    );
 
     return new Promise((resolve) => {
       const dialog = new RollDialog({
@@ -13,13 +16,12 @@ export class RollDialog extends Dialog {
         buttons: {
           roll: {
             label: 'Roll',
-            callback: html => {
-              return resolve({
+            callback: (html) =>
+              resolve({
                 bonus: Number((html as JQuery).find('#bonus').val()),
-              });
-            }
-          }
-        }
+              }),
+          },
+        },
       });
       dialog.render(true);
     });

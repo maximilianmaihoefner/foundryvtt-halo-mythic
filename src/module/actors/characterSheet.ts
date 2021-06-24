@@ -13,14 +13,21 @@ export class MythicCharacterSheet extends ActorSheet {
       template: 'systems/mythic/templates/actor/character-sheet.html',
       width: 715,
       height: 600,
-      tabs: [{ navSelector: '.sheet-tabs', contentSelector: '.sheet-body', initial: 'core' }]
+      tabs: [
+        {
+          navSelector: '.sheet-tabs',
+          contentSelector: '.sheet-body',
+          initial: 'core',
+        },
+      ],
     });
   }
 
   /** @override */
-  getData(): ActorSheet.Data {
+  getData() {
     const data = super.getData() as any;
-    const actorData = (this.actor.data as any).toObject(false);
+    // @ts-ignore
+    const actorData = this.actor.data.toObject(false);
 
     // Redefine the template data references to the actor.
     data.actor = actorData;
@@ -30,41 +37,58 @@ export class MythicCharacterSheet extends ActorSheet {
     const allCharacteristics = [];
 
     if (data.data.characteristics) {
-      for (let [key, characteristic] of Object.entries(data.data.characteristics)) {
+      for (const [key, characteristic] of Object.entries(
+        data.data.characteristics
+      )) {
         // @ts-ignore
-        characteristic.label = game.i18n.localize('mythic.characteristic.' + key);
+        characteristic.label = game.i18n.localize(
+          `mythic.characteristic.${key}`
+        );
         // @ts-ignore
-        characteristic.labelShort = game.i18n.localize('mythic.characteristic.short.' + key);
+        characteristic.labelShort = game.i18n.localize(
+          `mythic.characteristic.short.${key}`
+        );
 
         allCharacteristics.push(key);
       }
     }
 
     if (data.data.skills) {
-      for (let [key, skill] of Object.entries(data.data.skills)) {
+      for (const [key, skill] of Object.entries(data.data.skills)) {
         // @ts-ignore
-        skill.label = game.i18n.localize('mythic.skill.' + key);
+        skill.label = game.i18n.localize(`mythic.skill.${key}`);
         // @ts-ignore
-        skill.otherCharacteristics = allCharacteristics.filter(value => !skill.defaultCharacteristics || !skill.defaultCharacteristics.includes(value));
+        skill.otherCharacteristics = allCharacteristics.filter(
+          (value) =>
+            // @ts-ignore
+            !skill.defaultCharacteristics ||
+            // @ts-ignore
+            !skill.defaultCharacteristics.includes(value)
+        );
 
         // @ts-ignore
         if (skill.characteristic) {
+          const a =
+            // @ts-ignore
+            skill.advancement > 0
+              ? // @ts-ignore
+                (skill.advancement - 1) * 10
+              : // @ts-ignore
+              skill.adv
+              ? -40
+              : -20;
           // @ts-ignore
-          const a = skill.advancement > 0 ? (skill.advancement - 1) * 10 : skill.adv ? -40 : -20;
-          // @ts-ignore
-          skill.value = data.data.characteristics[skill.characteristic].value + a;
-          // @ts-ignore
-          console.log('skill.value', skill.value);
+          skill.value =
+            // @ts-ignore
+            data.data.characteristics[skill.characteristic].value + a;
         }
       }
     }
 
-    console.log('getData', data);
-
     return data;
   }
 
-  protected activateListeners(html: JQuery) {
+  public activateListeners(html: JQuery) {
     super.activateListeners(html);
 
     // Everything below here is only needed if the sheet is editable
@@ -74,23 +98,44 @@ export class MythicCharacterSheet extends ActorSheet {
     html.find('.rollable').on('click', this._onRoll.bind(this));
 
     html.find('.addEducation').on('click', this._addEducation.bind(this));
-    html.find('.remove-education').on('click', this._removeEducation.bind(this));
+    html
+      .find('.remove-education')
+      .on('click', this._removeEducation.bind(this));
     html.find('.addLanguage').on('click', this._addLanguage.bind(this));
     html.find('.remove-language').on('click', this._removeLanguage.bind(this));
 
     // Delete Inventory Item
-    html.find('.item-delete').on('click', async event => {
-      event.preventDefault();
-      const element = event.currentTarget;
-      const dataset = element.dataset;
+    html
+      .find('.item-delete')
+      .on(
+        'click',
+        async (
+          event: JQuery.ClickEvent<
+            HTMLElement,
+            undefined,
+            HTMLElement,
+            HTMLElement
+          >
+        ) => {
+          event.preventDefault();
+          const element = event.currentTarget;
+          const { dataset } = element;
 
-      console.log('deleteItem:', dataset);
+          console.log('deleteItem:', dataset);
 
-      const item = this.actor.items.get(dataset.itemId);
-      console.log('item:', item);
-      await item.delete({});
-      // element.slideUp(200, () => this.render(false));
-    });
+          const itemId = dataset.itemId;
+          if (!itemId) {
+            return;
+          }
+          const item = this.actor.items.get(itemId);
+          if (!item) {
+            return;
+          }
+          console.log('item:', item);
+          await item.delete({});
+          // element.slideUp(200, () => this.render(false));
+        }
+      );
   }
 
   /**
@@ -98,10 +143,12 @@ export class MythicCharacterSheet extends ActorSheet {
    * @param {Event} event The originating click event
    * @private
    */
-  async _onRoll(event) {
+  async _onRoll(
+    event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+  ): Promise<void> {
     event.preventDefault();
     const element = event.currentTarget;
-    const dataset = element.dataset;
+    const { dataset } = element;
 
     console.log('dataset', dataset);
 
@@ -109,17 +156,17 @@ export class MythicCharacterSheet extends ActorSheet {
       const rollDialog = await RollDialog.create({});
       const rollData = { ...this.getData().data, bonus: rollDialog.bonus };
 
-      console.log('rollData', rollData);
-      let roll = new Roll(dataset.roll, rollData);
-      let label = dataset.label ? `Rolling ${dataset.label}` : '';
+      const roll = new Roll(dataset.roll, rollData);
+      const label = dataset.label ? `Rolling ${dataset.label}` : '';
       await roll.roll().toMessage({
+        // @ts-ignore
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
       });
     }
   }
 
-  async _addEducation(event) {
+  async _addEducation(event: Event): Promise<void> {
     event.preventDefault();
 
     const newEducation = {
@@ -144,11 +191,13 @@ export class MythicCharacterSheet extends ActorSheet {
     }
   }
 
-  async _removeEducation(event) {
+  async _removeEducation(
+    event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+  ): Promise<void> {
     event.preventDefault();
 
     const element = event.currentTarget;
-    const dataset = element.dataset;
+    const { dataset } = element;
 
     if (dataset.key) {
       await this.actor.update({
@@ -157,7 +206,7 @@ export class MythicCharacterSheet extends ActorSheet {
     }
   }
 
-  async _addLanguage(event) {
+  async _addLanguage(event: Event): Promise<void> {
     event.preventDefault();
 
     // @ts-ignore
@@ -176,11 +225,13 @@ export class MythicCharacterSheet extends ActorSheet {
     }
   }
 
-  async _removeLanguage(event) {
+  async _removeLanguage(
+    event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+  ): Promise<void> {
     event.preventDefault();
 
     const element = event.currentTarget;
-    const dataset = element.dataset;
+    const { dataset } = element;
 
     if (dataset.key) {
       await this.actor.update({
