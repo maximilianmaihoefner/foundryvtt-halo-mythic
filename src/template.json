@@ -111,93 +111,123 @@
       },
       "skills": {
         "appeal": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "athletics": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "camouflage": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "command": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "deception": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "demolition": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "cryptography": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "evasion": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "gambling": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "interrogation": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "intimidation": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "investigation": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "medicationHuman": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "medicationCovenant": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "medicationMgalekgolo": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "navigationGroundAir": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "navigationSpace": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "navigationSlipspace": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "negotiation": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "pilotGround": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "pilotAir": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "pilotSpace": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "security": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "stunting": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "survival": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "technologyHuman": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "technologyCovenant": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         },
         "technologyForerunner": {
-          "advancement": 0
+          "advancement": 0,
+          "characteristic": ""
         }
       },
       "educations": {},
       "languages": {},
       "abilities": {},
+      "credits": 0,
+      "experience": 0,
       "factionTrainings": {
         "human": false,
         "covenant": false,
@@ -212,31 +242,45 @@
         "advanced": false,
         "longRange": false,
         "explosive": false
+      },
+      "specialDamage": {
+        "finger/toe": 0,
+        "neck": 0,
+        "nose/ear": 0,
+        "intestines": 0,
+        "kidney/stomach/liver/spleen": 0,
+        "knee/ankle/shoulder/elbow": 0,
+        "heart": 0,
+        "skull/brain": 0,
+        "arm/leg": 0,
+        "lung": 0,
+        "eye": 0,
+        "hand": 0,
+        "foot": 0,
+        "pelvis": 0,
+        "chest": 0,
+        "mouth": 0,
+        "chin/jaw/cheek": 0
       }
     }
   },
   "Item": {
-    "types": ["meleeWeapon", "rangedWeapon"],
+    "types": ["weapon"],
     "templates": {
-      "weapon": {
-        "alias": "",
-        "fireModes": [""],
-        "weaponType": "",
-        "damageRoll": "",
-        "baseDamage": "",
-        "piercing": "",
-        "range": "",
-        "cost": "",
-        "weight": "",
-        "description": "",
-        "attachments": []
-      }
     },
-    "meleeWeapon": {
-      "templates": ["weapon"]
-    },
-    "rangedWeapon": {
-      "templates": ["weapon"],
+    "weapon": {
+      "tags": [],
+      "alias": "",
+      "fireModes": {},
+      "weaponType": "",
+      "damageRoll": "",
+      "baseDamage": "",
+      "piercing": "",
+      "range": "",
+      "cost": "",
+      "weight": "",
+      "description": "",
+      "attachments": [],
       "magazin": "",
       "ammunition": "",
       "reload": ""

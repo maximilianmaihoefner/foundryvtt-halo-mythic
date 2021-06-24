@@ -12,15 +12,27 @@
 import { MythicCharacterActor } from './module/actors/characterActor';
 import { MythicCharacterSheet } from './module/actors/characterSheet';
 import { MythicItem } from './module/items/item';
-import { MythicMeleeWeaponItemSheet } from './module/items/sheets/meleeWeaponItemSheet';
-import { MythicRangedWeaponItemSheet } from './module/items/sheets/rangedWeaponItemSheet';
+import { MythicWeaponItemSheet } from './module/items/sheets/weaponItemSheet';
 import { registerSettings } from './module/settings.js';
 import { preloadTemplates } from './module/preloadTemplates.js';
+
+Handlebars.registerHelper('checkedIf', (condition) =>
+  condition ? 'checked' : ''
+);
+Handlebars.registerHelper('ifCond', (v1, v2, options) => {
+  if (v1 === v2) {
+    return options.fn(this);
+  }
+  return options.inverse();
+});
+Handlebars.registerHelper('json', (context) =>
+  JSON.stringify(context, null, 2)
+);
 
 /* ------------------------------------ */
 /* Initialize system					*/
 /* ------------------------------------ */
-Hooks.once('init', async function () {
+Hooks.once('init', async () => {
   console.log('mythic | Initializing mythic');
 
   // Assign custom classes and constants here
@@ -33,28 +45,20 @@ Hooks.once('init', async function () {
   CONFIG.debug.hooks = false;
 
   // @ts-ignore
-  CONFIG.Combat.initiative.formula = "1d10 + @characteristics.ag.mod";
+  CONFIG.Combat.initiative.formula = '1d10 + @characteristics.ag.mod';
   // @ts-ignore
-  Combatant.prototype._getInitiativeFormula = _getInitiativeFormula;
+  // Combatant.prototype._getInitiativeFormula = getInitiativeFormula;
 
   Actors.unregisterSheet('core', ActorSheet);
-  Actors.registerSheet('mythic', MythicCharacterSheet, { types: ['character'], makeDefault: true });
+  Actors.registerSheet('mythic', MythicCharacterSheet, {
+    types: ['character'],
+    makeDefault: true,
+  });
 
   Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('mythic', MythicMeleeWeaponItemSheet, { types: ['meleeWeapon'], makeDefault: true });
-  Items.registerSheet('mythic', MythicRangedWeaponItemSheet, { types: ['rangedWeapon'], makeDefault: true });
-
-  Handlebars.registerHelper('checkedIf', function (condition) {
-    return (condition) ? 'checked' : '';
-  });
-  Handlebars.registerHelper('ifCond', function(v1, v2, options) {
-    if(v1 === v2) {
-      return options.fn(this);
-    }
-    return options.inverse(this);
-  });
-  Handlebars.registerHelper('json', function (context) {
-    return JSON.stringify(context, null, 2);
+  Items.registerSheet('mythic', MythicWeaponItemSheet, {
+    types: ['meleeWeapon'],
+    makeDefault: true,
   });
 
   // Register custom system settings
@@ -69,7 +73,7 @@ Hooks.once('init', async function () {
 /* ------------------------------------ */
 /* Setup system							*/
 /* ------------------------------------ */
-Hooks.once('setup', function () {
+Hooks.once('setup', () => {
   // Do anything after initialization but before
   // ready
 });
@@ -77,14 +81,17 @@ Hooks.once('setup', function () {
 /* ------------------------------------ */
 /* When ready							*/
 /* ------------------------------------ */
-Hooks.once('ready', function () {
-  // Do anything once the system is ready
+Hooks.once('ready', async () => {
+  // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
+  // Hooks.on('hotbarDrop', (bar, data, slot) => createMythicMacro(data, slot));
 });
 
-// Add any additional hooks if necessary
-export const _getInitiativeFormula = function() {
-  const actor = this.actor;
-  if ( !actor ) return "1d10";
+// const createMythicMacro = (data, slot) => {};
 
-  return "1d10 + " + actor.data.data.characteristics.ag.mod;
-};
+// Add any additional hooks if necessary
+// export const getInitiativeFormula = function (this: any): string {
+//   const { actor } = this;
+//   if (!actor) return '1d10';
+//
+//   return `1d10 + ${actor.data.data.characteristics.ag.mod}`;
+// };

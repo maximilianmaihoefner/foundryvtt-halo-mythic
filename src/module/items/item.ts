@@ -7,22 +7,17 @@ export class MythicItem extends Item {
   /**
    * Augment the basic Item data model with additional dynamic data.
    */
-  prepareData() {
+  prepareData(): void {
     super.prepareData();
 
     // Get the Item's data
     const itemData = this.data;
-    const data = itemData.data;
+    const { data } = itemData;
 
-    if (this.type === 'meleeWeapon') this._prepareMeleeWeaponData(data);
-    if (this.type === 'rangedWeapon') this._prepareRangedWeaponData(data);
+    if (this.type === 'weapon') this._prepareWeaponData(data);
   }
 
-  _prepareMeleeWeaponData(data) {
+  _prepareWeaponData(data: object): void {
     console.log('_prepareMeleeWeaponData', data);
-  }
-
-  _prepareRangedWeaponData(data) {
-    console.log('_prepareRangedWeaponData', data);
   }
 }
