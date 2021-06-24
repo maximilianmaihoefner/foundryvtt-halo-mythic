@@ -1,0 +1,76 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "globals": {
+    "JQuery": true
+  },
+  "extends": [
+    "prettier",
+    "plugin:import/errors",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "@typhonjs-fvtt/eslint-config-foundry.js"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "import"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-shadow": [
+      "error",
+      {
+        "builtinGlobals": true,
+        "hoist": "all",
+        "allow": [
+          "event"
+        ]
+      }
+    ],
+    "@typescript-eslint/no-shadow": [
+      "error",
+      {
+        "builtinGlobals": true,
+        "hoist": "all",
+        "allow": [
+          "event"
+        ]
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "dist",
+    "gulpfile.js"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "src"
+        ],
+        "extensions": [
+          ".js",
+          ".ts",
+          ".json"
+        ]
+      },
+      "eslint-import-resolver-typescript": true,
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [
+        ".ts"
+      ]
+    }
+  }
+}
