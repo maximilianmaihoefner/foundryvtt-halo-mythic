@@ -271,6 +271,7 @@
     "weapon": {
       "tags": [],
       "alias": "",
+      "characteristic": "",
       "fireModes": {},
       "weaponType": "",
       "damageRoll": "",

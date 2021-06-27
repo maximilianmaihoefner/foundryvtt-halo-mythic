@@ -4,12 +4,13 @@
  * @since 06/12/2021
  */
 import { RollDialog } from '../apps/roll-dialog';
+import { WeaponRollDialog } from "../apps/weapon-roll-dialog";
 
 export class MythicCharacterSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['boilerplate', 'sheet', 'character'],
+      classes: ['mythic', 'sheet', 'character'],
       template: 'systems/mythic/templates/actor/character-sheet.html',
       width: 715,
       height: 600,
@@ -96,6 +97,7 @@ export class MythicCharacterSheet extends ActorSheet {
 
     // Rollable abilities.
     html.find('.rollable').on('click', this._onRoll.bind(this));
+    html.find('.weapon-hit').on('click', this._rollHit.bind(this));
 
     html.find('.addEducation').on('click', this._addEducation.bind(this));
     html
@@ -164,6 +166,34 @@ export class MythicCharacterSheet extends ActorSheet {
         flavor: label,
       });
     }
+  }
+
+  async _rollHit(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const { dataset } = element;
+
+    console.log('dataset', dataset);
+
+    const rollDialog = await WeaponRollDialog.create({ characteristic: dataset.characteristic });
+
+    if (dataset.itemId) {
+      const item = this.actor.items.get(dataset.itemId);
+      await item.update({
+        'characteristic': rollDialog.characteristic,
+      });
+    }
+
+
+    const rollData = { ...this.getData().data, bonus: rollDialog.bonus };
+
+    const roll = new Roll(`floor((@characteristics.${rollDialog.characteristic}.value + @bonus - 1d100) / 10)`, rollData);
+    const label = dataset.label ? `Rolling ${dataset.label}` : '';
+    await roll.roll().toMessage({
+      // @ts-ignore
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: label,
+    });
   }
 
   async _addEducation(event: Event): Promise<void> {

@@ -1,5 +1,3 @@
-type WeaponItemSheetData = ItemSheet.Data;
-
 /**
  * TODO write ngDoc
  *
@@ -24,8 +22,8 @@ export class MythicWeaponItemSheet extends ItemSheet {
   }
 
   /** @override */
-  getData(): WeaponItemSheetData {
-    const data = super.getData() as WeaponItemSheetData;
+  getData() {
+    const data = super.getData();
     // const itemData = this.item.data.toObject(false);
 
     // Redefine the template data references to the actor.

@@ -1,46 +1,135 @@
+.mythic.character.sheet {
+  section.window-content {
+    background: #374350;
+  }
+
+  input {
+    color: white;
+  }
+
+  select {
+    color: white;
+  }
+
+  button {
+    color: white;
+  }
+
+  .skill {
+    align-items: center;
+    padding: 4px;
+  }
+
+  .skill-name {
+    width: 80%;
+    margin-right: 5px;
+  }
+
+  .skill-characteristic {
+    width: 50px;
+    margin-right: 5px;
+  }
+
+  .skill-advancement {
+    width: 100px;
+    margin-right: 5px;
+  }
+
+  .skill-roll {
+    width: 75px;
+    height: 29px;
+    line-height: 29px;
+  }
+}
+
 .character-sheet {
-    .sheet-header {
-        flex-direction: column !important;
-    }
-    .header-fields {
-        display: flex;
-        flex-direction: row;
-    }
+  color: white;
 
-    .center-text {
-        width: 100%;
+  .sheet-header {
+    flex-direction: column !important;
+
+    .charname {
+      width: 100%;
+      input {
         text-align: center;
+
+        background: none;
+        border: 0;
+        border-bottom: white 1px solid;
+      }
+    }
+  }
+
+  .header-fields {
+    width: 100%;
+
+    .profile-img {
+      margin: 10px;
     }
 
-    .educations {
-        display: flex;
-        flex-direction: column;
+    .header-field-group {
+      display: flex;
+      margin: 5px 0;
+
+      label {
+        line-height: 25px;
+        padding-right: 5px;
+      }
+
+      select {
+        flex: 1;
+        color: white;
+      }
+
+      input {
+        flex: 1;
+        color: white;
+        background: none;
+        border: none !important;
+        border-bottom: white 1px solid !important;
+        border-radius: 0 !important;
+      }
+    }
+  }
+
+  .center-text {
+    width: 100%;
+    text-align: center;
+  }
+
+  .educations {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .languages {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .things {
+    h3 {
+      width: 100%;
+      text-align: center;
     }
 
-    .languages {
-        display: flex;
-        flex-direction: column;
+    input {
+      width: 60px;
+      margin: 0 12.5%;
     }
-    .things {
-        h3 {
-            width: 100%;
-            text-align: center;
-        }
-        input {
-            width: 60px;
-            margin: 0 12.5%;
-        }
+  }
+
+  .shields {
+    input {
+      width: 60px;
+      margin: 0;
     }
-    .shields {
-        input {
-            width: 60px;
-            margin: 0;
-        }
+  }
+
+  .armor {
+    input {
+      width: 60px;
+      margin: 0;
     }
-    .armor {
-        input {
-            width: 60px;
-            margin: 0;
-        }
-    }
+  }
 }
