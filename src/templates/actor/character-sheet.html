@@ -75,7 +75,7 @@
         {{/select}}
       </select>
       <!--      <div>{{characteristic.mod}}</div>-->
-      <button style="" class="rollable" data-roll="floor((@characteristics.{{key}}.value + @bonus - 1d100) / 10)"
+      <button class="rollable" data-roll="floor((@characteristics.{{key}}.value + @bonus - 1d100) / 10)"
               data-label="{{characteristic.label}}">{{characteristic.value}}
       </button>
     </div>
@@ -301,6 +301,19 @@
     </div>
     <div class="tab" data-group="primary" data-tab="medical"></div>
     <div class="tab" data-group="primary" data-tab="advancements">
+      <div class="flexrow">
+        <div>
+          <label for="experience">Experience</label>
+          <input id="experience" type="number" name="data.experience" value="{{data.experience}}" data-dtype="Number" />
+        </div>
+        <div>
+          experienceUnspent: {{data.experienceUnspent}}
+        </div>
+        <div>
+          experienceSpent: {{data.experienceSpent}}
+        </div>
+
+      </div>
       <div>
         <h3>Faction Trainings</h3>
         {{#each data.factionTrainings as |training key|}}
@@ -333,19 +346,78 @@
       </div>
     </div>
     <div class="tab" data-group="primary" data-tab="biography">
-      <div class="flexrow">
-        <div class="header-field-group">
-          <input id="upbringing" name="data.infos.upbringing" type="text" value="{{data.infos.upbringing}}" />
-          <label for="upbringing">Upbringing</label>
+      <div class="flexcol">
+        <label for="upbringing">Upbringing</label>
+        <select id="upbringing" name="data.infos.upbringing" data-dtype="String">
+          {{#select data.infos.upbringing}}
+          {{#each data.upbringings as |upbringing key|}}
+          <option value="{{upbringing.name}}">{{upbringing.name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+      <div class="flexcol">
+        <label for="environment">Environment</label>
+        <select id="environment" name="data.infos.environment" data-dtype="String">
+          {{#select data.infos.environment}}
+          {{#each data.environments as |environment key|}}
+          <option
+            value="{{environment.name}}"
+            {{attrIf 'disabled' environment.disabled }}
+          >
+            {{environment.name}}
+          </option>
+          {{/each}}
+          {{/select}}
+        </select>
+        <div class="flexrow">
+
         </div>
-        <div class="header-field-group">
-          <input id="environment" name="data.infos.environment" type="text" value="{{data.infos.environment}}" />
-          <label for="environment">Environment</label>
+      </div>
+      <div class="flexcol" style="justify-content: space-evenly;">
+        <h3>Lifestyles</h3>
+        {{#each data.infos.lifestyle}}
+        <div class="flexcol">
+          <div class="flexrow">
+            <label for="lifestyle{{@key}}">Lifestyle {{@key}}</label>
+            <select id="lifestyle{{@key}}" name="data.infos.lifestyle.{{@key}}.name" data-dtype="String">
+              {{#select this.name}}
+              {{#each ../data.lifestyles}}
+              <option value="{{this.name}}">{{this.name}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+            <select name="data.infos.lifestyle.{{@key}}.result" data-dtype="Number">
+              {{#select this.result}}
+              {{#each this.outcomes}}
+              <option value="{{this.min}}">{{this.min}} - {{this.max}}: {{this.description}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+            <button
+              type="button" style="width: 75px;" class="rollable" data-roll="{{this.roll}}"
+              data-label="{{this.name}}"
+            >
+              {{this.roll}}
+            </button>
+          </div>
+          <div class="flexrow" style="justify-content: center;">
+            {{#each this.special}}
+            <div class="flexcol" style="text-align: center;max-width: 70px;margin: 10px;">
+              <select name="data.infos.lifestyle.{{@../key}}.special.{{@key}}.attribute">
+                {{#select this.attribute}}
+                {{#each this.attributes}}
+                <option value="{{this}}">{{this}}</option>
+                {{/each}}
+                {{/select}}
+              </select>
+              <input type="number" disabled name="data.infos.lifestyle.{{@../key}}.special.{{@key}}.modifier"
+                     value="{{this.modifier}}" />
+            </div>
+            {{/each}}
+          </div>
         </div>
-        <div class="header-field-group">
-          <input id="lifestyle" name="data.infos.lifestyle" type="text" value="{{data.infos.lifestyle}}" />
-          <label for="lifestyle">Lifestyle</label>
-        </div>
+        {{/each}}
       </div>
     </div>
   </section>

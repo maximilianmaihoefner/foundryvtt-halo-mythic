@@ -19,6 +19,10 @@ import { preloadTemplates } from './module/preloadTemplates.js';
 Handlebars.registerHelper('checkedIf', (condition) =>
   condition ? 'checked' : ''
 );
+
+Handlebars.registerHelper('attrIf', (attr, condition) =>
+  condition ? attr : ''
+);
 Handlebars.registerHelper('ifCond', (v1, v2, options) => {
   if (v1 === v2) {
     return options.fn(this);
@@ -49,6 +53,13 @@ Hooks.once('init', async () => {
   // @ts-ignore
   // Combatant.prototype._getInitiativeFormula = getInitiativeFormula;
 
+  // Register custom system settings
+  registerSettings();
+
+  // Preload Handlebars templates
+  await preloadTemplates();
+
+  // Register custom sheets
   Actors.unregisterSheet('core', ActorSheet);
   Actors.registerSheet('mythic', MythicCharacterSheet, {
     types: ['character'],
@@ -57,17 +68,9 @@ Hooks.once('init', async () => {
 
   Items.unregisterSheet('core', ItemSheet);
   Items.registerSheet('mythic', MythicWeaponItemSheet, {
-    types: ['meleeWeapon'],
+    types: ['weapon'],
     makeDefault: true,
   });
-
-  // Register custom system settings
-  registerSettings();
-
-  // Preload Handlebars templates
-  await preloadTemplates();
-
-  // Register custom sheets (if any)
 });
 
 /* ------------------------------------ */
