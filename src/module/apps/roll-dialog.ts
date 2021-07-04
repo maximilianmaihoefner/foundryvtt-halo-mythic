@@ -4,7 +4,11 @@
  * @since 06/13/2021
  */
 export class RollDialog extends Dialog {
-  static async create(templateData: object): Promise<{ bonus: number }> {
+  static async create(
+    templateData: {
+      bonus?: number;
+    } = {}
+  ): Promise<{ bonus: number }> {
     const template = await renderTemplate(
       'systems/mythic/templates/apps/roll-dialog.html',
       templateData
@@ -12,6 +16,8 @@ export class RollDialog extends Dialog {
 
     return new Promise((resolve) => {
       const dialog = new RollDialog({
+        title: 'Roll',
+        default: 'Roll',
         content: template,
         buttons: {
           roll: {
@@ -27,7 +33,10 @@ export class RollDialog extends Dialog {
     });
   }
 
-  private constructor(dialogData: DialogData, options?: Application.Options) {
+  private constructor(
+    dialogData: Dialog.Data,
+    options?: Partial<Dialog.Options>
+  ) {
     super(dialogData, options);
   }
 }

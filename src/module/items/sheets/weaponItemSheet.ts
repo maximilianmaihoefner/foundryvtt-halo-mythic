@@ -5,7 +5,7 @@
  */
 export class MythicWeaponItemSheet extends ItemSheet {
   /** @override */
-  static get defaultOptions() {
+  static get defaultOptions(): ItemSheet.Options {
     return mergeObject(super.defaultOptions, {
       classes: ['mythic', 'sheet', 'item', 'weapon'],
       template: 'systems/mythic/templates/items/weapon.html',
@@ -24,11 +24,6 @@ export class MythicWeaponItemSheet extends ItemSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    // const itemData = this.item.data.toObject(false);
-
-    // Redefine the template data references to the actor.
-    // data.item = itemData;
-    // data.data = itemData.data;
 
     console.log('item data', data);
 
@@ -38,6 +33,9 @@ export class MythicWeaponItemSheet extends ItemSheet {
   /** @override */
   setPosition(options = {}) {
     const position = super.setPosition(options);
+    if (!position) {
+      return;
+    }
     const sheetBody = (this.element as JQuery).find('.sheet-body');
     const bodyHeight = position.height - 192;
     sheetBody.css('height', bodyHeight);
@@ -61,9 +59,7 @@ export class MythicWeaponItemSheet extends ItemSheet {
       value: 0,
     };
 
-    // @ts-ignore
     if (this.item.data.data.fireModes) {
-      // @ts-ignore
       const { fireModes } = this.item.data.data;
       fireModes.push(newFireMode);
 

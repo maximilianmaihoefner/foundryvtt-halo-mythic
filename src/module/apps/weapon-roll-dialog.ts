@@ -4,7 +4,12 @@
  * @since 06/13/2021
  */
 export class WeaponRollDialog extends Dialog {
-  static async create(templateData: object): Promise<{ characteristic: string; bonus: number }> {
+  static async create(
+    templateData: {
+      characteristic?: string;
+      bonus?: number;
+    } = {}
+  ): Promise<{ characteristic: string; bonus: number }> {
     const template = await renderTemplate(
       'systems/mythic/templates/apps/weapon-roll-dialog.html',
       templateData
@@ -12,13 +17,17 @@ export class WeaponRollDialog extends Dialog {
 
     return new Promise((resolve) => {
       const dialog = new WeaponRollDialog({
+        title: '',
+        default: '',
         content: template,
         buttons: {
           roll: {
             label: 'Roll',
             callback: (html) =>
               resolve({
-                characteristic: String((html as JQuery).find('#characteristic').val()),
+                characteristic: String(
+                  (html as JQuery).find('#characteristic').val()
+                ),
                 bonus: Number((html as JQuery).find('#bonus').val()),
               }),
           },
@@ -28,7 +37,7 @@ export class WeaponRollDialog extends Dialog {
     });
   }
 
-  private constructor(dialogData: DialogData, options?: Application.Options) {
+  private constructor(dialogData: Dialog.Data, options?: Dialog.Options) {
     super(dialogData, options);
   }
 }

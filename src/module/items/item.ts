@@ -1,3 +1,5 @@
+import { WeaponDataSourceData } from '../data/item';
+
 /**
  * TODO write ngDoc
  *
@@ -10,14 +12,10 @@ export class MythicItem extends Item {
   prepareData(): void {
     super.prepareData();
 
-    // Get the Item's data
-    const itemData = this.data;
-    const { data } = itemData;
-
-    if (this.type === 'weapon') this._prepareWeaponData(data);
+    if (this.data.type === 'weapon') this._prepareWeaponData(this.data.data);
   }
 
-  _prepareWeaponData(data: object): void {
+  _prepareWeaponData(data: WeaponDataSourceData): void {
     console.log('_prepareMeleeWeaponData', data);
   }
 }

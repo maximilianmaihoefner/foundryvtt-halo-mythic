@@ -14,10 +14,8 @@ module.exports = {
   //   '^@scripts/(.*)$': '<rootDir>/src/scripts/$1',
   //   '^@system/(.*)$': '<rootDir>/src/module/system/$1',
   // },
-  setupFiles: [
-    './tests/setup.ts',
-  ],
+  setupFiles: ['./tests/setup.ts'],
   globals: {
-    Application: class {}
+    Application: class {},
   },
 };

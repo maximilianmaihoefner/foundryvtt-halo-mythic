@@ -9,7 +9,7 @@
  * Software License: [your license] Put your desired license here, which
  *           determines how others may use and modify your system
  */
-import { MythicCharacterActor } from './module/actors/characterActor';
+import { MythicActor } from './module/actors/actor';
 import { MythicCharacterSheet } from './module/actors/characterSheet';
 import { MythicItem } from './module/items/item';
 import { MythicWeaponItemSheet } from './module/items/sheets/weaponItemSheet';
@@ -40,17 +40,13 @@ Hooks.once('init', async () => {
   console.log('mythic | Initializing mythic');
 
   // Assign custom classes and constants here
-  // @ts-ignore
-  CONFIG.Actor.documentClass = MythicCharacterActor;
-  // @ts-ignore
+  CONFIG.Actor.documentClass = MythicActor;
   CONFIG.Item.documentClass = MythicItem;
 
   // Debug flags
   CONFIG.debug.hooks = false;
 
-  // @ts-ignore
   CONFIG.Combat.initiative.formula = '1d10 + @characteristics.ag.mod';
-  // @ts-ignore
   // Combatant.prototype._getInitiativeFormula = getInitiativeFormula;
 
   // Register custom system settings
