@@ -51,7 +51,7 @@
     </div>
   </header>
 
-  <div class="characteristics" style="display: flex; flex-direction: row; flex: 0">
+  <div class="characteristics">
     {{#each data.characteristics as |characteristic key|}}
     <div class="characteristic" style="width: 10%">
       <label style="width: 100%; text-align: center;" for="data.characteristics.{{key}}.value" class="resource-label">
@@ -82,9 +82,7 @@
     {{/each}}
   </div>
 
-  <br />
-
-  <div style="display: flex; flex-direction: row; justify-content: space-between">
+  <div class="calculated-characteristics">
     <div class="mythic-characteristics">
       <h3 style="text-align: center">Mythic Characteristics</h3>
       <div style="flex-direction: row; display: flex;">
@@ -129,69 +127,129 @@
     </div>
   </div>
 
-  <br />
-
-  <div class="things" style="display: flex; flex-direction: row; justify-content: space-between">
-    <div style="width: 12%; display: flex; flex-direction: column; justify-content: space-around">
+  <div class="things">
+    <div class="flexcol" style="width: 12%; justify-content: space-around;">
       <h3>Wounds</h3>
-      <input type="number" data-dtype="Number" name="data.wounds.current" value="{{data.wounds.current}}"
-             placeholder="Current" />
-      <input type="number" data-dtype="Number" name="data.wounds.max" value="{{data.wounds.max}}" placeholder="Max" />
-    </div>
-    <div style="width: 12%; display: flex; flex-direction: column">
-      <h3>Fatigue</h3>
-      <input type="number" data-dtype="Number" name="data.fatigue.current" value="{{data.fatigue.current}}"
-             placeholder="Current" />
-      <input type="number" data-dtype="Number" name="data.fatigue.max" value="{{data.fatigue.max}}" placeholder="Max" />
-    </div>
-    <div style="width: 12%; display: flex; flex-direction: column">
-      <h3>Luck</h3>
-      <input type="number" data-dtype="Number" name="data.luck.current" value="{{data.luck.current}}"
-             placeholder="Current" />
-      <input type="number" data-dtype="Number" name="data.luck.max" value="{{data.luck.max}}" placeholder="Max" />
-    </div>
-    <div style="width: 12%; display: flex; flex-direction: column">
-      <h3>Support Pts.</h3>
-      <input type="number" data-dtype="Number" name="data.supportPoints.current" value="{{data.supportPoints.current}}"
-             placeholder="Current" />
-      <input type="number" data-dtype="Number" name="data.supportPoints.max" value="{{data.supportPoints.max}}"
-             placeholder="Max" />
-    </div>
-    <div class="shields" style="width: 18%; display: flex; flex-direction: column">
-      <h3>Shields</h3>
-      <div style="width: 50%; display: flex; flex-direction: row">
-        <input type="number" data-dtype="Number" name="data.shields.current" value="{{data.shields.current}}"
-               placeholder="Current" />
-        <input type="number" data-dtype="Number" name="data.shields.charge" value="{{data.shields.charge}}"
-               placeholder="Charge" />
+      <div class="flexcol entry">
+        <label for="wounds-current">Current</label>
+        <input id="wounds-current" type="number" data-dtype="Number" name="data.wounds.current"
+               value="{{data.wounds.current}}" placeholder="Current" />
       </div>
-      <div style="width: 50%; display: flex; flex-direction: row">
-        <input type="number" data-dtype="Number" name="data.shields.max" value="{{data.shields.max}}"
+      <div class="flexcol entry">
+        <label for="wounds-max">Max</label>
+        <input id="wounds-max" type="number" data-dtype="Number" name="data.wounds.max" value="{{data.wounds.max}}"
                placeholder="Max" />
-        <input type="number" data-dtype="Number" name="data.shields.delay" value="{{data.shields.delay}}"
-               placeholder="Delay" />
       </div>
     </div>
-    <div class="armor" style="width: 18%; display: flex; flex-direction: column">
-      <h3>Armor</h3>
-      <div style="width: 50%; display: flex; flex-direction: row">
-        <input type="number" data-dtype="Number" name="data.armor.head" value="{{data.armor.head}}"
-               placeholder="Head" />
-        <input type="number" data-dtype="Number" name="data.armor.chest" value="{{data.armor.chest}}"
-               placeholder="Chest" />
+    <div class="flexcol" style="width: 12%">
+      <h3>Fatigue</h3>
+      <div class="flexcol entry">
+        <label for="fatigue-current">Current</label>
+        <input id="fatigue-current" type="number" data-dtype="Number" name="data.fatigue.current"
+               value="{{data.fatigue.current}}"
+               placeholder="Current" />
       </div>
-      <div style="width: 50%; display: flex; flex-direction: row">
-        <input type="number" data-dtype="Number" name="data.armor.arms" value="{{data.armor.arms}}"
-               placeholder="Arms" />
-        <input type="number" data-dtype="Number" name="data.armor.legs" value="{{data.armor.legs}}"
-               placeholder="Legs" />
+      <div class="flexcol entry">
+        <label for="fatigue-max">Max</label>
+        <input id="fatigue-max" type="number" data-dtype="Number" name="data.fatigue.max" value="{{data.fatigue.max}}"
+               placeholder="Max" />
+      </div>
+    </div>
+    <div class="flexcol" style="width: 12%">
+      <h3>Luck</h3>
+      <div class="flexcol entry">
+        <label for="luck-current">Current</label>
+        <input id="luck-current" type="number" data-dtype="Number" name="data.luck.current"
+               value="{{data.luck.current}}"
+               placeholder="Current" />
+      </div>
+      <div class="flexcol entry">
+        <label for="luck-max">Max</label>
+        <input id="luck-max" type="number" data-dtype="Number" name="data.luck.max" value="{{data.luck.max}}"
+               placeholder="Max" />
+      </div>
+    </div>
+    <div class="flexcol" style="width: 12%">
+      <h3>Support Pts.</h3>
+      <div class="flexcol entry">
+        <label for="sup-pts-current">Current</label>
+        <input id="sup-pts-current" type="number" data-dtype="Number" name="data.supportPoints.current"
+               value="{{data.supportPoints.current}}"
+               placeholder="Current" />
+      </div>
+      <div class="flexcol entry">
+        <label for="sup-pts-max">Max</label>
+        <input id="sup-pts-max" type="number" data-dtype="Number" name="data.supportPoints.max"
+               value="{{data.supportPoints.max}}"
+               placeholder="Max" />
+      </div>
+    </div>
+    <div class="shields" style="width: 18%;">
+      <h3>Shields</h3>
+      <div class="flexrow">
+        <div class="flexrow">
+          <div class="flexcol entry">
+            <label for="shields-current">Current</label>
+            <input id="shields-current" type="number" data-dtype="Number" name="data.shields.current"
+                   value="{{data.shields.current}}"
+                   placeholder="Current" />
+          </div>
+          <div class="flexcol entry">
+            <label for="shields-charge">Charge</label>
+            <input id="shields-charge" type="number" data-dtype="Number" name="data.shields.charge"
+                   value="{{data.shields.charge}}"
+                   placeholder="Charge" />
+          </div>
+        </div>
+        <div class="flexrow">
+          <div class="flexcol entry">
+            <label for="shields-max">Max</label>
+            <input id="shields-max" type="number" data-dtype="Number" name="data.shields.max"
+                   value="{{data.shields.max}}"
+                   placeholder="Max" />
+          </div>
+          <div class="flexcol entry">
+            <label for="shields-delay">Delay</label>
+            <input id="shields-delay" type="number" data-dtype="Number" name="data.shields.delay"
+                   value="{{data.shields.delay}}"
+                   placeholder="Delay" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="armor" style="width: 18%">
+      <h3>Armor</h3>
+      <div class="flexrow">
+        <div class="flexrow">
+          <div class="flexcol entry">
+            <label for="armor-head">Head</label>
+            <input id="armor-head" type="number" data-dtype="Number" name="data.armor.head" value="{{data.armor.head}}"
+                   placeholder="Head" />
+          </div>
+          <div class="flexcol entry">
+            <label for="armor-chest">Chest</label>
+            <input id="armor-chest" type="number" data-dtype="Number" name="data.armor.chest"
+                   value="{{data.armor.chest}}"
+                   placeholder="Chest" />
+          </div>
+        </div>
+        <div class="flexrow">
+          <div class="flexcol entry">
+            <label for="armor-arms">Arms</label>
+            <input id="armor-arms" type="number" data-dtype="Number" name="data.armor.arms" value="{{data.armor.arms}}"
+                   placeholder="Arms" />
+          </div>
+          <div class="flexcol entry">
+            <label for="armor-legs">Legs</label>
+            <input id="armor-legs" type="number" data-dtype="Number" name="data.armor.legs" value="{{data.armor.legs}}"
+                   placeholder="Legs" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <br />
-
-  <nav class="sheet-tabs tabs" data-group="primary">
+  <nav class="sheet-tabs tabs" style="margin-bottom: 10px;" data-group="primary">
     <a class="item" data-tab="core">Core</a>
     <a class="item" data-tab="inventory">Inventory</a>
     <a class="item" data-tab="medical">Medical</a>
@@ -346,35 +404,35 @@
       </div>
     </div>
     <div class="tab" data-group="primary" data-tab="biography">
-      <div class="flexcol">
-        <label for="upbringing">Upbringing</label>
-        <select id="upbringing" name="data.infos.upbringing" data-dtype="String">
-          {{#select data.infos.upbringing}}
-          {{#each data.upbringings as |upbringing key|}}
-          <option value="{{upbringing.name}}">{{upbringing.name}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
-      </div>
-      <div class="flexcol">
-        <label for="environment">Environment</label>
-        <select id="environment" name="data.infos.environment" data-dtype="String">
-          {{#select data.infos.environment}}
-          {{#each data.environments as |environment key|}}
-          <option
-            value="{{environment.name}}"
-            {{attrIf 'disabled' environment.disabled }}
-          >
+      <div class="flexrow">
+        <div class="flexrow" style="margin-bottom: 10px; margin-right: 10px; align-items: center;">
+          <label for="upbringing">Upbringing</label>
+          <select id="upbringing" name="data.infos.upbringing" data-dtype="String">
+            {{#select data.infos.upbringing}}
+            {{#each data.upbringings as |upbringing key|}}
+            <option value="{{upbringing.name}}">{{upbringing.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </div>
+        <div class="flexrow" style="margin-bottom: 10px; margin-left: 10px; align-items: center;">
+          <label for="environment">Environment</label>
+          <select id="environment" name="data.infos.environment" data-dtype="String">
+            {{#select data.infos.environment}}
+            {{#each data.environments as |environment key|}}
+            <option
+              value="{{environment.name}}"
+              {{attrIf
+            'disabled' environment.disabled }}
+            >
             {{environment.name}}
-          </option>
-          {{/each}}
-          {{/select}}
-        </select>
-        <div class="flexrow">
-
+            </option>
+            {{/each}}
+            {{/select}}
+          </select>
         </div>
       </div>
-      <div class="flexcol" style="justify-content: space-evenly;">
+      <div class="flexcol" style="justify-content: space-evenly; margin-top: 10px;">
         <h3>Lifestyles</h3>
         {{#each data.infos.lifestyle}}
         <div class="flexcol">

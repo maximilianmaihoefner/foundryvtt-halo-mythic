@@ -46,10 +46,12 @@
   color: white;
 
   .sheet-header {
+    margin-bottom: 20px;
     flex-direction: column !important;
 
     .charname {
       width: 100%;
+
       input {
         text-align: center;
 
@@ -107,28 +109,61 @@
     flex-direction: column;
   }
 
+  h3 {
+    width: 100%;
+    text-align: center;
+  }
+
+  .characteristics {
+    display: flex;
+    flex-direction: row;
+    flex: 0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .calculated-characteristics {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
   .things {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    text-align: center;
+
     h3 {
-      width: 100%;
-      text-align: center;
+      margin: 0;
     }
 
     input {
       width: 60px;
       margin: 0 12.5%;
     }
+
+    .entry {
+      margin: 1px;
+    }
   }
 
   .shields {
+    display: flex;
+    flex-direction: column;
+
     input {
-      width: 60px;
       margin: 0;
     }
   }
 
   .armor {
+    display: flex;
+    flex-direction: column;
+
     input {
-      width: 60px;
       margin: 0;
     }
   }
