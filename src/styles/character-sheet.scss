@@ -1,19 +1,4 @@
 .mythic.character.sheet {
-  section.window-content {
-    background: #374350;
-  }
-
-  input {
-    color: white;
-  }
-
-  select {
-    color: white;
-  }
-
-  button {
-    color: white;
-  }
 
   .skill {
     align-items: center;
@@ -43,8 +28,6 @@
 }
 
 .character-sheet {
-  color: white;
-
   .sheet-header {
     margin-bottom: 20px;
     flex-direction: column !important;

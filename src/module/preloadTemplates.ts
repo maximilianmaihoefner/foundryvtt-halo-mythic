@@ -1,4 +1,4 @@
-export const preloadTemplates = async (): Promise<void> => {
+export const preloadTemplates = async (): Promise<Handlebars.TemplateDelegate[]> => {
   const templatePaths: string[] = [
     // Add paths to "systems/mythic/templates"
   ];

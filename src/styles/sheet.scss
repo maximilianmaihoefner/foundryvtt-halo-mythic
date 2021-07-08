@@ -1,0 +1,54 @@
+.mythic.sheet {
+  color: white;
+
+  input {
+    color: white;
+  }
+
+  textarea {
+    color: white;
+  }
+
+  select {
+    color: white;
+  }
+
+  button {
+    color: white;
+  }
+
+  section.window-content {
+    color: white;
+    background: #374350;
+  }
+}
+
+.mythic.sheet > input::placeholder {
+  color: white;
+  //opacity: 1; /* Firefox */
+}
+
+.app.window-app {
+  color: white;
+
+  input {
+    color: white;
+  }
+
+  textarea {
+    color: white;
+  }
+
+  select {
+    color: white;
+  }
+
+  button {
+    color: white;
+  }
+
+  section.window-content {
+    color: white;
+    background: #374350;
+  }
+}

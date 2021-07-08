@@ -33,6 +33,9 @@ export class MythicWeaponItemSheet extends ItemSheet {
     data.actor = actorData;
     data.data = actorData.data;
     data.rollData = this.item.getRollData.bind(this.item);
+    data.editable = this.isEditable;
+    data.showFiring = this.isEditable || data.magazin || data.ammunition || data.reload;
+    data.showFiringModes = this.isEditable || Object.keys(data.fireModes ?? {}).length > 0;
 
     return data;
   }
