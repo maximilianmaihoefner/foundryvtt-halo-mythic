@@ -9,29 +9,29 @@
   </header>
 
   <div class="flexrow">
-    <input name="data.tags" value="{{data.tags}}" placeholder="Tags"/>
-    <input name="data.alias" value="{{data.alias}}" placeholder="Weapon Alias"/>
+    <input type="text" data-dtype="String" name="data.tags" value="{{data.tags}}" placeholder="Tags"/>
+    <input type="text" data-dtype="String" name="data.alias" value="{{data.alias}}" placeholder="Weapon Alias"/>
   </div>
 
   <div>
     <h3>Damage</h3>
-    <input name="data.damageRoll" value="{{data.damageRoll}}" placeholder="Damage Roll"/>
-    <input name="data.baseDamage" value="{{data.baseDamage}}" placeholder="Base Damage"/>
-    <input name="data.piercing" value="{{data.piercing}}" placeholder="Piercing"/>
+    <input type="text" data-dtype="String" name="data.damageRoll" value="{{data.damageRoll}}" placeholder="Damage Roll"/>
+    <input type="number" data-dtype="Number" name="data.baseDamage" value="{{data.baseDamage}}" placeholder="Base Damage"/>
+    <input type="number" data-dtype="Number" name="data.piercing" value="{{data.piercing}}" placeholder="Piercing"/>
   </div>
   <div>
     <h3>Firing</h3>
     <div class="flexrow">
-      <input name="data.magazin" value="{{data.magazin}}" placeholder="Magazin Size"/>
-      <input name="data.ammunition" value="{{data.ammunition}}" placeholder="Ammunition Type"/>
-      <input name="data.reload" value="{{data.reload}}" placeholder="Reload Speed"/>
+      <input type="number" data-dtype="Number" name="data.magazin" value="{{data.magazin}}" placeholder="Magazin Size"/>
+      <input type="text" data-dtype="String" name="data.ammunition" value="{{data.ammunition}}" placeholder="Ammunition Type"/>
+      <input type="number" data-dtype="Number" name="data.reload" value="{{data.reload}}" placeholder="Reload Speed"/>
     </div>
   </div>
   <div>
     <h3>Firing Modes</h3>
     <div class="flexrow">
       {{#each data.fireModes as |fireMode key|}}
-      <select name="data.fireModes.{{key}}.mode" data-type="String">
+      <select name="data.fireModes.{{key}}.mode" data-dtype="String">
         {{#select fireMode.mode}}
         <option value="automatic">Automatic</option>
         <option value="burst">Burst</option>
@@ -44,7 +44,7 @@
         <option value="charge">Charge</option>
         {{/select}}
       </select>
-      <input name="data.fireModes.{{key}}.value" value="{{fireMode.value}}" placeholder="Rate of Fire"/>
+      <input type="number" data-dtype="Number" name="data.fireModes.{{key}}.value" value="{{fireMode.value}}" placeholder="Rate of Fire"/>
       <button class="remove-firing-mode" data-key="{{key}}">X</button>
       {{/each}}
     </div>
@@ -52,14 +52,14 @@
   </div>
   <div>
     <h3>Other</h3>
-    <input name="data.weaponType" value="{{data.weaponType}}" placeholder="Weapon Type"/>
-    <input name="data.range" value="{{data.range}}" placeholder="Range"/>
-    <input name="data.cost" value="{{data.cost}}" placeholder="Cost"/>
-    <input name="data.weight" value="{{data.weight}}" placeholder="weight"/>
+    <input type="text" data-dtype="String" name="data.weaponType" value="{{data.weaponType}}" placeholder="Weapon Type"/>
+    <input type="number" data-dtype="Number" name="data.range" value="{{data.range}}" placeholder="Range"/>
+    <input type="number" data-dtype="Number" name="data.cost" value="{{data.cost}}" placeholder="Cost"/>
+    <input type="number" data-dtype="Number" name="data.weight" value="{{data.weight}}" placeholder="weight"/>
   </div>
   <div>
     <h3>Description</h3>
-    <textarea name="data.description" placeholder="Description" rows="5"
+    <textarea data-dtype="String" name="data.description" placeholder="Description" rows="5"
               style="resize: none;">{{data.description}}</textarea>
   </div>
 </form>

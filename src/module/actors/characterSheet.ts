@@ -6,9 +6,9 @@
 import { RollDialog } from '../apps/roll-dialog';
 import { WeaponRollDialog } from '../apps/weapon-roll-dialog';
 import { Characteristic, Skill } from '../data/character';
-import { environments } from '../environments';
-import { lifestyles } from '../lifestyles';
-import { upbringings } from '../upbringings';
+import { environments } from '../definitions/environments';
+import { lifestyles } from '../definitions/lifestyles';
+import { upbringings } from '../definitions/upbringings';
 
 export class MythicCharacterSheet extends ActorSheet {
   /** @override */
@@ -60,12 +60,14 @@ export class MythicCharacterSheet extends ActorSheet {
       for (const [key, characteristic] of Object.entries<
         Characteristic & { label: string; labelShort: string }
       >(data.data.characteristics)) {
-        characteristic.label = game.i18n.localize(
-          `mythic.characteristic.${key}`
-        );
-        characteristic.labelShort = game.i18n.localize(
-          `mythic.characteristic.short.${key}`
-        );
+        if (game instanceof Game) {
+          characteristic.label = game.i18n.localize(
+            `mythic.characteristic.${key}`
+          );
+          characteristic.labelShort = game.i18n.localize(
+            `mythic.characteristic.short.${key}`
+          );
+        }
 
         allCharacteristics.push(key);
       }
@@ -75,7 +77,9 @@ export class MythicCharacterSheet extends ActorSheet {
       for (const [key, skill] of Object.entries<
         Skill & { label: string; otherCharacteristics: string[]; value: number }
       >(data.data.skills)) {
-        skill.label = game.i18n.localize(`mythic.skill.${key}`);
+        if (game instanceof Game) {
+          skill.label = game.i18n.localize(`mythic.skill.${key}`);
+        }
         skill.otherCharacteristics = allCharacteristics.filter(
           (value) =>
             !skill.defaultCharacteristics ||
@@ -183,7 +187,9 @@ export class MythicCharacterSheet extends ActorSheet {
     const element = event.currentTarget;
     const { dataset } = element;
 
-    console.log('dataset', dataset);
+    if (game instanceof Game) {
+      console.log('dataset', dataset, game.user?.targets);
+    }
 
     const rollDialog = await WeaponRollDialog.create({
       characteristic: dataset.characteristic,

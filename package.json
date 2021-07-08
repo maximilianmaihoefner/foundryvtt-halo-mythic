@@ -6,6 +6,7 @@
   "scripts": {
     "package": "gulp package",
     "build": "gulp build && gulp link",
+    "build:packs": "ts-node -r tsconfig-paths/register ./scripts/build-packs.ts",
     "build:watch": "gulp watch",
     "lint": "eslint --ext .ts,.js .",
     "test": "jest",
@@ -15,7 +16,7 @@
   "author": "",
   "license": "",
   "devDependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "github:League-of-Foundry-Developers/foundry-vtt-types#foundry-0.8.x",
+    "@league-of-foundry-developers/foundry-vtt-types": "0.8.8-0",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.12.4",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
@@ -33,6 +34,7 @@
     "gulp": "^4.0.2",
     "gulp-git": "^2.10.1",
     "gulp-less": "^4.0.1",
+    "gulp-run": "^1.7.1",
     "gulp-sass": "^4.1.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "jest": "^27.0.5",

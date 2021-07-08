@@ -338,24 +338,51 @@
       </div>
     </div>
     <div class="tab" data-group="primary" data-tab="inventory">
-      {{#each items as |item key|}}
-      <div>{{item.name}}</div>
-
-      <div style="display: flex; flex-direction: row;">
-        <button class="weapon-hit"
-                data-label="{{item.name}} Hit"
-                data-item-id="{{item._id}}"
-                data-characteristic="{{item.data.characteristic}}">
-          Hit
-        </button>
-        <button class="rollable"
-                data-roll="{{item.data.baseDamage}} + {{item.data.damageRoll}} + @bonus"
-                data-label="{{item.name}} Damage">
-          Damage
-        </button>
-        <button class="item-delete" data-item-id="{{item._id}}">Remove</button>
+      <div class="flexrow">
+        <label for="credits">Credits</label>
+        <input id="credits" type="number" data-dtype="Number" name="data.credits" value="{{data.credits}}"
+               placeholder="Credits" />
       </div>
-      {{/each}}
+      <div class="weapons">
+        <h3>Weapons</h3>
+        {{#each items as |item key|}}
+        <div class="weapon flexrow">
+          <img src="{{item.img}}" width="50"/>
+          <div>{{item.name}}</div>
+          <div class="flexrow">
+<!--            <div>{{json item}}</div>-->
+            <div>Tags: {{item.data.tags}}</div>
+            <div>Alias: {{item.data.alias}}</div>
+            <div>WeaponType: {{item.data.weaponType}}</div>
+            <div>damageRoll: {{item.data.damageRoll}}</div>
+            <div>baseDamage: {{item.data.baseDamage}}</div>
+            <div>piercing: {{item.data.piercing}}</div>
+            <div>range: {{item.data.range}}</div>
+            <div>cost: {{item.data.cost}}</div>
+            <div>weight: {{item.data.weight}}</div>
+            <div>description: {{item.data.description}}</div>
+            <div>attachments: {{item.data.attachments}}</div>
+            <div>magazin: {{item.data.magazin}}</div>
+            <div>ammunition: {{item.data.ammunition}}</div>
+            <div>reload: {{item.data.reload}}</div>
+          </div>
+          <div class="flexrow">
+            <button class="weapon-hit"
+                    data-label="{{item.name}} Hit"
+                    data-item-id="{{item._id}}"
+                    data-characteristic="{{item.data.characteristic}}">
+              Hit
+            </button>
+            <button class="rollable"
+                    data-roll="{{item.data.baseDamage}} + {{item.data.damageRoll}} + @bonus"
+                    data-label="{{item.name}} Damage">
+              Damage
+            </button>
+            <button class="item-delete" data-item-id="{{item._id}}">Remove</button>
+          </div>
+        </div>
+        {{/each}}
+      </div>
     </div>
     <div class="tab" data-group="primary" data-tab="medical"></div>
     <div class="tab" data-group="primary" data-tab="advancements">

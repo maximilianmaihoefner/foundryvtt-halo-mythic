@@ -4,9 +4,9 @@
  * @since 06/12/2021
  */
 import { CharacterDataSourceData } from '../data/character';
-import { environments } from '../environments';
-import { lifestyles } from '../lifestyles';
-import { upbringings } from '../upbringings';
+import { environments } from '../definitions/environments';
+import { lifestyles } from '../definitions/lifestyles';
+import { upbringings } from '../definitions/upbringings';
 
 export class MythicActor extends Actor {
   /**
@@ -15,9 +15,8 @@ export class MythicActor extends Actor {
   prepareData(): void {
     super.prepareData();
 
-    if (this.data.type === 'character') {
+    if (this.data.type === 'character')
       this._prepareCharacterData(this.data.data);
-    }
   }
 
   /**

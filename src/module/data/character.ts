@@ -1,4 +1,4 @@
-import { Special } from '../upbringings';
+import { Special } from '../definitions/upbringings';
 
 /**
  * TODO write ngDoc
@@ -143,6 +143,7 @@ export interface CharacterDataSourceData {
   languages: {
     [key: string]: string;
   };
+  credits: number;
   experience: number;
   experienceSpent: number;
   experienceUnspent: number;

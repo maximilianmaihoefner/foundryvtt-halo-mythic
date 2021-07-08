@@ -287,8 +287,9 @@
     "weapon": {
       "tags": [],
       "alias": "",
+      "faction": "",
       "characteristic": "",
-      "fireModes": {},
+      "fireModes": [],
       "weaponType": "",
       "damageRoll": "",
       "baseDamage": "",

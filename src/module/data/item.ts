@@ -10,7 +10,24 @@ interface FireMode {
 }
 
 export interface WeaponDataSourceData {
+  tags: string[];
+  alias: string;
+  faction: string;
+  characteristic: string;
   fireModes: FireMode[];
+  // "fireModes": {},
+  weaponType: string;
+  damageRoll: string;
+  baseDamage: string;
+  piercing: string;
+  range: string;
+  cost: string;
+  weight: string;
+  description: string;
+  attachments: [];
+  magazin: string;
+  ammunition: string;
+  reload: string;
 }
 
 interface WeaponDataSource {

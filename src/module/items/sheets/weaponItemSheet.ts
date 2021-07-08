@@ -21,11 +21,18 @@ export class MythicWeaponItemSheet extends ItemSheet {
     });
   }
 
-  /** @override */
-  getData() {
-    const data = super.getData();
+  getData(
+    options?: Application.RenderOptions
+  ):
+    | Promise<ItemSheet.Data<ItemSheet.Options>>
+    | ItemSheet.Data<ItemSheet.Options> {
+    const data = super.getData() as any;
+    const actorData = this.item.data.toObject(false);
 
-    console.log('item data', data);
+    // Redefine the template data references to the actor.
+    data.actor = actorData;
+    data.data = actorData.data;
+    data.rollData = this.item.getRollData.bind(this.item);
 
     return data;
   }

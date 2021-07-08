@@ -16,6 +16,6 @@ export class MythicItem extends Item {
   }
 
   _prepareWeaponData(data: WeaponDataSourceData): void {
-    console.log('_prepareMeleeWeaponData', data);
+    console.log('_prepareWeaponData', data);
   }
 }
