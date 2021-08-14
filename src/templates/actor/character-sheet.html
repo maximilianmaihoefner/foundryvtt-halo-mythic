@@ -1,4 +1,4 @@
-<form class="{{cssClass}} character-sheet flexcol" autocomplete="off">
+<form class="{{cssClass}} character-sheet flexcol" autocomplete="off" xmlns="http://www.w3.org/1999/html">
   <header class="sheet-header">
     <h1 class="charname">
       <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
@@ -40,11 +40,11 @@
           <label for="race">Race</label>
         </div>
         <div class="header-field-group">
-          <input id="height" type="text" name="data.infos.height" value="{{data.infos.height}}" data-dtype="Number" />
+          <input id="height" type="text" name="data.infos.height" value="{{data.infos.height}}" data-dtype="String" />
           <label for="height">Height</label>
         </div>
         <div class="header-field-group">
-          <input id="weight" type="text" name="data.infos.weight" value="{{data.infos.weight}}" data-dtype="Number" />
+          <input id="weight" type="text" name="data.infos.weight" value="{{data.infos.weight}}" data-dtype="String" />
           <label for="weight">Weight</label>
         </div>
       </div>
@@ -324,8 +324,10 @@
               {{#each data.languages as |language key|}}
               <div style="display: flex; flex-direction: row;">
                 <input type="text" data-dtype="String" name="data.languages.{{key}}" value="{{language}}"
-                       placeholder="Language" />
-                <button class="remove-language" data-key="{{key}}">X</button>
+                       placeholder="Language" style="flex: 10"/>
+                <button class="remove-language" data-key="{{key}}" style="flex: 1">
+                  <i class="fas fa-trash" style="margin: 0"></i>
+                </button>
               </div>
               {{/each}}
             </div>
@@ -333,8 +335,25 @@
           </div>
         </div>
       </div>
-      <div class="abilities" style="display: flex; flex-direction: row; justify-content: space-between;">
-
+      <hr />
+      <div class="abilities" style="display: flex; flex-direction: column;">
+        <h3 style="text-align: center">Abilities</h3>
+        {{#each data.abilities}}
+        <div class="ability flexrow">
+          <div>
+            <input name="data.abilities.{{@key}}.name" type="text" data-dtype="String" value="{{this.name}}" />
+            <textarea id="ability-{{this.name}}-description" data-dtype="String"
+                      name="data.abilities.{{@key}}.description" placeholder="Description" rows="5"
+                      style="resize: none;">{{this.description}}</textarea>
+          </div>
+          <button style="max-width: 30px" type="button" class="remove-ability" data-key="{{@key}}">
+            <i class="fas fa-trash" style="margin: 0"></i>
+          </button>
+        </div>
+        {{/each}}
+        <div>
+          <button type="button" class="add-ability">Add Ability</button>
+        </div>
       </div>
     </div>
     <div class="tab" data-group="primary" data-tab="inventory">
@@ -347,25 +366,43 @@
         <h3>Weapons</h3>
         {{#each items as |item key|}}
         <div class="weapon flexrow">
-          <img src="{{item.img}}" width="50"/>
-          <div>{{item.name}}</div>
-          <div class="flexrow">
-<!--            <div>{{json item}}</div>-->
-            <div>Tags: {{item.data.tags}}</div>
-            <div>Alias: {{item.data.alias}}</div>
-            <div>WeaponType: {{item.data.weaponType}}</div>
-            <div>damageRoll: {{item.data.damageRoll}}</div>
-            <div>baseDamage: {{item.data.baseDamage}}</div>
-            <div>piercing: {{item.data.piercing}}</div>
-            <div>range: {{item.data.range}}</div>
-            <div>cost: {{item.data.cost}}</div>
-            <div>weight: {{item.data.weight}}</div>
-            <div>description: {{item.data.description}}</div>
-            <div>attachments: {{item.data.attachments}}</div>
-            <div>magazin: {{item.data.magazin}}</div>
-            <div>ammunition: {{item.data.ammunition}}</div>
-            <div>reload: {{item.data.reload}}</div>
+<!--          <img src="{{item.img}}" width="25" height="25" />-->
+          <div style="flex: 4" class="flexcol">
+            <div class="flexrow">
+              <h3 style="flex: 3; text-align: left;">
+                {{item.name}}
+                {{#if item.data.alias}}
+                - {{item.data.alias}}
+                {{/if}}
+              </h3>
+              <div>[{{item.data.tags}}]</div>
+            </div>
+            <div class="flexrow">
+              <div>
+                <div>Damage Roll</div>
+                <div>{{item.data.damageRoll}}</div>
+              </div>
+              <div>
+                <div>Base Damage</div>
+                <div>{{item.data.baseDamage}}</div>
+              </div>
+              <div>
+                <div>Piercing</div>
+                <div>{{item.data.piercing}}</div>
+              </div>
+            </div>
           </div>
+          <!--          <div class="flexrow">-->
+          <!--            <div>WeaponType: {{item.data.weaponType}}</div>-->
+          <!--            <div>range: {{item.data.range}}</div>-->
+          <!--            <div>cost: {{item.data.cost}}</div>-->
+          <!--            <div>weight: {{item.data.weight}}</div>-->
+          <!--            <div>description: {{item.data.description}}</div>-->
+          <!--            <div>attachments: {{item.data.attachments}}</div>-->
+          <!--            <div>magazin: {{item.data.magazin}}</div>-->
+          <!--            <div>ammunition: {{item.data.ammunition}}</div>-->
+          <!--            <div>reload: {{item.data.reload}}</div>-->
+          <!--          </div>-->
           <div class="flexrow">
             <button class="weapon-hit"
                     data-label="{{item.name}} Hit"
@@ -378,10 +415,34 @@
                     data-label="{{item.name}} Damage">
               Damage
             </button>
-            <button class="item-delete" data-item-id="{{item._id}}">Remove</button>
+            <button class="item-delete" data-item-id="{{item._id}}">
+              <i class="fas fa-trash" style="margin: 0"></i>
+            </button>
           </div>
         </div>
         {{/each}}
+      </div>
+      <div class="equipment">
+        <h3>Equipment</h3>
+        <div class="flexcol">
+          {{#each data.equipment}}
+          <div class="flexcol">
+            <div class="flexrow">
+              <input type="text" name="data.equipment.{{@key}}.name" value="{{this.name}}" data-dtype="String" />
+              <input type="number" name="data.equipment.{{@key}}.amount" value="{{this.amount}}" data-dtype="Number" />
+              <input type="number" name="data.equipment.{{@key}}.cost" value="{{this.cost}}" data-dtype="Number" />
+              <input type="number" name="data.equipment.{{@key}}.weight" value="{{this.weight}}" data-dtype="Number" />
+              <button type="button" class="remove-equipment" data-key="{{@key}}">X</button>
+            </div>
+            <div class="flexrow">
+              <textarea id="description-{{@key}}" data-dtype="String" name="data.description" placeholder="Description"
+                        rows="5"
+                        style="resize: none;">{{data.description}}</textarea>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+        <button type="button" class="add-equipment">Add Equipment</button>
       </div>
     </div>
     <div class="tab" data-group="primary" data-tab="medical"></div>
@@ -397,7 +458,6 @@
         <div>
           experienceSpent: {{data.experienceSpent}}
         </div>
-
       </div>
       <div>
         <h3>Faction Trainings</h3>

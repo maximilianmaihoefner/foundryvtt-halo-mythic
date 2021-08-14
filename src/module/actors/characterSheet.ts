@@ -38,6 +38,8 @@ export class MythicCharacterSheet extends ActorSheet {
     data.data = actorData.data;
     data.rollData = this.actor.getRollData.bind(this.actor);
 
+    console.log('actor', data);
+
     data.data.upbringings = upbringings;
 
     const upbringing = upbringings.find(
@@ -54,6 +56,8 @@ export class MythicCharacterSheet extends ActorSheet {
     data.data.lifestyles = lifestyles;
 
     console.log('data.data.infos.lifestyle:', data.data.infos.lifestyle);
+    console.log('data.data.abilities', data.data.abilities);
+
     const allCharacteristics = [];
 
     if (data.data.characteristics) {
@@ -116,8 +120,15 @@ export class MythicCharacterSheet extends ActorSheet {
     html
       .find('.remove-education')
       .on('click', this._removeEducation.bind(this));
+    html.find('.add-equipment').on('click', this._addEquipment.bind(this));
+    html
+      .find('.remove-equipment')
+      .on('click', this._removeEquipment.bind(this));
     html.find('.addLanguage').on('click', this._addLanguage.bind(this));
     html.find('.remove-language').on('click', this._removeLanguage.bind(this));
+
+    html.find('.add-ability').on('click', this._addAbility.bind(this));
+    html.find('.remove-ability').on('click', this._removeAbility.bind(this));
 
     // Delete Inventory Item
     html
@@ -253,6 +264,45 @@ export class MythicCharacterSheet extends ActorSheet {
     }
   }
 
+  async _addEquipment(event: Event): Promise<void> {
+    event.preventDefault();
+
+    const newEquipment = {
+      name: '',
+      amount: 0,
+      cost: 0,
+      weight: 0,
+    };
+
+    if (this.actor.data.data.equipment) {
+      const equipments = Object.values(this.actor.data.data.equipment);
+      equipments.push(newEquipment);
+
+      await this.actor.update({
+        'data.equipment': { ...equipments },
+      });
+    } else {
+      await this.actor.update({
+        'data.equipment': { 0: newEquipment },
+      });
+    }
+  }
+
+  async _removeEquipment(
+    event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+  ): Promise<void> {
+    event.preventDefault();
+
+    const element = event.currentTarget;
+    const { dataset } = element;
+
+    if (dataset.key) {
+      await this.actor.update({
+        'data.equipment': { [`-=${dataset.key}`]: null },
+      });
+    }
+  }
+
   async _addLanguage(event: Event): Promise<void> {
     event.preventDefault();
 
@@ -281,6 +331,45 @@ export class MythicCharacterSheet extends ActorSheet {
     if (dataset.key) {
       await this.actor.update({
         'data.languages': { [`-=${dataset.key}`]: null },
+      });
+    }
+  }
+
+  async _addAbility(event: Event): Promise<void> {
+    event.preventDefault();
+
+    console.log('_addAbility');
+
+    const newAbility = {
+      name: '',
+      description: '',
+    };
+
+    if (this.actor.data.data.abilities) {
+      const abilities = Object.values(this.actor.data.data.abilities);
+      abilities.push(newAbility);
+
+      await this.actor.update({
+        'data.abilities': { ...abilities },
+      });
+    } else {
+      await this.actor.update({
+        'data.abilities': { 0: newAbility },
+      });
+    }
+  }
+
+  async _removeAbility(
+    event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+  ): Promise<void> {
+    event.preventDefault();
+
+    const element = event.currentTarget;
+    const { dataset } = element;
+
+    if (dataset.key) {
+      await this.actor.update({
+        'data.abilities': { [`-=${dataset.key}`]: null },
       });
     }
   }

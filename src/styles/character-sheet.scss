@@ -1,5 +1,4 @@
 .mythic.character.sheet {
-
   .skill {
     align-items: center;
     padding: 4px;
@@ -24,6 +23,28 @@
     width: 75px;
     height: 29px;
     line-height: 29px;
+  }
+
+  .weapons {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+
+    .weapon {
+      margin: 10px 0;
+    }
+  }
+
+  .equipment {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+  }
+
+  .abilities {
+    .ability {
+      margin: 10px 0;
+    }
   }
 }
 

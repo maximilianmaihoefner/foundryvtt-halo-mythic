@@ -25,6 +25,14 @@ export interface Skill {
   defaultCharacteristics: string[];
 }
 
+export interface Lifestyle {
+  name: string;
+  result: number;
+  special: {
+    [key: string]: Special;
+  };
+}
+
 export interface CharacterDataSourceData {
   infos: {
     soldierType: string;
@@ -38,34 +46,9 @@ export interface CharacterDataSourceData {
     upbringing: string;
     environment: string;
     lifestyle: {
-      [key: string]: {
-        name: string;
-        result: number;
-        special: {
-          [key: string]: Special;
-        };
-      };
-      0: {
-        name: string;
-        result: number;
-        special: {
-          [key: string]: Special;
-        };
-      };
-      1: {
-        name: string;
-        result: number;
-        special: {
-          [key: string]: Special;
-        };
-      };
-      2: {
-        name: string;
-        result: number;
-        special: {
-          [key: string]: Special;
-        };
-      };
+      0: Lifestyle;
+      1: Lifestyle;
+      2: Lifestyle;
     };
   };
   characteristics: {
@@ -144,6 +127,20 @@ export interface CharacterDataSourceData {
     [key: string]: string;
   };
   credits: number;
+  equipment: {
+    [key: string]: {
+      name: string;
+      amount: number;
+      cost: number;
+      weight: number;
+    };
+  };
+  abilities: {
+    [key: string]: {
+      name: string;
+      description: string;
+    }
+  };
   experience: number;
   experienceSpent: number;
   experienceUnspent: number;

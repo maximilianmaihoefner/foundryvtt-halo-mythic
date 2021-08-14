@@ -3,7 +3,7 @@
  *
  * @since 06/12/2021
  */
-import { CharacterDataSourceData } from '../data/character';
+import { CharacterDataSourceData, Lifestyle } from "../data/character";
 import { environments } from '../definitions/environments';
 import { lifestyles } from '../definitions/lifestyles';
 import { upbringings } from '../definitions/upbringings';
@@ -116,7 +116,7 @@ export class MythicActor extends Actor {
       (value) => value.name === data.infos.environment
     );
 
-    const getLifestyleData = (index: number) => {
+    const getLifestyleData = (index: 0|1|2): Lifestyle => {
       const lifestyle = data.infos.lifestyle[index];
       const lifestyleDefinition = lifestyles.find(
         (value) => value.name === lifestyle.name
@@ -125,22 +125,23 @@ export class MythicActor extends Actor {
         (value) =>
           value.min >= lifestyle.result && lifestyle.result <= value.max
       );
-      const special = outcome?.special.map((value, i) => ({
+      const special = outcome ? outcome.special.map((value, i) => ({
         ...value,
         ...lifestyle.special[i],
-      }));
+      })) : [];
 
       return {
         ...lifestyle,
         ...lifestyleDefinition,
+        // @ts-ignore
         special: { ...special },
       };
     };
 
     data.infos.lifestyle = {
-      '0': getLifestyleData(0),
-      '1': getLifestyleData(1),
-      '2': getLifestyleData(2),
+      0: getLifestyleData(0),
+      1: getLifestyleData(1),
+      2: getLifestyleData(2),
     };
 
     for (const [key, characteristic] of Object.entries(data.characteristics)) {

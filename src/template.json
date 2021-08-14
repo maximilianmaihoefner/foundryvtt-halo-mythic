@@ -244,6 +244,7 @@
       "abilities": {},
       "credits": 0,
       "experience": 0,
+      "equipment": {},
       "factionTrainings": {
         "human": false,
         "covenant": false,
@@ -278,7 +279,8 @@
         "mouth": 0,
         "chin/jaw/cheek": 0
       }
-    }
+    },
+    "npc": {}
   },
   "Item": {
     "types": ["weapon"],
@@ -289,7 +291,7 @@
       "alias": "",
       "faction": "",
       "characteristic": "",
-      "fireModes": [],
+      "fireModes": {},
       "weaponType": "",
       "damageRoll": "",
       "baseDamage": "",

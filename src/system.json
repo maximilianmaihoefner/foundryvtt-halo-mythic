@@ -2,22 +2,28 @@
   "name": "mythic",
   "title": "Halo Mythic 4.0",
   "description": "Unoffical Halo Tabletop RPG.",
-  "version": "0.1.0",
+  "version": "0.1.17",
   "minimumCoreVersion": "0.8.6",
-  "compatibleCoreVersion": "0.8.6",
+  "compatibleCoreVersion": "0.8.8",
   "templateVersion": 2,
   "author": "Maximilian Maihöfner",
   "esmodules": ["mythic.js"],
   "styles": ["mythic.css"],
   "scripts": [],
-  "packs": [],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }
-  ],
+  "packs": [{
+    "name": "armory",
+    "label": "Armory",
+    "system": "mythic",
+    "module": "mythic",
+    "path": "/packs/armory.db",
+    "entity": "Item"
+  }],
+  "languages": [{
+    "lang": "en",
+    "name": "English",
+    "path": "lang/en.json"
+  }],
+  "socket": true,
   "gridDistance": 1,
   "gridUnits": "",
   "primaryTokenAttribute": null,
