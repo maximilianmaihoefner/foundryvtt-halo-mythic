@@ -11,6 +11,7 @@
  */
 import { MythicActor } from './module/actors/actor';
 import { MythicCharacterSheet } from './module/actors/characterSheet';
+import { MythicNpcSheet } from "./module/actors/npcSheet";
 import { MythicItem } from './module/items/item';
 import { MythicWeaponItemSheet } from './module/items/sheets/weaponItemSheet';
 import { registerSettings } from './module/settings.js';
@@ -59,6 +60,10 @@ Hooks.once('init', async () => {
   Actors.unregisterSheet('core', ActorSheet);
   Actors.registerSheet('mythic', MythicCharacterSheet, {
     types: ['character'],
+    makeDefault: true,
+  });
+  Actors.registerSheet('mythic', MythicNpcSheet, {
+    types: ['npc'],
     makeDefault: true,
   });
 

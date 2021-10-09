@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character"],
+    "types": ["character", "npc"],
     "templates": {
       "base": {}
     },
@@ -280,7 +280,15 @@
         "chin/jaw/cheek": 0
       }
     },
-    "npc": {}
+    "npc": {
+      "infos": {
+        "faction": "",
+        "height": "",
+        "weight": "",
+        "gender": "",
+        "race": ""
+      }
+    }
   },
   "Item": {
     "types": ["weapon"],

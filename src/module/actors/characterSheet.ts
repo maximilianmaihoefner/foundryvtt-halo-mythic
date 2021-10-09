@@ -32,6 +32,8 @@ export class MythicCharacterSheet extends ActorSheet {
   getData() {
     const data = super.getData() as any;
     const actorData = this.actor.data.toObject(false);
+    console.log('sheet data', data);
+    console.log('sheet actorData', actorData);
 
     // Redefine the template data references to the actor.
     data.actor = actorData;
@@ -91,6 +93,8 @@ export class MythicCharacterSheet extends ActorSheet {
         );
 
         if (skill.characteristic) {
+          const characteristic = Array.isArray(skill.characteristic) ? skill.characteristic[0] : skill.characteristic;
+
           const bonus =
             skill.advancement > 0
               ? (skill.advancement - 1) * 10
@@ -98,7 +102,7 @@ export class MythicCharacterSheet extends ActorSheet {
               ? -40
               : -20;
           skill.value =
-            data.data.characteristics[skill.characteristic].value + bonus;
+            data.data.characteristics[characteristic].value + bonus;
         }
       }
     }

@@ -33,7 +33,7 @@ export interface Lifestyle {
   };
 }
 
-export interface CharacterDataSourceData {
+export interface CharacterData {
   infos: {
     soldierType: string;
     faction: string;
@@ -161,10 +161,9 @@ export interface CharacterDataSourceData {
   };
 }
 
-interface CharacterDataSource {
+export interface CharacterDataSource {
   type: 'character';
-  data: CharacterDataSourceData;
+  data: CharacterData;
 }
 
-export type ActorDataSource = CharacterDataSource;
 /*| other types... */

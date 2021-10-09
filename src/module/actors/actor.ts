@@ -3,7 +3,8 @@
  *
  * @since 06/12/2021
  */
-import { CharacterDataSourceData, Lifestyle } from "../data/character";
+import { CharacterData, Lifestyle } from "../data/character";
+import { NpcData } from "../data/npc";
 import { environments } from '../definitions/environments';
 import { lifestyles } from '../definitions/lifestyles';
 import { upbringings } from '../definitions/upbringings';
@@ -17,12 +18,14 @@ export class MythicActor extends Actor {
 
     if (this.data.type === 'character')
       this._prepareCharacterData(this.data.data);
+    if (this.data.type === 'npc')
+      this._prepareNpcData(this.data.data);
   }
 
   /**
    * Prepare Character type specific data
    */
-  _prepareCharacterData(data: CharacterDataSourceData): void {
+  _prepareCharacterData(data: CharacterData): void {
     console.log('data', data);
 
     let experienceCost = 0;
@@ -100,11 +103,15 @@ export class MythicActor extends Actor {
           skill.defaultCharacteristics = ['str', 'ch', 'ld', 'int'];
           break;
       }
-      if (skill.defaultCharacteristics) {
-        skill.characteristic = skill.defaultCharacteristics[0];
-      } else {
-        skill.characteristic = 'str';
-        console.error('No defaultCharacteristics for', key);
+      if (!skill.characteristic) {
+        if (skill.defaultCharacteristics) {
+          const value = skill.defaultCharacteristics[0];
+          console.error('No characteristic for', key, ', using:', value);
+          skill.characteristic = value;
+        } else {
+          skill.characteristic = 'str';
+          console.error('No defaultCharacteristics for', key);
+        }
       }
       skill.adv = advSkills.includes(key);
     }
@@ -259,5 +266,9 @@ export class MythicActor extends Actor {
 
     data.experienceUnspent = data.experience - experienceCost;
     data.experienceSpent = experienceCost;
+  }
+
+  _prepareNpcData(data: NpcData): void {
+    console.log('data', data);
   }
 }
