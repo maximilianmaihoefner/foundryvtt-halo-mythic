@@ -1,4 +1,4 @@
-import { WeaponDataSourceData } from '../data/item';
+import { WeaponData } from '../data/item';
 
 /**
  * TODO write ngDoc
@@ -15,7 +15,7 @@ export class MythicItem extends Item {
     if (this.data.type === 'weapon') this._prepareWeaponData(this.data.data);
   }
 
-  _prepareWeaponData(data: WeaponDataSourceData): void {
+  _prepareWeaponData(data: WeaponData): void {
     console.log('_prepareWeaponData', data);
   }
 }

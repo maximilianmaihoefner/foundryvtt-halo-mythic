@@ -9,7 +9,7 @@ interface FireMode {
   value: number;
 }
 
-export interface WeaponDataSourceData {
+export interface WeaponData {
   tags: string[];
   alias: string;
   faction: string;
@@ -32,7 +32,7 @@ export interface WeaponDataSourceData {
 
 interface WeaponDataSource {
   type: 'weapon';
-  data: WeaponDataSourceData;
+  data: WeaponData;
 }
 
 export type ItemDataSource = WeaponDataSource;

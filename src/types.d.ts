@@ -23,4 +23,16 @@ declare global {
     Actor: ActorDataSource;
     Item: ItemDataSource;
   }
+  interface FlagConfig {
+    Combat: {
+      mythic: {
+        turnHistory: any[];
+      }
+    }
+    Combatant: {
+      mythic: {
+        evadeCount: number;
+      };
+    };
+  }
 }

@@ -1,20 +1,11 @@
-import { Special } from '../definitions/upbringings';
+import { Special } from "../definitions/upbringings";
+import { BaseCharacter } from "./actor";
 
 /**
  * TODO write ngDoc
  *
  * @since 07/04/2021
  */
-
-export interface Characteristic {
-  rawValue: number;
-  advancement: number;
-  min: number;
-
-  value: number;
-  mod: number;
-}
-
 export interface Skill {
   advancement: number;
   /**
@@ -33,7 +24,7 @@ export interface Lifestyle {
   };
 }
 
-export interface CharacterData {
+export interface CharacterData extends BaseCharacter {
   infos: {
     soldierType: string;
     faction: string;
@@ -49,29 +40,6 @@ export interface CharacterData {
       0: Lifestyle;
       1: Lifestyle;
       2: Lifestyle;
-    };
-  };
-  characteristics: {
-    str: Characteristic;
-    t: Characteristic;
-    ag: Characteristic;
-    wfr: Characteristic;
-    wfm: Characteristic;
-    int: Characteristic;
-    per: Characteristic;
-    cr: Characteristic;
-    ch: Characteristic;
-    ld: Characteristic;
-  };
-  mythicCharacteristics: {
-    str: {
-      value: number;
-    };
-    t: {
-      value: number;
-    };
-    ag: {
-      value: number;
     };
   };
   skills: {
@@ -162,8 +130,6 @@ export interface CharacterData {
 }
 
 export interface CharacterDataSource {
-  type: 'character';
+  type: "character";
   data: CharacterData;
 }
-
-/*| other types... */

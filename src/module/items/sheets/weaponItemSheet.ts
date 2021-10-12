@@ -7,25 +7,21 @@ export class MythicWeaponItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions(): ItemSheet.Options {
     return mergeObject(super.defaultOptions, {
-      classes: ['mythic', 'sheet', 'item', 'weapon'],
-      template: 'systems/mythic/templates/items/weapon.html',
+       classes: ["mythic", "sheet", "item", "weapon"],
+      template: "systems/mythic/templates/items/weapon.html",
       width: 520,
       height: 480,
       tabs: [
         {
-          navSelector: '.sheet-tabs',
-          contentSelector: '.sheet-body',
-          initial: 'description',
-        },
-      ],
+          navSelector: ".sheet-tabs",
+          contentSelector: ".sheet-body",
+          initial: "description"
+        }
+      ]
     });
   }
 
-  getData(
-    options?: Application.RenderOptions
-  ):
-    | Promise<ItemSheet.Data<ItemSheet.Options>>
-    | ItemSheet.Data<ItemSheet.Options> {
+  getData(options?: Partial<ItemSheet.Options>): Promise<ItemSheet.Data> | ItemSheet.Data {
     const data = super.getData() as any;
     const actorData = this.item.data.toObject(false);
 
@@ -46,27 +42,27 @@ export class MythicWeaponItemSheet extends ItemSheet {
     if (!position) {
       return;
     }
-    const sheetBody = (this.element as JQuery).find('.sheet-body');
+    const sheetBody = (this.element as JQuery).find(".sheet-body");
     const bodyHeight = position.height - 192;
-    sheetBody.css('height', bodyHeight);
+    sheetBody.css("height", bodyHeight);
     return position;
   }
 
   public activateListeners(html: JQuery): void {
     super.activateListeners(html);
 
-    html.find('.add-firing-mode').on('click', this._addFiringMode.bind(this));
+    html.find(".add-firing-mode").on("click", this._addFiringMode.bind(this));
     html
-      .find('.remove-firing-mode')
-      .on('click', this._removeFiringMode.bind(this));
+      .find(".remove-firing-mode")
+      .on("click", this._removeFiringMode.bind(this));
   }
 
   async _addFiringMode(event: Event): Promise<void> {
     event.preventDefault();
 
     const newFireMode = {
-      mode: '',
-      value: 0,
+      mode: "",
+      value: 0
     };
 
     if (this.item.data.data.fireModes) {
@@ -74,11 +70,11 @@ export class MythicWeaponItemSheet extends ItemSheet {
       fireModes.push(newFireMode);
 
       await this.item.update({
-        'data.fireModes': fireModes,
+        "data.fireModes": fireModes
       });
     } else {
       await this.item.update({
-        'data.fireModes': [newFireMode],
+        "data.fireModes": [newFireMode]
       });
     }
   }
@@ -93,7 +89,7 @@ export class MythicWeaponItemSheet extends ItemSheet {
 
     if (dataset.key) {
       await this.item.update({
-        'data.fireModes': { [`-=${dataset.key}`]: null },
+        "data.fireModes": { [`-=${dataset.key}`]: null }
       });
     }
   }

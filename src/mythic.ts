@@ -12,6 +12,7 @@
 import { MythicActor } from './module/actors/actor';
 import { MythicCharacterSheet } from './module/actors/characterSheet';
 import { MythicNpcSheet } from "./module/actors/npcSheet";
+import { MythicCombat, MythicCombatant } from "./module/combat/mythicCombat";
 import { MythicItem } from './module/items/item';
 import { MythicWeaponItemSheet } from './module/items/sheets/weaponItemSheet';
 import { registerSettings } from './module/settings.js';
@@ -38,11 +39,23 @@ Handlebars.registerHelper('json', (context) =>
 /* Initialize system					*/
 /* ------------------------------------ */
 Hooks.once('init', async () => {
+  console.log(`
+__________________________________________________________
+ _   _       _         __  __       _   _     _
+| | | | __ _| | ___   |  \\/  |_   _| |_| |__ (_) ___
+| |_| |/ _\` | |/ _ \\  | |\\/| | | | | __| '_ \\| |/ __|
+|  _  | (_| | | (_) | | |  | | |_| | |_| | | | | (__
+|_| |_|\\__,_|_|\\___/  |_|  |_|\\__, |\\__|_| |_|_|\\___| v4.0
+                              |___/
+==========================================================
+`);
   console.log('mythic | Initializing mythic');
 
   // Assign custom classes and constants here
   CONFIG.Actor.documentClass = MythicActor;
   CONFIG.Item.documentClass = MythicItem;
+  CONFIG.Combat.documentClass = MythicCombat;
+  CONFIG.Combatant.documentClass = MythicCombatant;
 
   // Debug flags
   CONFIG.debug.hooks = false;

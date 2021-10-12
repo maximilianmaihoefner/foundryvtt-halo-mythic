@@ -3,11 +3,19 @@
  *
  * @since 06/12/2021
  */
+import { BaseCharacter } from "../data/actor";
 import { CharacterData, Lifestyle } from "../data/character";
 import { NpcData } from "../data/npc";
 import { environments } from '../definitions/environments';
 import { lifestyles } from '../definitions/lifestyles';
 import { upbringings } from '../definitions/upbringings';
+
+export enum HitLocation {
+  Head,
+  Arms,
+  Chest,
+  Legs,
+}
 
 export class MythicActor extends Actor {
   /**
@@ -270,5 +278,51 @@ export class MythicActor extends Actor {
 
   _prepareNpcData(data: NpcData): void {
     console.log('data', data);
+    for (const [key, characteristic] of Object.entries(data.characteristics)) {
+      let bonus = 0;
+
+      characteristic.value =
+        bonus +
+        (characteristic.rawValue || 0) +
+        (characteristic.advancement || 0) * 5;
+      characteristic.mod = Math.floor(characteristic.value / 10);
+    }
+  }
+
+  async takeDamage(damage: number, hitLocation: HitLocation, pierce: number = 0): Promise<void> {
+    const data = (this.data.data as BaseCharacter);
+    let armor = 0;
+
+    switch (hitLocation) {
+      case HitLocation.Head:
+        armor = data.armor.head;
+        break;
+      case HitLocation.Arms:
+        armor = data.armor.arms;
+        break;
+      case HitLocation.Chest:
+        armor = data.armor.chest;
+        break;
+      case HitLocation.Legs:
+        armor = data.armor.legs;
+        break;
+      default:
+        console.error('invalid hit location.')
+        break;
+    }
+
+    // damage resistance = armor at location + toughness modifier
+    const damageResistance = armor + data.characteristics.t.mod;
+    const wounds = damageResistance - pierce - damage;
+    const currentWounds = data.wounds.current + wounds;
+    console.log('dealing amount of damage', damageResistance, damage, hitLocation, pierce, wounds);
+
+    // TODO implement character death.
+    if (currentWounds > 0) {
+
+    }
+    await this.update({
+      'data.wounds.current': currentWounds,
+    });
   }
 }
