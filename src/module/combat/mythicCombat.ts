@@ -6,6 +6,7 @@
  */
 import { DocumentModificationOptions } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs";
 import { CombatantData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs";
+import { MythicActor } from "../actors/actor";
 
 const TURN_HISTORY = 'turnHistory';
 const EVADE_COUNT = 'evadeCount';
@@ -82,9 +83,15 @@ export class MythicCombatant extends Combatant {
     void this.setFlag('mythic', EVADE_COUNT, 0);
   }
 
-  // TODO implement proper initiative formula
+  // TODO add "Battle mind" ability (page 48) (add intellect mod instead of agility mod)
+  // TODO add "fast foot" ability (page 48) (roll initiative twice take higher result)
   protected _getInitiativeFormula(): string {
-    return super._getInitiativeFormula();
+    let formula = '1d10 + @characteristics.ag.mod';
+    if ((this.actor as MythicActor)?.data.data.mythicCharacteristics > 0) {
+      // TODO round to 1 if smaller 1
+      formula += '+ floor(@mythicCharacteristics.ag.value / 2)';
+    }
+    return formula;
   }
 
   async evade() {

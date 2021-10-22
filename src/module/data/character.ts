@@ -14,6 +14,9 @@ export interface Skill {
   adv: boolean;
   characteristic: string;
   defaultCharacteristics: string[];
+
+  // calculated during prepareData for actor
+  value: number;
 }
 
 export interface Lifestyle {

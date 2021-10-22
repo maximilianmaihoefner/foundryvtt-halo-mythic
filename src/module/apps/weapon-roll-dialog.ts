@@ -9,7 +9,7 @@ export class WeaponRollDialog extends Dialog {
       characteristic?: string;
       bonus?: number;
     } = {}
-  ): Promise<{ characteristic: string; bonus: number }> {
+  ): Promise<{ characteristic: 'wfr' | 'wfm'; bonus: number }> {
     const template = await renderTemplate(
       'systems/mythic/templates/apps/weapon-roll-dialog.html',
       templateData
@@ -27,7 +27,7 @@ export class WeaponRollDialog extends Dialog {
               resolve({
                 characteristic: String(
                   (html as JQuery).find('#characteristic').val()
-                ),
+                ) as 'wfr' | 'wfm',
                 bonus: Number((html as JQuery).find('#bonus').val()),
               }),
           },

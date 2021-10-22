@@ -21,4 +21,19 @@ export class MythicNpcSheet extends ActorSheet {
       ],
     });
   }
+
+  /** @override */
+  getData() {
+    const data = super.getData() as any;
+    const actorData = this.actor.data.toObject(false);
+
+    // Redefine the template data references to the actor.
+    data.actor = actorData;
+    data.data = actorData.data;
+    data.rollData = this.actor.getRollData.bind(this.actor);
+
+    console.log('actor', data);
+
+    return data;
+  }
 }

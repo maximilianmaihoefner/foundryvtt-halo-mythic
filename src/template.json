@@ -2,9 +2,203 @@
   "Actor": {
     "types": ["character", "npc"],
     "templates": {
-      "base": {}
+      "base": {
+        "characteristics": {
+          "str": {
+            "rawValue": 0,
+            "advancement": 0,
+            "min": 0
+          },
+          "t": {
+            "rawValue": 0,
+            "advancement": 0,
+            "min": 0
+          },
+          "ag": {
+            "rawValue": 0,
+            "advancement": 0,
+            "min": 0
+          },
+          "wfr": {
+            "rawValue": 0,
+            "advancement": 0,
+            "min": 0
+          },
+          "wfm": {
+            "rawValue": 0,
+            "advancement": 0,
+            "min": 0
+          },
+          "int": {
+            "rawValue": 0,
+            "advancement": 0,
+            "min": 0
+          },
+          "per": {
+            "rawValue": 0,
+            "advancement": 0,
+            "min": 0
+          },
+          "cr": {
+            "rawValue": 0,
+            "advancement": 0,
+            "min": 0
+          },
+          "ch": {
+            "rawValue": 0,
+            "advancement": 0,
+            "min": 0
+          },
+          "ld": {
+            "rawValue": 0,
+            "advancement": 0,
+            "min": 0
+          }
+        },
+        "mythicCharacteristics": {
+          "str": {
+            "value": 0
+          },
+          "t": {
+            "value": 0
+          },
+          "ag": {
+            "value": 0
+          }
+        },
+        "wounds": {
+          "current": 0,
+          "max": 0
+        },
+        "armor": {
+          "head": 0,
+          "chest": 0,
+          "arms": 0,
+          "legs": 0
+        }
+      },
+      "skills": {
+        "skills": {
+          "appeal": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "athletics": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "camouflage": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "command": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "deception": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "demolition": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "cryptography": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "evasion": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "gambling": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "interrogation": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "intimidation": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "investigation": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "medicationHuman": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "medicationCovenant": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "medicationMgalekgolo": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "navigationGroundAir": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "navigationSpace": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "navigationSlipspace": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "negotiation": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "pilotGround": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "pilotAir": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "pilotSpace": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "security": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "stunting": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "survival": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "technologyHuman": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "technologyCovenant": {
+            "advancement": 0,
+            "characteristic": ""
+          },
+          "technologyForerunner": {
+            "advancement": 0,
+            "characteristic": ""
+          }
+        }
+      }
     },
     "character": {
+      "templates": [
+        "base",
+        "skills"
+      ],
       "infos": {
         "soldierType": "",
         "faction": "",
@@ -34,73 +228,6 @@
           }
         }
       },
-      "characteristics": {
-        "str": {
-          "rawValue": 0,
-          "advancement": 0,
-          "min": 0
-        },
-        "t": {
-          "rawValue": 0,
-          "advancement": 0,
-          "min": 0
-        },
-        "ag": {
-          "rawValue": 0,
-          "advancement": 0,
-          "min": 0
-        },
-        "wfr": {
-          "rawValue": 0,
-          "advancement": 0,
-          "min": 0
-        },
-        "wfm": {
-          "rawValue": 0,
-          "advancement": 0,
-          "min": 0
-        },
-        "int": {
-          "rawValue": 0,
-          "advancement": 0,
-          "min": 0
-        },
-        "per": {
-          "rawValue": 0,
-          "advancement": 0,
-          "min": 0
-        },
-        "cr": {
-          "rawValue": 0,
-          "advancement": 0,
-          "min": 0
-        },
-        "ch": {
-          "rawValue": 0,
-          "advancement": 0,
-          "min": 0
-        },
-        "ld": {
-          "rawValue": 0,
-          "advancement": 0,
-          "min": 0
-        }
-      },
-      "mythicCharacteristics": {
-        "str": {
-          "value": 0
-        },
-        "t": {
-          "value": 0
-        },
-        "ag": {
-          "value": 0
-        }
-      },
-      "wounds": {
-        "current": 0,
-        "max": 0
-      },
       "fatigue": {
         "current": 0,
         "max": 0
@@ -118,126 +245,6 @@
         "max": 0,
         "delay": 0,
         "charge": 0
-      },
-      "armor": {
-        "head": 0,
-        "chest": 0,
-        "arms": 0,
-        "legs": 0
-      },
-      "skills": {
-        "appeal": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "athletics": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "camouflage": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "command": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "deception": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "demolition": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "cryptography": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "evasion": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "gambling": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "interrogation": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "intimidation": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "investigation": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "medicationHuman": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "medicationCovenant": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "medicationMgalekgolo": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "navigationGroundAir": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "navigationSpace": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "navigationSlipspace": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "negotiation": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "pilotGround": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "pilotAir": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "pilotSpace": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "security": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "stunting": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "survival": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "technologyHuman": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "technologyCovenant": {
-          "advancement": 0,
-          "characteristic": ""
-        },
-        "technologyForerunner": {
-          "advancement": 0,
-          "characteristic": ""
-        }
       },
       "educations": {},
       "languages": {},
@@ -281,6 +288,10 @@
       }
     },
     "npc": {
+      "templates": [
+        "base",
+        "skills"
+      ],
       "infos": {
         "faction": "",
         "height": "",
@@ -291,7 +302,7 @@
     }
   },
   "Item": {
-    "types": ["weapon"],
+    "types": ["weapon", "item"],
     "templates": {
     },
     "weapon": {
@@ -312,6 +323,14 @@
       "magazin": "",
       "ammunition": "",
       "reload": ""
+    },
+    "item": {
+      "tags": [],
+      "alias": "",
+      "cost": 0,
+      "weight": 0,
+      "description": "",
+      "tag": []
     }
   }
 }

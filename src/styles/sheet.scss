@@ -52,3 +52,62 @@
     background: #374350;
   }
 }
+
+#chat {
+  #chat-log {
+    .chat-message {
+      color: white;
+      background: #374350;
+
+      .message-header {
+        color: white;
+      }
+    }
+  }
+
+  #chat-controls {
+    //color: white;
+    //background: #374350;
+    select {
+      color: white;
+      background: #374350;
+    }
+  }
+
+  textarea {
+    color: white;
+    background: #374350;
+  }
+
+  textarea:hover {
+    box-shadow: 0 0 5px white;
+  }
+
+  textarea:focus {
+    box-shadow: 0 0 6px white;
+  }
+}
+
+#scenes {
+  button {
+    color: white;
+    background: #374350;
+  }
+
+  button:hover {
+    box-shadow: 0 0 5px white;
+  }
+
+  input {
+    color: white;
+    background: #374350;
+  }
+
+  input:hover {
+    box-shadow: 0 0 5px white;
+  }
+
+  input:focus {
+    box-shadow: 0 0 6px white;
+  }
+}

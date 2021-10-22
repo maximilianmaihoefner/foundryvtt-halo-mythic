@@ -3,73 +3,14 @@
  *
  * @since 06/12/2021
  */
+import { duplicate } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/utils/helpers.mjs";
 import { RollDialog } from "../apps/roll-dialog";
 import { WeaponRollDialog } from "../apps/weapon-roll-dialog";
-import { MythicCombat, MythicCombatant } from "../combat/mythicCombat";
 import { Characteristic } from "../data/actor";
-import { Skill } from "../data/character";
-import { WeaponData } from "../data/item";
+import { CharacterData, Skill } from "../data/character";
 import { environments } from "../definitions/environments";
 import { lifestyles } from "../definitions/lifestyles";
 import { upbringings } from "../definitions/upbringings";
-import { HitLocation } from "./actor";
-
-const getArmSubLocation = (location: number) => {
-  switch (location) {
-    case 1:
-      // Fingers
-      return HitLocation.Arms;
-    case 2:
-      // Hands
-      return HitLocation.Arms;
-    case 3:
-    case 4:
-    case 5:
-      // Forearm
-      return HitLocation.Arms;
-    case 6:
-      // Elbow
-      return HitLocation.Arms;
-    case 17:
-    case 18:
-    case 19:
-      // Bicep
-      return HitLocation.Arms;
-    case 10:
-      // Shoulder
-      return HitLocation.Arms;
-    default:
-      // throw "Invalid location, must be between 1-10";
-      return HitLocation.Arms;
-  }
-};
-
-const getHitLocationFromNumber = (hitLocation: number): HitLocation => {
-  if (hitLocation >= 1 && hitLocation <= 10) {
-    return HitLocation.Head;
-  }
-  if (hitLocation >= 11 && hitLocation <= 20) {
-    // left arm
-    return getArmSubLocation(hitLocation - 10);
-  }
-  if (hitLocation >= 21 && hitLocation <= 30) {
-    // right arm
-    return getArmSubLocation(hitLocation - 20);
-  }
-  if (hitLocation >= 31 && hitLocation <= 45) {
-    // left leg
-    return HitLocation.Legs;
-  }
-  if (hitLocation >= 46 && hitLocation <= 60) {
-    // right leg
-    return HitLocation.Legs;
-  }
-  if (hitLocation >= 60 && hitLocation <= 100) {
-    return HitLocation.Chest;
-  }
-
-  throw "invalid hitLocation, must be between 1-100";
-};
 
 const flipInt = (n: number) => {
   let digit, result = 0;
@@ -104,16 +45,12 @@ export class MythicCharacterSheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData() as any;
-    const actorData = this.actor.data.toObject(false);
-    console.log("sheet data", data);
-    console.log("sheet actorData", actorData);
-
-    // Redefine the template data references to the actor.
-    data.actor = actorData;
+    const actorData = data.actor.data;
     data.data = actorData.data;
-    data.rollData = this.actor.getRollData.bind(this.actor);
+    data.flags = actorData.flags;
+    data.rollData = data.actor.getRollData();
 
-    console.log("actor", data);
+    console.log("sheet data", data);
 
     data.data.upbringings = upbringings;
 
@@ -151,7 +88,7 @@ export class MythicCharacterSheet extends ActorSheet {
     }
 
     if (data.data.skills) {
-      for (const [key, skill] of Object.entries<Skill & { label: string; otherCharacteristics: string[]; value: number }>(data.data.skills)) {
+      for (const [key, skill] of Object.entries<Skill & { label: string; otherCharacteristics: string[]; }>(data.data.skills)) {
         if (game instanceof Game) {
           skill.label = game.i18n.localize(`mythic.skill.${key}`);
         }
@@ -160,19 +97,6 @@ export class MythicCharacterSheet extends ActorSheet {
             !skill.defaultCharacteristics ||
             !skill.defaultCharacteristics.includes(value)
         );
-
-        if (skill.characteristic) {
-          const characteristic = Array.isArray(skill.characteristic) ? skill.characteristic[0] : skill.characteristic;
-
-          const bonus =
-            skill.advancement > 0
-              ? (skill.advancement - 1) * 10
-              : skill.adv
-                ? -40
-                : -20;
-          skill.value =
-            data.data.characteristics[characteristic].value + bonus;
-        }
       }
     }
 
@@ -281,7 +205,7 @@ export class MythicCharacterSheet extends ActorSheet {
     });
 
     const weaponItem = this.actor.items.get(dataset.itemId);
-    const weaponData = weaponItem?.data.data as WeaponData;
+    console.log('actor items', this.actor.items);
     await weaponItem?.update({
       characteristic: rollDialog.characteristic
     });
@@ -297,13 +221,29 @@ export class MythicCharacterSheet extends ActorSheet {
     );
     const hitResult = await roll.roll({ async: true });
 
-    console.log("total:", hitResult.total, "result", hitResult.result);
+    const chosenWarfareCharacteristic = this.actor.data.data.characteristics[rollDialog.characteristic].value;
+    const success = hitResult.total && hitResult.total <= chosenWarfareCharacteristic;
+    console.log("total:", hitResult.total, "result", hitResult.result, "dice", hitResult.dice);
     const label = dataset.label ? `Rolling ${dataset.label}` : "";
-    await hitResult.toMessage({
+
+    await ChatMessage.create({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: label
-      // create: false
+      flavor: label,
+      roll: JSON.stringify(hitResult.toJSON()),
+      sound: CONFIG.sounds.dice,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      content: await renderTemplate('systems/mythic/templates/chat/hit.hbs', {
+        characteristicValue: chosenWarfareCharacteristic,
+        success,
+        total: hitResult.total,
+        tooltip: await hitResult.getTooltip(),
+      }),
     });
+
+    if (!hitResult.total || hitResult.total > chosenWarfareCharacteristic) {
+      console.log('To-Hit Test failed.');
+      return;
+    }
 
     // If the player has a target selected, we roll its evasion.
     // TODO GM may choose other roll, see page 70, STEP THREE: OPPONENT OPPOSES THE ATTACK
@@ -313,71 +253,28 @@ export class MythicCharacterSheet extends ActorSheet {
           continue;
         }
 
-
-        console.log("game.combat?.combatant.data", game.combat?.combatant.getFlag("mythic", "attackCount"));
-
-        const combatant = game.combat?.combatants.find(c => c.data.actorId === target.actor?.id) as MythicCombatant;
-        console.log("combatant", combatant);
-
-        const evadeCount = combatant?.getFlag("mythic", "evadeCount") as number ?? 0;
-
-        const actorData = target.actor.data;
-        console.log("target actor:", actorData);
-        const roll = new Roll(
-          `floor((@skills.evasion.value + @bonus - 1d100 - ${evadeCount * 10}) / 10)`,
-          { bonus: 0, ...actorData.data },
-          { async: true }
-        );
-        const evasionResult = await roll.roll({ async: true });
-        await evasionResult.toMessage({
-          speaker: ChatMessage.getSpeaker({ actor: target.actor }),
-          flavor: "Enemy Evasion"
-        });
-
-        await (game.combat as MythicCombat).evade(combatant);
-
-        if (evasionResult.total && evasionResult.total >= 0) {
-          await ChatMessage.create({
-            speaker: ChatMessage.getSpeaker({ actor: target.actor }),
-            sound: CONFIG.sounds.dice,
-            type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-            // content: await renderTemplate('', {}),
-            content: "Enemy dodged the attack."
-          });
-        } else {
-          // roll damage
-          console.log("rolling damage:", weaponData);
-          const damageRoll = new Roll(
-            `@baseDamage + @damageRoll + @bonus`,
-            { bonus: 0, ...weaponData },
-            { async: true }
-          );
-          const damageResult = await damageRoll.roll({ async: true });
-          await damageResult.toMessage({
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            flavor: "Dealing Damage"
-          });
-
-          if (damageRoll.total) {
-            const piercingRollTotal = (await new Roll(
-              weaponData.piercing,
-              { ...this.actor.data.data },
-              { async: true }
-            ).roll({ async: true })).total;
-
-            let location = 0;
-            if (hitResult.total) {
-              const total = hitResult.total;
-              if (total < 10) {
-                location = total * 10;
-              } else {
-                location = flipInt(total);
-              }
-            }
-            const hitLocation = getHitLocationFromNumber(location);
-            await target.actor.takeDamage(damageRoll.total, hitLocation, piercingRollTotal);
+        let location = 0;
+        if (hitResult.total) {
+          const total = hitResult.total;
+          if (total < 10) {
+            location = total * 10;
+          } else {
+            location = flipInt(total);
           }
         }
+
+        await ChatMessage.create({
+          speaker: ChatMessage.getSpeaker({ actor: target.actor }),
+          sound: CONFIG.sounds.notification,
+          type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+          content: await renderTemplate('systems/mythic/templates/chat/opponent-hit-action.hbs', {
+            actorId: target.actor.id,
+            attackerId: this.actor.id,
+            evasionValue: target.actor.data.data.skills.evasion.value,
+            hitLocation: location,
+            itemId: weaponItem?.id,
+          }),
+        });
       }
     }
   }

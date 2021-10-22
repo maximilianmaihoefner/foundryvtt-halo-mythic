@@ -367,7 +367,7 @@
       <div class="weapons">
         <h3>Weapons</h3>
         {{#each items as |item key|}}
-        <div class="weapon flexrow">
+        <div class="weapon flexrow" draggable="true" data-item-id="{{item._id}}">
 <!--          <img src="{{item.img}}" width="25" height="25" />-->
           <div style="flex: 4" class="flexcol">
             <div class="flexrow">

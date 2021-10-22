@@ -1,2 +1,33 @@
 <form class="{{cssClass}} npc-sheet flexcol" autocomplete="off" xmlns="http://www.w3.org/1999/html">
+  <div class="flexcol" style="width: 12%; justify-content: space-around;">
+    <h3>Wounds</h3>
+    <div class="flexcol entry">
+      <label for="wounds-current">Current</label>
+      <input id="wounds-current" type="number" data-dtype="Number" name="data.wounds.current"
+             value="{{data.wounds.current}}" placeholder="Current" />
+    </div>
+    <div class="flexcol entry">
+      <label for="wounds-max">Max</label>
+      <input id="wounds-max" type="number" data-dtype="Number" name="data.wounds.max" value="{{data.wounds.max}}"
+             placeholder="Max" />
+    </div>
+  </div>
+
+  <section class="items">
+    <h3>Owned Items</h3>
+    <ol class="actor-items">
+      {{#each actor.items as |item id|}}
+      <li class="actor-item item" data-item-id="{{id}}" draggable="true">
+        <div class="item-name">
+          <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+          <h4>{{item.name}}</h4>
+        </div>
+        <div class="item-controls">
+          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </section>
 </form>
