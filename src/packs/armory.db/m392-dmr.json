@@ -1,0 +1,34 @@
+{
+  "name": "M392 Designated Marksman Rifle",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["TH", "UD", "I"],
+    "alias": "DMR",
+    "characteristic": "wfr",
+    "fireModes": {
+      "semiAuto": 3,
+      "burst": 2
+    },
+    "weaponType": "Select-Fire Rifle",
+    "damageRoll": "3d10",
+    "baseDamage": "5",
+    "piercing": "13",
+    "magazin": "15",
+    "range": "30-1400",
+    "ammunition": "7.62x51mm",
+    "cost": "101",
+    "reload": "6",
+    "weight": "8.6",
+    "description": "Black Polymer finish. Removable EVOS-D 3x Scope. Built-in Flashlight. Headshot Special Rule. No Police cR upcharge.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dG3ZJhbbjJkR9pxc"
+}

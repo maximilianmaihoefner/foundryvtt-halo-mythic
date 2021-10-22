@@ -1,0 +1,28 @@
+{
+  "name": "Napalm Grenade",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["UD", "I"],
+    "alias": "Flame Grenade",
+    "characteristic": "wfm",
+    "fireModes": {},
+    "weaponType": "Grenade",
+    "damageRoll": "1d5",
+    "baseDamage": "9",
+    "piercing": "5",
+    "range": "Blast 7, Kill 1",
+    "cost": "9",
+    "weight": "0.7",
+    "description": "Black matte finish. Flame (1D10) for those who are caught within Blast (7). The NAPALM Grenade has a 4-second fuse. Once released, the grenade will detonate at the beginning of the Character’s next Turn.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dGnZJhbbjJkRgpxc"
+}

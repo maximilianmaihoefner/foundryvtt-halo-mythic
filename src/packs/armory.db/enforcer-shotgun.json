@@ -1,0 +1,33 @@
+{
+  "name": "DTM/Law Enforcement Series Close Assault Weapon System",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["TH", "OH", "I"],
+    "alias": "Enforcer Shotgun",
+    "characteristic": "wfr",
+    "fireModes": {
+      "pumpAction": 2
+    },
+    "weaponType": "Shotgun",
+    "damageRoll": "3d10",
+    "baseDamage": "+9",
+    "piercing": "4",
+    "magazin": "12",
+    "range": "10-80",
+    "ammunition": "12 Gauge Shell",
+    "cost": "26",
+    "weight": "5.3",
+    "reload": "Pump Action",
+    "description": "Black Polymer finish. No Police cR upcharge. Spread Special Rule unless ammunition specifies otherwise.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dG8ZJhbbjJkR3pxc"
+}

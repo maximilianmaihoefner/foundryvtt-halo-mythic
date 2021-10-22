@@ -1,0 +1,34 @@
+{
+  "name": "MA37 Assault Rifle",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["TH", "UD", "I"],
+    "alias": "Assault Carbine",
+    "characteristic": "wfr",
+    "fireModes": {
+      "auto": 8,
+      "semiAuto": 3
+    },
+    "weaponType": "Select-Fire Rifle",
+    "damageRoll": "3d10",
+    "baseDamage": "5",
+    "piercing": "13",
+    "magazin": "32",
+    "range": "50-225",
+    "ammunition": "7.62x51mm",
+    "cost": "42",
+    "reload": "6",
+    "weight": "3.8",
+    "description": "Black Polymer finish. Built-in Flashlight and Ammo Counter. No Police cR upcharge.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dG2ZJhbbjJkR6pxc"
+}

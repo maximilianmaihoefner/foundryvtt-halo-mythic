@@ -1,0 +1,28 @@
+{
+  "name": "M9 high-Explosive Grenade",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["UD", "I"],
+    "alias": "Fragmentation Grenade",
+    "characteristic": "wfm",
+    "fireModes": {},
+    "weaponType": "Grenade",
+    "damageRoll": "2d10",
+    "baseDamage": "9",
+    "piercing": "12",
+    "range": "Blast 8, Kill 2",
+    "cost": "8",
+    "weight": "0.4",
+    "description": "Green Matte finish. The M9 Grenade has a 4-second fuse. Once released, the grenade will detonate at the beginning of the Character’s next Turn.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dG9ZJhbbjJkR2pxc"
+}

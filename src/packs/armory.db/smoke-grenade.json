@@ -1,0 +1,28 @@
+{
+  "name": "Smoke Screen Grenade",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["UD", "I"],
+    "alias": "Smoke Grenade",
+    "characteristic": "wfm",
+    "fireModes": {},
+    "weaponType": "Grenade",
+    "damageRoll": "",
+    "baseDamage": "",
+    "piercing": "",
+    "range": "Blast 15",
+    "cost": "6",
+    "weight": "0.5",
+    "description": "Green Matte finish. The Smoke Grenade has a 4-second fuse. Once released, the grenade will detonate at the beginning of the Character’s next Turn. Comes in white, gray, and black hues. No Police cR upcharge. Smoke Grenade (15) Special Rule. Lasts for 7 Rounds before beginning to dissipate.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dG1ZJhbbjJkR2pxc"
+}

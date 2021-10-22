@@ -1,0 +1,12 @@
+{
+  "Name": "Military Shovel",
+  "Type": "Shovel – Blunt Damage/Shovel – Pierce Damage",
+  "Tags": "[OH] [BD] [PD] [I]",
+  "RollDamage": "2D10/1D10",
+  "BaseDamage": "Strength Modifier +5/Strength Modifier +5",
+  "PiercingDamage": "--/Half Strength Modifier",
+  "Range": "--",
+  "Cost": "20",
+  "Weight": "1.3",
+  "Other": "Sharpened collapsible Military Shovel."
+}

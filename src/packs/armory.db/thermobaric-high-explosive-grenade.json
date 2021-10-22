@@ -1,0 +1,28 @@
+{
+  "name": "Thermobaric High-Explosive Grenade",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["UD", "I"],
+    "alias": "Thermobaric Grenade",
+    "characteristic": "wfm",
+    "fireModes": {},
+    "weaponType": "Grenade",
+    "damageRoll": "6d10",
+    "baseDamage": "15",
+    "piercing": "15",
+    "range": "Blast 3, Kill 3",
+    "cost": "59",
+    "weight": "0.5",
+    "description": "Red Matte finish. The Thermobaric has a 4-second fuse. Once released, the grenade will detonate at the beginning of the Character’s next Turn.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dGtZJhbbjJkRgpxc"
+}

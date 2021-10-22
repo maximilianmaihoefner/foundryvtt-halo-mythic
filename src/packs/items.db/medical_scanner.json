@@ -1,0 +1,21 @@
+{
+  "name": "Medical Scanner",
+  "type": "item",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": [],
+    "alias": "",
+    "cost": "15",
+    "weight": "1.1",
+    "description": "Scans bodies to allow a Medic to see the character’s Wounds, Fatigue, and any Special Damage.",
+    "tag": ["medical"]
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "mediscanner"
+}

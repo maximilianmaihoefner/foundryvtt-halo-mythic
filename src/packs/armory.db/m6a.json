@@ -1,0 +1,33 @@
+{
+  "name": "M6A Personal Defense Weapon System",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["OH", "UD", "I"],
+    "alias": "M6 Civ",
+    "characteristic": "wfr",
+    "fireModes": {
+      "semiAuto": 2
+    },
+    "weaponType": "Pistol",
+    "damageRoll": "2d10",
+    "baseDamage": "9",
+    "piercing": "8",
+    "magazin": "8",
+    "range": "20-100",
+    "ammunition": "12.7x40mm",
+    "cost": "17",
+    "reload": "4",
+    "weight": "1.5",
+    "description": "The Civilian model. Chrome Polymer finish. No Civilian or Police upcharge.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dG6ZJhbbjJkRapxc"
+}

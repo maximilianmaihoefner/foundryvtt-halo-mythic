@@ -1,0 +1,28 @@
+{
+  "name": "UNSC Close-Quarter Combat Knife",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["OH", "SD", "PD", "I"],
+    "alias": "",
+    "characteristic": "wfm",
+    "fireModes": {},
+    "weaponType": "Knife",
+    "damageRoll": "2d10",
+    "baseDamage": "@characteristics.str.mod / 2 + 3",
+    "piercing": "@characteristics.str.mod / 2 + 4",
+    "range": "",
+    "cost": "14",
+    "weight": "0.3",
+    "description": "Military knife with 20cm carbon-steel blade. Non-reflective, rust resistant. Weighted for throwing. No Civilian or Police cR upcharge.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dG7ZJhbbjJkR1pxc"
+}

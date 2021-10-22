@@ -1,0 +1,21 @@
+{
+  "name": "Medigel",
+  "type": "item",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": [],
+    "alias": "",
+    "cost": "6",
+    "weight": "0.2",
+    "description": "A specialized rubbing-gel that heals minor injuries. Takes a Full Action to apply and does not come into effect until the beginning of the Character’s next Turn. Heals 3 Wounds.",
+    "tag": ["medical"]
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "medigel"
+}

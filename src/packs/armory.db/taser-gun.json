@@ -1,0 +1,29 @@
+{
+  "name": "Taser Gun",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["OH", "I"],
+    "alias": "",
+    "fireModes": {
+      "semiAuto": 1
+    },
+    "weaponType": "Taser",
+    "damageRoll": "1d5",
+    "baseDamage": "+1",
+    "piercing": "1",
+    "range": "2-12",
+    "cost": "14",
+    "weight": "0.2",
+    "description": "Sticky Special Rule and Electrified Special Rule. Uses Warfare Melee when Melee Range and uses Warfare Range when being used as a projectile. No Police or Civilian upcharge.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dG7ZJhbbjJkR3pxc"
+}

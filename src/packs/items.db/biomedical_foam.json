@@ -1,0 +1,21 @@
+{
+  "name": "Biomedical Foam Canister",
+  "type": "item",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["U"],
+    "alias": "Biofoam",
+    "cost": "10",
+    "weight": "0.7",
+    "description": "The nozzle is placed into a wound and is filled with a single-use charge of expanding antiseptic foam that removes [[/roll 2D5]] Fatigue and remove all side-effects of one chosen Location of its Special Damage, not including broken and destroyed body parts. BioFoam also heals [[/roll 3D5]] Wounds, but removes their ability to naturally heal any Wounds or recover Fatigue until they receive an Extended Medical Test. Each time a Biofoam Canister is used after the first, it heals one less 1D5 for Fatigue and Wounds.",
+    "tag": ["medical"]
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "biofoam"
+}

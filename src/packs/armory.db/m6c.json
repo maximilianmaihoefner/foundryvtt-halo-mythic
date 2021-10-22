@@ -1,0 +1,34 @@
+{
+  "name": "M6C Personal Defense Weapon System",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["OH", "UD", "I"],
+    "alias": "M6",
+    "characteristic": "wfr",
+    "fireModes": {
+      "semiAuto": 2,
+      "auto": 8
+    },
+    "weaponType": "Pistol",
+    "damageRoll": "2d10",
+    "baseDamage": "9",
+    "piercing": "8",
+    "magazin": "12",
+    "range": "30-100",
+    "ammunition": "12.7x40mm",
+    "cost": "22",
+    "reload": "4",
+    "weight": "1.7",
+    "description": "Military model. Black Polymer finish. -10 Penalty To-Hit when firing Automatic.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dG6ZJhbbjJkRcpxc"
+}
