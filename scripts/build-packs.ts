@@ -233,6 +233,9 @@ export class CompendiumPack {
   }
 
   save(): number {
+    if (!fs.existsSync(CompendiumPack.outDir)) {
+      fs.mkdirSync(CompendiumPack.outDir, { recursive: true });
+    }
     fs.writeFileSync(
       path.resolve(CompendiumPack.outDir, this.packDir),
       this.data
