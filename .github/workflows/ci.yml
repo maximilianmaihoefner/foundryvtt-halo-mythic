@@ -24,7 +24,6 @@ jobs:
       - name: Build
         run: |
           npm run build
-          npm run build:pack
 
       - run: zip -r mythic.zip dist
 
