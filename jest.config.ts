@@ -1,4 +1,6 @@
-module.exports = {
+import type { Config } from '@jest/types';
+
+export default async (): Promise<Config.InitialOptions> => ({
   preset: 'ts-jest',
   testEnvironment: 'node',
   modulePaths: [
@@ -18,4 +20,4 @@ module.exports = {
   globals: {
     Application: class {},
   },
-};
+});
