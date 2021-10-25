@@ -122,7 +122,9 @@ const config: Configuration = {
       ],
     }),
     new MiniCssExtractPlugin({ filename: 'styles/[name].css' }),
-    new SimpleProgressWebpackPlugin({ format: 'compact' }),
+    new SimpleProgressWebpackPlugin({
+      format: isProductionBuild ? 'expanded' : 'compact',
+    }),
   ],
   resolve: {
     alias: {
