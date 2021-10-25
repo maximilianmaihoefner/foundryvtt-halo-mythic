@@ -32,6 +32,7 @@ export const PackError = (message: string) => {
   process.exit(1);
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 type CompendiumSource = CompendiumDocument['data']['_source'];
 const isActorSource = (docSource: CompendiumSource): docSource is any =>
@@ -246,7 +247,7 @@ export class CompendiumPack {
     return this.data.length;
   }
 
-  private isDocumentSource(entityData: {}): entityData is CompendiumSource {
+  private isDocumentSource(entityData: any): entityData is CompendiumSource {
     const checks = Object.entries({
       name: (data: { name?: unknown }) => typeof data.name === 'string',
       flags: (data: unknown) =>

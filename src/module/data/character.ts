@@ -1,5 +1,5 @@
-import { Special } from "../definitions/upbringings";
-import { BaseCharacter } from "./actor";
+import { Special } from '../definitions/upbringings';
+import { BaseCharacter } from './actor';
 
 /**
  * TODO write ngDoc
@@ -27,7 +27,7 @@ export interface Lifestyle {
   };
 }
 
-export interface CharacterData extends BaseCharacter {
+export interface MythicCharacterData extends BaseCharacter {
   infos: {
     soldierType: string;
     faction: string;
@@ -110,7 +110,7 @@ export interface CharacterData extends BaseCharacter {
     [key: string]: {
       name: string;
       description: string;
-    }
+    };
   };
   experience: number;
   experienceSpent: number;
@@ -133,6 +133,6 @@ export interface CharacterData extends BaseCharacter {
 }
 
 export interface CharacterDataSource {
-  type: "character";
-  data: CharacterData;
+  type: 'character';
+  data: MythicCharacterData;
 }

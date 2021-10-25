@@ -3,12 +3,12 @@
  *
  * @since 06/12/2021
  */
-import { BaseCharacter, Characteristic } from "../data/actor";
-import { CharacterData, Lifestyle, Skill } from "../data/character";
-import { NpcData } from "../data/npc";
-import { environments } from "../definitions/environments";
-import { lifestyles } from "../definitions/lifestyles";
-import { upbringings } from "../definitions/upbringings";
+import { BaseCharacter, Characteristic } from '../data/actor';
+import { MythicCharacterData, Lifestyle } from '../data/character';
+import { NpcData } from '../data/npc';
+import { environments } from '../definitions/environments';
+import { lifestyles } from '../definitions/lifestyles';
+import { upbringings } from '../definitions/upbringings';
 
 export enum HitLocation {
   Head,
@@ -24,40 +24,39 @@ export class MythicActor extends Actor {
   prepareData(): void {
     super.prepareData();
 
-    console.log("preparing actor", this);
+    console.log('preparing actor', this);
 
-    if (this.data.type === "character")
+    if (this.data.type === 'character')
       this._prepareCharacterData(this.data.data);
-    if (this.data.type === "npc")
-      this._prepareNpcData(this.data.data);
+    if (this.data.type === 'npc') this._prepareNpcData(this.data.data);
   }
 
   prepareBaseData() {
     super.prepareBaseData();
-    console.log("prepareBaseData", this);
+    console.log('prepareBaseData', this);
   }
 
   prepareDerivedData() {
     super.prepareDerivedData();
-    console.log("prepareDerivedData", this);
+    console.log('prepareDerivedData', this);
   }
 
   /**
    * Prepare Character type specific data
    */
-  _prepareCharacterData(data: CharacterData): void {
-    console.log("_prepareCharacterData", data);
+  _prepareCharacterData(data: MythicCharacterData): void {
+    console.log('_prepareCharacterData', data);
 
     let experienceCost = 0;
     const experienceSummary = [];
 
     const characteristicExperienceCost: { [key: string]: number } = {
-      "0": 0,
-      "1": 200,
-      "2": 400,
-      "3": 800,
-      "4": 1200,
-      "5": 1600
+      '0': 0,
+      '1': 200,
+      '2': 400,
+      '3': 800,
+      '4': 1200,
+      '5': 1600,
     };
 
     const upbringing = upbringings.find(
@@ -76,23 +75,26 @@ export class MythicActor extends Actor {
         (value) =>
           value.min >= lifestyle.result && lifestyle.result <= value.max
       );
-      const special = outcome ? outcome.special.map((value, i) => ({
-        ...value,
-        ...lifestyle.special[i]
-      })) : [];
+      const special = outcome
+        ? outcome.special.map((value, i) => ({
+            ...value,
+            ...lifestyle.special[i],
+          }))
+        : [];
 
       return {
         ...lifestyle,
         ...lifestyleDefinition,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        special: { ...special }
+        special: { ...special },
       };
     };
 
     data.infos.lifestyle = {
       0: getLifestyleData(0),
       1: getLifestyleData(1),
-      2: getLifestyleData(2)
+      2: getLifestyleData(2),
     };
 
     for (const [key, characteristic] of Object.entries(data.characteristics)) {
@@ -104,33 +106,33 @@ export class MythicActor extends Actor {
         (value) => value.attribute === key
       );
       const lifestyle1Special = Object.values(
-        data.infos.lifestyle["0"].special
+        data.infos.lifestyle['0'].special
       ).find((value) => value.attribute === key);
       const lifestyle2Special = Object.values(
-        data.infos.lifestyle["1"].special
+        data.infos.lifestyle['1'].special
       ).find((value) => value.attribute === key);
       const lifestyle3Special = Object.values(
-        data.infos.lifestyle["2"].special
+        data.infos.lifestyle['2'].special
       ).find((value) => value.attribute === key);
       if (upbringingSpecial) {
         bonus += upbringingSpecial.modifier;
-        console.log("upbringing characteristic bonus", key, bonus);
+        console.log('upbringing characteristic bonus', key, bonus);
       }
       if (environmentSpecial) {
         bonus += environmentSpecial.modifier;
-        console.log("environment characteristic bonus", key, bonus);
+        console.log('environment characteristic bonus', key, bonus);
       }
       if (lifestyle1Special) {
         bonus += lifestyle1Special.modifier;
-        console.log("lifestyle1Special characteristic bonus", key, bonus);
+        console.log('lifestyle1Special characteristic bonus', key, bonus);
       }
       if (lifestyle2Special) {
         bonus += lifestyle2Special.modifier;
-        console.log("lifestyle2Special characteristic bonus", key, bonus);
+        console.log('lifestyle2Special characteristic bonus', key, bonus);
       }
       if (lifestyle3Special) {
         bonus += lifestyle3Special.modifier;
-        console.log("lifestyle3Special characteristic bonus", key, bonus);
+        console.log('lifestyle3Special characteristic bonus', key, bonus);
       }
 
       characteristic.value =
@@ -142,7 +144,7 @@ export class MythicActor extends Actor {
       experienceCost +=
         characteristicExperienceCost[characteristic.advancement];
 
-      if (key == "ag") {
+      if (key == 'ag') {
         const mod = characteristic.mod + data.mythicCharacteristics.ag.value;
         data.movement = {
           half: mod > 0 ? mod : 0.5,
@@ -156,109 +158,117 @@ export class MythicActor extends Actor {
             Math.max(
               data.characteristics.str.mod,
               data.characteristics.ag.mod
-            ) / 2
+            ) / 2,
         };
       }
     }
 
     const carry =
-      data.characteristics.str.value + data.characteristics.t.value
-      + ((data.mythicCharacteristics.str.value + data.mythicCharacteristics.t.value) * 10);
+      data.characteristics.str.value +
+      data.characteristics.t.value +
+      (data.mythicCharacteristics.str.value +
+        data.mythicCharacteristics.t.value) *
+        10;
 
     data.carryingCapacity = {
       carry,
       lift: carry * 2,
-      push: carry * 4
+      push: carry * 4,
     };
 
     const advSkills = [
-      "cryptography",
-      "demolition",
-      "medicationHuman",
-      "medicationCovenant",
-      "medicationMgalekgolo",
-      "security",
-      "technologyHuman",
-      "technologyCovenant",
-      "technologyForerunner"
+      'cryptography',
+      'demolition',
+      'medicationHuman',
+      'medicationCovenant',
+      'medicationMgalekgolo',
+      'security',
+      'technologyHuman',
+      'technologyCovenant',
+      'technologyForerunner',
     ];
 
     for (const [key, skill] of Object.entries(data.skills)) {
       switch (key) {
-        case "appeal":
-        case "deception":
-        case "negotiation":
-          skill.defaultCharacteristics = ["ch"];
+        case 'appeal':
+        case 'deception':
+        case 'negotiation':
+          skill.defaultCharacteristics = ['ch'];
           break;
-        case "athletics":
-          skill.defaultCharacteristics = ["ag", "str"];
+        case 'athletics':
+          skill.defaultCharacteristics = ['ag', 'str'];
           break;
-        case "camouflage":
-        case "investigation":
-        case "navigationGroundAir":
-        case "navigationSpace":
-        case "navigationSlipspace":
-        case "survival":
-          skill.defaultCharacteristics = ["int", "per"];
+        case 'camouflage':
+        case 'investigation':
+        case 'navigationGroundAir':
+        case 'navigationSpace':
+        case 'navigationSlipspace':
+        case 'survival':
+          skill.defaultCharacteristics = ['int', 'per'];
           break;
-        case "command":
-          skill.defaultCharacteristics = ["ld"];
+        case 'command':
+          skill.defaultCharacteristics = ['ld'];
           break;
-        case "cryptography":
-        case "demolition":
-        case "medicationHuman":
-        case "medicationCovenant":
-        case "medicationMgalekgolo":
-        case "security":
-        case "technologyHuman":
-        case "technologyCovenant":
-        case "technologyForerunner":
-          skill.defaultCharacteristics = ["int"];
+        case 'cryptography':
+        case 'demolition':
+        case 'medicationHuman':
+        case 'medicationCovenant':
+        case 'medicationMgalekgolo':
+        case 'security':
+        case 'technologyHuman':
+        case 'technologyCovenant':
+        case 'technologyForerunner':
+          skill.defaultCharacteristics = ['int'];
           break;
-        case "evasion":
-        case "stunting":
-          skill.defaultCharacteristics = ["ag"];
+        case 'evasion':
+        case 'stunting':
+          skill.defaultCharacteristics = ['ag'];
           break;
-        case "gambling":
-          skill.defaultCharacteristics = ["int", "ch"];
+        case 'gambling':
+          skill.defaultCharacteristics = ['int', 'ch'];
           break;
-        case "interrogation":
-          skill.defaultCharacteristics = ["ch", "ld", "int"];
+        case 'interrogation':
+          skill.defaultCharacteristics = ['ch', 'ld', 'int'];
           break;
-        case "pilotGround":
-        case "pilotAir":
-        case "pilotSpace":
-          skill.defaultCharacteristics = ["ag", "int"];
+        case 'pilotGround':
+        case 'pilotAir':
+        case 'pilotSpace':
+          skill.defaultCharacteristics = ['ag', 'int'];
           break;
-        case "intimidation":
-          skill.defaultCharacteristics = ["str", "ch", "ld", "int"];
+        case 'intimidation':
+          skill.defaultCharacteristics = ['str', 'ch', 'ld', 'int'];
           break;
       }
       if (!skill.characteristic) {
         if (skill.defaultCharacteristics) {
           const value = skill.defaultCharacteristics[0];
-          console.error("No characteristic for", key, ", using:", value);
+          console.error('No characteristic for', key, ', using:', value);
           skill.characteristic = value;
         } else {
-          skill.characteristic = "str";
-          console.error("No defaultCharacteristics for", key);
+          skill.characteristic = 'str';
+          console.error('No defaultCharacteristics for', key);
         }
       }
 
       skill.adv = advSkills.includes(key);
 
       if (skill.characteristic) {
-        const characteristic = Array.isArray(skill.characteristic) ? skill.characteristic[0] : skill.characteristic;
+        const characteristic = Array.isArray(skill.characteristic)
+          ? skill.characteristic[0]
+          : skill.characteristic;
 
         const bonus =
           skill.advancement > 0
             ? (skill.advancement - 1) * 10
             : skill.adv
-              ? -40
-              : -20;
-        // @ts-ignore
-        const value = (data.characteristics[characteristic] as Characteristic).value + bonus;
-        console.log("skill:", key, value, bonus);
+            ? -40
+            : -20;
+        const value =
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          (data.characteristics[characteristic] as Characteristic).value +
+          bonus;
+        console.log('skill:', key, value, bonus);
         skill.value = value;
       }
     }
@@ -271,20 +281,20 @@ export class MythicActor extends Actor {
     // TODO weaponTrainings can be obtained for free trough soldier-types.
     for (const [key, training] of Object.entries(data.weaponTrainings)) {
       switch (key) {
-        case "basic":
+        case 'basic':
           if (training) experienceCost += 150;
           break;
-        case "infantry":
-        case "vehicle":
-        case "melee":
+        case 'infantry':
+        case 'vehicle':
+        case 'melee':
           if (training) experienceCost += 150;
           break;
-        case "heavy":
+        case 'heavy':
           if (training) experienceCost += 250;
           break;
-        case "advanced":
-        case "longRange":
-        case "explosive":
+        case 'advanced':
+        case 'longRange':
+        case 'explosive':
           if (training) experienceCost += 300;
           break;
       }
@@ -293,24 +303,24 @@ export class MythicActor extends Actor {
     const factionTrainingsCount = Object.values(data.factionTrainings).filter(
       Boolean
     ).length;
-    console.log("factionTrainingsCount:", factionTrainingsCount);
+    console.log('factionTrainingsCount:', factionTrainingsCount);
 
     if (factionTrainingsCount > 1) {
       const factionTrainingsCost = (factionTrainingsCount - 1) * 300;
-      console.log("factionTrainingsCost:", factionTrainingsCost);
+      console.log('factionTrainingsCost:', factionTrainingsCost);
 
       experienceCost += factionTrainingsCost;
     }
 
     data.experienceUnspent = data.experience - experienceCost;
     data.experienceSpent = experienceCost;
-    console.log("finish _prepareCharacterData", data);
+    console.log('finish _prepareCharacterData', data);
   }
 
   _prepareNpcData(data: NpcData): void {
-    console.log("data", data);
+    console.log('data', data);
     for (const [key, characteristic] of Object.entries(data.characteristics)) {
-      let bonus = 0;
+      const bonus = 0;
 
       characteristic.value =
         bonus +
@@ -320,8 +330,12 @@ export class MythicActor extends Actor {
     }
   }
 
-  async takeDamage(damage: number, hitLocation: HitLocation, pierce: number = 0): Promise<void> {
-    const data = (this.data.data as BaseCharacter);
+  async takeDamage(
+    damage: number,
+    hitLocation: HitLocation,
+    pierce = 0
+  ): Promise<void> {
+    const data = this.data.data as BaseCharacter;
     let armor = 0;
 
     switch (hitLocation) {
@@ -338,26 +352,29 @@ export class MythicActor extends Actor {
         armor = data.armor.legs;
         break;
       default:
-        console.error("invalid hit location.");
+        console.error('invalid hit location.');
         break;
     }
 
     // damage resistance = armor at location + toughness modifier
-    const damageResistance = armor + data.characteristics.t.mod + data.mythicCharacteristics.t.value;
+    const damageResistance =
+      armor + data.characteristics.t.mod + data.mythicCharacteristics.t.value;
     const wounds = damageResistance - pierce - damage;
     const currentWounds = data.wounds.current + wounds;
-    console.log("dealing amount of damage", damageResistance, damage, hitLocation, pierce, wounds);
-    //"i2hyg0tk61cvrt4l"
-    //"i2hyg0tk61cvrt4l"
-    // "GTThObMFB917aT5d"
+    console.log(
+      'dealing amount of damage',
+      damageResistance,
+      damage,
+      hitLocation,
+      pierce,
+      wounds
+    );
 
-    // "ocDiyI70ytogd2ia"
-    // TODO implement character death.
     if (currentWounds > 0) {
-
+      // TODO implement character death.
     }
     await this.update({
-      "data.wounds.current": currentWounds
+      'data.wounds.current': currentWounds,
     });
   }
 }

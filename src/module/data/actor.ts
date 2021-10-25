@@ -4,8 +4,8 @@
  * @author Maximilian Maihöfner
  * @since 10/09/2021
  */
-import { CharacterDataSource } from "./character";
-import { NpcDataSource } from "./npc";
+import { CharacterDataSource } from './character';
+import { NpcDataSource } from './npc';
 
 export interface Characteristic {
   rawValue: number;
@@ -49,7 +49,7 @@ export interface BaseCharacter {
     chest: number;
     arms: number;
     legs: number;
-  }
+  };
 }
 
 export type ActorDataSource = CharacterDataSource | NpcDataSource;

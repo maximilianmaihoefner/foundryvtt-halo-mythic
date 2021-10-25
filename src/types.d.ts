@@ -5,7 +5,7 @@
  * @since 07/04/2021
  */
 import { MythicActor } from './module/actors/actor';
-import { ActorDataSource } from './module/data/character';
+import { ActorDataSource } from './module/data/actor';
 import { ItemDataSource } from './module/data/item';
 import { MythicItem } from './module/items/item';
 
@@ -27,8 +27,8 @@ declare global {
     Combat: {
       mythic: {
         turnHistory: any[];
-      }
-    }
+      };
+    };
     Combatant: {
       mythic: {
         evadeCount: number;

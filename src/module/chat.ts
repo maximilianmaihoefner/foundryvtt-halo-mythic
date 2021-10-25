@@ -1,11 +1,12 @@
 import {
   ConfiguredDocumentClass,
-  ToObjectFalseType
-} from "@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes";
-import { HitLocation } from "./actors/actor";
-import { RollDialog } from "./apps/roll-dialog";
-import { MythicCombat, MythicCombatant } from "./combat/mythicCombat";
-import { WeaponData } from "./data/item";
+  ToObjectFalseType,
+} from '@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes';
+import { HitLocation } from './actors/actor';
+import { RollDialog } from './apps/roll-dialog';
+import { MythicCombat, MythicCombatant } from './combat/mythicCombat';
+import { MythicCharacterData } from './data/character';
+import { WeaponData } from './data/item';
 
 /**
  * TODO write ngDoc
@@ -17,10 +18,12 @@ export const addChatListeners = (
   message: ChatMessage,
   html: JQuery<HTMLElement>,
   data: {
-    message: ToObjectFalseType<InstanceType<ConfiguredDocumentClass<typeof ChatMessage>>>;
-    user: Game["user"];
-    author: InstanceType<ConfiguredDocumentClass<typeof ChatMessage>>["user"];
-    alias: InstanceType<ConfiguredDocumentClass<typeof ChatMessage>>["alias"];
+    message: ToObjectFalseType<
+      InstanceType<ConfiguredDocumentClass<typeof ChatMessage>>
+    >;
+    user: Game['user'];
+    author: InstanceType<ConfiguredDocumentClass<typeof ChatMessage>>['user'];
+    alias: InstanceType<ConfiguredDocumentClass<typeof ChatMessage>>['alias'];
     cssClass: string;
     isWhisper: boolean;
     whisperTo: string;
@@ -46,9 +49,11 @@ export const addChatListeners = (
     }
   }
 
-  html.on("click", "button.evasion", async (event) => {
+  html.on('click', 'button.evasion', async (event) => {
     await onEvasion(event);
-    const chatMessageElement = event.target.closest('.chat-message') as HTMLElement;
+    const chatMessageElement = event.target.closest(
+      '.chat-message'
+    ) as HTMLElement;
     const chatMessageId = chatMessageElement.dataset.messageId;
     if (game instanceof Game && chatMessageId) {
       const chatMessage = game.messages?.get(chatMessageId);
@@ -57,7 +62,9 @@ export const addChatListeners = (
   });
 };
 
-const onEvasion = async (event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>) => {
+const onEvasion = async (
+  event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+) => {
   event.preventDefault();
   if (!(game instanceof Game) || !game.actors) {
     return;
@@ -81,16 +88,23 @@ const onEvasion = async (event: JQuery.ClickEvent<HTMLElement, undefined, HTMLEl
     return;
   }
 
-  const combatant = game.combat?.combatants.find(c => c.data.actorId === actorId) as MythicCombatant;
+  const combatant = game.combat?.combatants.find(
+    (c) => c.data.actorId === actorId
+  ) as MythicCombatant;
   const evadeCount = combatant?.data.flags.mythic.evadeCount ?? 0;
 
   console.log('onEvasion actor', actor, combatant, evadeCount);
 
   const rollDialog = await RollDialog.create();
-  const roll = new Roll(`floor((@evasionValue + @bonus - 1d100 - ${evadeCount * 10}) / 10)`, {
-    evasionValue: actor.data.data.skills.evasion.value,
-    bonus: rollDialog.bonus
-  }, { async: true });
+  const roll = new Roll(
+    `floor((@evasionValue + @bonus - 1d100 - ${evadeCount * 10}) / 10)`,
+    {
+      evasionValue: (actor.data.data as MythicCharacterData).skills.evasion
+        .value,
+      bonus: rollDialog.bonus,
+    },
+    { async: true }
+  );
 
   const rollResult = await roll.roll({ async: true });
 
@@ -106,7 +120,7 @@ const onEvasion = async (event: JQuery.ClickEvent<HTMLElement, undefined, HTMLEl
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       sound: CONFIG.sounds.dice,
       type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-      content: "Enemy dodged the attack."
+      content: 'Enemy dodged the attack.',
     });
   } else {
     if (!attackerId) {
@@ -115,7 +129,7 @@ const onEvasion = async (event: JQuery.ClickEvent<HTMLElement, undefined, HTMLEl
 
     const attackerActor = game.actors.get(attackerId);
 
-    if (!attackerActor) {
+    if (!attackerActor || !dataset.itemId) {
       return;
     }
 
@@ -124,7 +138,7 @@ const onEvasion = async (event: JQuery.ClickEvent<HTMLElement, undefined, HTMLEl
 
     console.log(attackerActor, weaponItem, weaponData);
     // roll damage
-    console.log("rolling damage:", weaponData);
+    console.log('rolling damage:', weaponData);
     const damageRoll = new Roll(
       `@baseDamage + @damageRoll + @bonus`,
       { bonus: 0, ...weaponData },
@@ -133,24 +147,28 @@ const onEvasion = async (event: JQuery.ClickEvent<HTMLElement, undefined, HTMLEl
     const damageResult = await damageRoll.roll({ async: true });
     await damageResult.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: attackerActor }),
-      flavor: "Dealing Damage"
+      flavor: 'Dealing Damage',
     });
 
     if (damageRoll.total) {
-      const piercingRollTotal = (await new Roll(
-        `${weaponData.piercing}`,
-        { ...attackerActor.data.data },
-        { async: true }
-      ).roll({ async: true })).total;
+      const piercingRollTotal = (
+        await new Roll(
+          `${weaponData.piercing}`,
+          { ...attackerActor.data.data },
+          { async: true }
+        ).roll({ async: true })
+      ).total;
 
-      const hitLocation = getHitLocationFromNumber(Number(dataset.hitLocation ?? 0));
+      const hitLocation = getHitLocationFromNumber(
+        Number(dataset.hitLocation ?? 0)
+      );
       await actor.takeDamage(damageRoll.total, hitLocation, piercingRollTotal);
     }
   }
 };
 
-const getArmSubLocation = (location: number) => {
-  switch (location) {
+const getArmSubLocation = (hitLocation: number) => {
+  switch (hitLocation) {
     case 1:
       // Fingers
       return HitLocation.Arms;
@@ -203,5 +221,5 @@ const getHitLocationFromNumber = (hitLocation: number): HitLocation => {
     return HitLocation.Chest;
   }
 
-  throw "invalid hitLocation, must be between 1-100";
+  throw 'invalid hitLocation, must be between 1-100';
 };

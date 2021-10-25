@@ -4,9 +4,9 @@
  * @author Maximilian Maihöfner
  * @since 10/11/2021
  */
-import { DocumentModificationOptions } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs";
-import { CombatantData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs";
-import { MythicActor } from "../actors/actor";
+import { DocumentModificationOptions } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs';
+import { CombatantData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { MythicActor } from '../actors/actor';
 
 const TURN_HISTORY = 'turnHistory';
 const EVADE_COUNT = 'evadeCount';
@@ -18,9 +18,13 @@ export class MythicCombat extends Combat {
   }
 
   async nextRound(): Promise<this | undefined> {
-    await this._pushHistory(this.combatants.map(c => (c as MythicCombatant).getState()));
+    await this._pushHistory(
+      this.combatants.map((c) => (c as MythicCombatant).getState())
+    );
     await this._pushHistory('newRound');
-    this.combatants.forEach(c => (c as MythicCombatant).setState({ [EVADE_COUNT]: 0 }));
+    this.combatants.forEach((c) =>
+      (c as MythicCombatant).setState({ [EVADE_COUNT]: 0 })
+    );
     return super.nextRound();
   }
 
@@ -42,8 +46,8 @@ export class MythicCombat extends Combat {
       }
       await this.setFlag('mythic', TURN_HISTORY, turnHistory);
 
-      for (let s of roundState) {
-        this.combatants.forEach(c => {
+      for (const s of roundState) {
+        this.combatants.forEach((c) => {
           if (c.id === s.id) {
             (c as MythicCombatant).setState({ [EVADE_COUNT]: s[EVADE_COUNT] });
           }
@@ -78,7 +82,11 @@ export class MythicCombat extends Combat {
 }
 
 export class MythicCombatant extends Combatant {
-  protected _onCreate(data: CombatantData["_source"], options: DocumentModificationOptions, userId: string) {
+  protected _onCreate(
+    data: CombatantData['_source'],
+    options: DocumentModificationOptions,
+    userId: string
+  ) {
     super._onCreate(data, options, userId);
     void this.setFlag('mythic', EVADE_COUNT, 0);
   }
@@ -87,7 +95,9 @@ export class MythicCombatant extends Combatant {
   // TODO add "fast foot" ability (page 48) (roll initiative twice take higher result)
   protected _getInitiativeFormula(): string {
     let formula = '1d10 + @characteristics.ag.mod';
-    if ((this.actor as MythicActor)?.data.data.mythicCharacteristics > 0) {
+    if (
+      (this.actor as MythicActor)?.data.data.mythicCharacteristics.ag.value > 0
+    ) {
       // TODO round to 1 if smaller 1
       formula += '+ floor(@mythicCharacteristics.ag.value / 2)';
     }
@@ -99,13 +109,13 @@ export class MythicCombatant extends Combatant {
 
     return this.update({
       [`flags.mythic.${EVADE_COUNT}`]: evadeCount + 1,
-    })
+    });
   }
 
   setState(data: { [EVADE_COUNT]: number }) {
     return this.update({
       [`flags.mythic.${EVADE_COUNT}`]: data[EVADE_COUNT],
-    })
+    });
   }
 
   getState() {

@@ -1,4 +1,4 @@
-import { BaseCharacter } from "./actor";
+import { BaseCharacter } from './actor';
 
 /**
  * TODO write ngDoc
@@ -6,8 +6,7 @@ import { BaseCharacter } from "./actor";
  * @author Maximilian Maihöfner
  * @since 10/09/2021
  */
-export interface NpcData extends BaseCharacter {
-}
+export type NpcData = BaseCharacter;
 
 export interface NpcDataSource {
   type: 'npc';
