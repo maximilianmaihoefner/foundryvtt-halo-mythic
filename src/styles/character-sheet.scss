@@ -1,3 +1,5 @@
+@import "colors";
+
 .mythic.character.sheet {
   .skill {
     align-items: center;
@@ -44,6 +46,49 @@
   .abilities {
     .ability {
       margin: 10px 0;
+    }
+  }
+
+  .experience-summary {
+    input {
+      border: none;
+      background: none;
+    }
+    input::placeholder {
+      color: #b3b3b3;
+    }
+    input:focus {
+      box-shadow: none;
+      border: none;
+    }
+    input:hover {
+      box-shadow: none;
+      border: none;
+    }
+  }
+
+  div[role=table] {
+    border-left: solid 1px $borderColor;
+
+    div[role=rowgroup] {
+      text-align: center;
+      display: flex;
+      border-bottom: solid 1px $borderColor;
+    }
+
+    div[role=cell], div[role=columnheader] {
+      border-right: solid 1px $borderColor;
+      padding: 0.5em 0.5em;
+    }
+    div[role=columnheader] {
+      background: $headerColor;
+    }
+
+    div[role=rowgroup]:first-of-type {
+      border-top: solid 1px $borderColor;
+    }
+    div[role=rowgroup]:nth-child(odd) {
+      background: $oddBackgroundColor;
     }
   }
 }

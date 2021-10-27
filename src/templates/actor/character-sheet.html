@@ -17,7 +17,7 @@
         </div>
         <div class="header-field-group">
           <label for="soldierType">Soldier Type</label>
-          <input id="soldierType" type="text" name="data.infos.soldierType" value="{{data.infos.soldierType}}" />
+          {{data.soldierType.name}}
         </div>
         <div class="header-field-group">
           <label for="specialisation">Specialisation</label>
@@ -451,48 +451,7 @@
     </div>
     <div class="tab" data-group="primary" data-tab="medical"></div>
     <div class="tab" data-group="primary" data-tab="advancements">
-      <div class="flexrow">
-        <div>
-          <label for="experience">Experience</label>
-          <input id="experience" type="number" name="data.experience" value="{{data.experience}}" data-dtype="Number" />
-        </div>
-        <div>
-          experienceUnspent: {{data.experienceUnspent}}
-        </div>
-        <div>
-          experienceSpent: {{data.experienceSpent}}
-        </div>
-      </div>
-      <div>
-        <h3>Faction Trainings</h3>
-        {{#each data.factionTrainings as |training key|}}
-        {{key}}
-        <input
-          type="checkbox"
-          data-dtype="Boolean"
-          name="data.factionTrainings.{{key}}"
-          value="{{training}}"
-          {{#if training}}
-          checked
-          {{/if}}
-        />
-        {{/each}}
-      </div>
-      <div>
-        <h3>Weapon Trainings</h3>
-        {{#each data.weaponTrainings as |training key|}}
-        {{key}}
-        <input
-          type="checkbox"
-          data-dtype="Boolean"
-          name="data.weaponTrainings.{{key}}"
-          value="{{training}}"
-          {{#if training}}
-          checked
-          {{/if}}
-        />
-        {{/each}}
-      </div>
+      {{> "systems/mythic/templates/actor/partials/advancements.hbs"}}
     </div>
     <div class="tab" data-group="primary" data-tab="biography">
       <div class="flexrow">

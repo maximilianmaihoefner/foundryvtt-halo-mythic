@@ -47,5 +47,26 @@
   "mythic.skill.survival": "Survival",
   "mythic.skill.technologyHuman": "Technology: Human",
   "mythic.skill.technologyCovenant": "Technology: Covenant",
-  "mythic.skill.technologyForerunner": "Technology: Forerunner"
+  "mythic.skill.technologyForerunner": "Technology: Forerunner",
+
+  "mythic.factionTraining.human.title": "Human",
+  "mythic.factionTraining.covenant.title": "Covenant",
+  "mythic.factionTraining.forerunner.title": "Forerunner",
+
+  "mythic.weaponTraining.basic.title": "Basic",
+  "mythic.weaponTraining.basic.examples": "Pistols and Revolvers, Shotguns, and Knives.",
+  "mythic.weaponTraining.infantry.title": "Infantry",
+  "mythic.weaponTraining.infantry.examples": "Rifles, Carbines, SMGs, Grenades, and Satchel Charges.",
+  "mythic.weaponTraining.advanced.title": "Advanced",
+  "mythic.weaponTraining.advanced.examples": "Energy Weapons, Railguns, Flame Throwers.",
+  "mythic.weaponTraining.longRange.title": "Long-Range",
+  "mythic.weaponTraining.longRange.examples": "Sniper Rifles and other Extreme-Range Weapons.",
+  "mythic.weaponTraining.vehicle.title": "Vehicle",
+  "mythic.weaponTraining.vehicle.examples": "Any and all vehicle weapons.",
+  "mythic.weaponTraining.explosive.title": "Explosive Ordnance",
+  "mythic.weaponTraining.explosive.examples": "Grenade, Missile, and Rocket Launchers, Demolition and Ordinance Explosives.",
+  "mythic.weaponTraining.melee.title": "Melee",
+  "mythic.weaponTraining.melee.examples": "All available Melee Weapons.",
+  "mythic.weaponTraining.heavy.title": "Heavy",
+  "mythic.weaponTraining.heavy.examples": "Light Machine Guns, Machine Guns, Heavy Machine Guns."
 }

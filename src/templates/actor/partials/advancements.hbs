@@ -1,0 +1,116 @@
+<div>
+  <div class="experience">
+    <h3>Experience</h3>
+    <div class="flexrow">
+      <div class="flexrow">
+        <label for="experience">Experience</label>
+        <input id="experience" type="number" name="data.experience" value="{{data.experience}}" data-dtype="Number" />
+      </div>
+      <div>
+        experienceUnspent: {{data.experienceUnspent}}
+      </div>
+      <div>
+        experienceSpent: {{data.experienceSpent}}
+      </div>
+    </div>
+    <div class="experience-summary" role="table">
+      <div role="rowgroup">
+        <div role="columnheader" style="flex: 7">
+          Name
+        </div>
+        <div role="columnheader" style="flex: 2">
+          Cost
+        </div>
+        <div role="columnheader" style="flex: 1">&nbsp;</div>
+      </div>
+      {{#each data.autoExperienceSummary as |summary key|}}
+        <div role="rowgroup">
+          <div role="cell" style="flex: 7">
+            {{summary.name}}
+          </div>
+          <div role="cell" style="flex: 2">
+            {{summary.cost}}
+          </div>
+          <div role="cell" style="flex: 1"></div>
+        </div>
+      {{/each}}
+      {{#each data.experienceSummary as |summary key|}}
+        <div role="rowgroup">
+          <div role="cell" style="flex: 7">
+            <input
+              type="text"
+              data-dtype="String"
+              name="data.experienceSummary.{{key}}.name"
+              value="{{summary.name}}"
+              placeholder="Name"
+            />
+          </div>
+          <div role="cell" style="flex: 2">
+            <input
+              type="number"
+              data-dtype="Number"
+              name="data.experienceSummary.{{key}}.cost"
+              value="{{summary.cost}}"
+            />
+          </div>
+          <div role="cell" style="flex: 1">
+            <button type="button" class="remove-exp-expense" data-key="{{@key}}">
+              <i class="fas fa-trash" style="margin: 0"></i>
+            </button>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    <br />
+    <button type="button" class="add-exp-expense">Add Expense</button>
+  </div>
+  <div>
+    <h3>Faction Trainings</h3>
+    <div style="display: flex;">
+    {{#each data.factionTrainings as |training key|}}
+      <div style="flex: 1; text-align: center">
+        <label>
+          <span style="margin: auto">{{training.title}}</span>
+          <input
+            type="checkbox"
+            data-dtype="Boolean"
+            name="data.factionTrainings.{{training.key}}"
+            value="{{training.value}}"
+            {{#if training.value}}
+            checked
+            {{/if}}
+          />
+        </label>
+      </div>
+    {{/each}}
+    </div>
+  </div>
+  <br />
+  <div>
+    <h3>Weapon Trainings</h3>
+    <div role="table">
+      <div role="rowgroup">
+        <div role="cell" style="flex: 2">Name</div>
+        <div role="cell" style="flex: 7">Weapon Examples</div>
+        <div role="cell" style="flex: 1">Trained</div>
+      </div>
+      {{#each data.weaponTrainings as |training key|}}
+      <div role="rowgroup">
+        <div role="cell" style="flex: 2">{{training.title}}</div>
+        <div role="cell" style="flex: 7">{{training.examples}}</div>
+        <div role="cell" style="flex: 1">
+          <input
+            type="checkbox"
+            data-dtype="Boolean"
+            name="data.weaponTrainings.{{training.key}}"
+            value="{{training.value}}"
+            {{#if training.value}}
+            checked
+            {{/if}}
+          />
+        </div>
+      </div>
+    {{/each}}
+    </div>
+  </div>
+</div>

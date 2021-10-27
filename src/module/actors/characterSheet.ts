@@ -3,6 +3,8 @@
  *
  * @since 06/12/2021
  */
+import { ItemData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { ConfiguredDocumentClass } from '@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes';
 // import { duplicate } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/utils/helpers.mjs';
 import { RollDialog } from '../apps/roll-dialog';
 import { WeaponRollDialog } from '../apps/weapon-roll-dialog';
@@ -27,7 +29,7 @@ const flipInt = (n: number) => {
 
 export class MythicCharacterSheet extends ActorSheet {
   /** @override */
-  static get defaultOptions() {
+  static get defaultOptions(): ActorSheet.Options {
     return mergeObject(super.defaultOptions, {
       classes: ['mythic', 'sheet', 'character'],
       template: 'systems/mythic/templates/actor/character-sheet.html',
@@ -105,6 +107,41 @@ export class MythicCharacterSheet extends ActorSheet {
       }
     }
 
+    if (data.data.weaponTrainings) {
+      data.data.weaponTrainings = Object.entries(data.data.weaponTrainings).map(
+        (entry) => {
+          if (!(game instanceof Game)) {
+            return;
+          }
+          return {
+            key: entry[0],
+            value: entry[1],
+            title: game.i18n.localize(
+              `mythic.weaponTraining.${entry[0]}.title`
+            ),
+            examples: game.i18n.localize(
+              `mythic.weaponTraining.${entry[0]}.examples`
+            ),
+          };
+        }
+      );
+    }
+
+    if (data.data.factionTrainings) {
+      data.data.factionTrainings = Object.entries(
+        data.data.factionTrainings
+      ).map((entry) => {
+        if (!(game instanceof Game)) {
+          return;
+        }
+        return {
+          key: entry[0],
+          value: entry[1],
+          title: game.i18n.localize(`mythic.factionTraining.${entry[0]}.title`),
+        };
+      });
+    }
+
     return data;
   }
 
@@ -131,6 +168,11 @@ export class MythicCharacterSheet extends ActorSheet {
 
     html.find('.add-ability').on('click', this._addAbility.bind(this));
     html.find('.remove-ability').on('click', this._removeAbility.bind(this));
+
+    html.find('.add-exp-expense').on('click', this._addExpExpense.bind(this));
+    html
+      .find('.remove-exp-expense')
+      .on('click', this._removeExpExpense.bind(this));
 
     // Delete Inventory Item
     html
@@ -471,6 +513,47 @@ export class MythicCharacterSheet extends ActorSheet {
     if (dataset.key) {
       await this.actor.update({
         'data.abilities': { [`-=${dataset.key}`]: null },
+      });
+    }
+  }
+
+  async _addExpExpense(event: Event): Promise<void> {
+    event.preventDefault();
+
+    console.log('_addAbility');
+
+    const newExpense = {
+      name: '',
+      cost: 0,
+    };
+
+    if ((this.actor.data.data as MythicCharacterData).experienceSummary) {
+      const expenses = Object.values(
+        (this.actor.data.data as MythicCharacterData).experienceSummary
+      );
+      expenses.push(newExpense);
+
+      await this.actor.update({
+        'data.experienceSummary': { ...expenses },
+      });
+    } else {
+      await this.actor.update({
+        'data.experienceSummary': { 0: newExpense },
+      });
+    }
+  }
+
+  async _removeExpExpense(
+    event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+  ): Promise<void> {
+    event.preventDefault();
+
+    const element = event.currentTarget;
+    const { dataset } = element;
+
+    if (dataset.key) {
+      await this.actor.update({
+        'data.experienceSummary': { [`-=${dataset.key}`]: null },
       });
     }
   }
