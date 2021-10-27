@@ -166,6 +166,26 @@ export class MythicCharacterSheet extends ActorSheet {
       );
   }
 
+  protected _onDropItemCreate(
+    itemData: ItemData['_source'][] | ItemData['_source']
+  ): Promise<InstanceType<ConfiguredDocumentClass<typeof Item>>[]> {
+    const itemsData = Array.isArray(itemData) ? itemData : [itemData];
+
+    for (const item of itemsData) {
+      if (item.type === 'soldierType') {
+        if (this.actor.items.find((e) => e.type === 'soldierType')) {
+          ui.notifications?.error(
+            'Only one Soldier-Type is allowed per Character'
+          );
+
+          itemsData.findSplice((value) => value === item);
+        }
+      }
+    }
+
+    return super._onDropItemCreate(itemsData);
+  }
+
   /**
    * Handle clickable rolls.
    * @param {Event} event The originating click event

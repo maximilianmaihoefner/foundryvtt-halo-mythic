@@ -28,6 +28,17 @@ export interface Lifestyle {
 }
 
 export interface MythicCharacterData extends BaseCharacter {
+  soldierType:
+    | {
+        [key: string]: any;
+      }
+    | undefined;
+  weapons: {
+    [key: string]: any;
+  }[];
+  items: {
+    [key: string]: any;
+  }[];
   infos: {
     soldierType: string;
     faction: string;
@@ -115,12 +126,18 @@ export interface MythicCharacterData extends BaseCharacter {
   experience: number;
   experienceSpent: number;
   experienceUnspent: number;
+  experienceSummary: {
+    [key: number]: { name: string; cost: number };
+  };
+  autoExperienceSummary: { name: string; cost: number }[];
   factionTrainings: {
+    [key: string]: boolean;
     human: boolean;
     covenant: boolean;
     forerunner: boolean;
   };
   weaponTrainings: {
+    [key: string]: boolean;
     basic: boolean;
     infantry: boolean;
     vehicle: boolean;

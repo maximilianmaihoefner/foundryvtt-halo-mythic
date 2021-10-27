@@ -1,0 +1,77 @@
+{
+  "name": "United Earth Government Police Force",
+  "type": "soldierType",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "catchPhrase": "When the going gets tough, we’ll get tougher",
+    "characteristics": {
+      "str": {
+        "value": 25,
+        "advancement": 0
+      },
+      "t": {
+        "value": 25,
+        "advancement": 0
+      },
+      "ag": {
+        "value": 25,
+        "advancement": 0
+      },
+      "wfr": {
+        "value": 25,
+        "advancement": 1
+      },
+      "wfm": {
+        "value": 25,
+        "advancement": 0
+      },
+      "int": {
+        "value": 25,
+        "advancement": 0
+      },
+      "per": {
+        "value": 25,
+        "advancement": 0
+      },
+      "cr": {
+        "value": 25,
+        "advancement": 0
+      },
+      "ch": {
+        "value": 25,
+        "advancement": 0
+      },
+      "ld": {
+        "value": 25,
+        "advancement": 1
+      }
+    },
+    "mythicCharacteristics": {
+      "str": 0,
+      "t": 0,
+      "ag": 0
+    },
+    "tier": 2,
+    "expCost": 1000,
+    "upbringings": [],
+    "trainings": ["basic", "infantry"],
+    "height": {
+      "min": 170,
+      "max": 193
+    },
+    "weight": {
+      "min": 58,
+      "max": 104
+    },
+    "size": "normal",
+    "specialRules": [],
+    "equipmentPacks": []
+  },
+  "effects": [],
+  "sort": 0,
+  "flags": {},
+  "permission": {
+    "default": 0
+  },
+  "_id": "dG1ZJhbbjJkR1pxc"
+}

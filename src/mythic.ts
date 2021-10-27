@@ -9,6 +9,8 @@
  * Software License: [your license] Put your desired license here, which
  *           determines how others may use and modify your system
  */
+import './mythic.scss';
+
 import { DropData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin';
 import { ConfiguredDocumentClass } from '@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes';
 import { MythicActor } from './module/actors/actor';
@@ -18,6 +20,7 @@ import { addChatListeners } from './module/chat';
 import { MythicCombat, MythicCombatant } from './module/combat/mythicCombat';
 import { MythicItem } from './module/items/item';
 import { MythicItemSheet } from './module/items/sheets/itemSheet';
+import { MythicSoldierTypeSheet } from './module/items/sheets/soldierTypeSheet';
 import { MythicWeaponItemSheet } from './module/items/sheets/weaponItemSheet';
 import { registerSettings } from './module/settings';
 import { preloadTemplates } from './module/preloadTemplates';
@@ -25,7 +28,6 @@ import { preloadTemplates } from './module/preloadTemplates';
 Handlebars.registerHelper('checkedIf', (condition) =>
   condition ? 'checked' : ''
 );
-
 Handlebars.registerHelper('attrIf', (attr, condition) =>
   condition ? attr : ''
 );
@@ -93,6 +95,10 @@ __________________________________________________________
   });
   Items.registerSheet('mythic', MythicItemSheet, {
     types: ['item'],
+    makeDefault: true,
+  });
+  Items.registerSheet('mythic', MythicSoldierTypeSheet, {
+    types: ['soldierType'],
     makeDefault: true,
   });
 });

@@ -47,8 +47,28 @@ export class MythicActor extends Actor {
   _prepareCharacterData(data: MythicCharacterData): void {
     console.log('_prepareCharacterData', data);
 
-    let experienceCost = 0;
-    const experienceSummary = [];
+    // Split Items
+    data.soldierType = this.data.items.find((e) => e.type === 'soldierType');
+    data.weapons = this.data.items.filter((e) => e.type === 'weapon');
+    data.items = this.data.items.filter((e) => e.type === 'item');
+
+    let experienceCost = data.soldierType?.data.data.expCost ?? 0;
+    Object.entries(data.experienceSummary).forEach(
+      (value) => (experienceCost += value[1].cost)
+    );
+
+    const experienceSummary: {
+      name: string;
+      cost: number;
+      readonly: boolean;
+    }[] = [];
+    if (data.soldierType) {
+      experienceSummary.push({
+        name: `SoldierType: ${data.soldierType.name}`,
+        cost: data.soldierType.data.data.expCost,
+        readonly: true,
+      });
+    }
 
     const characteristicExperienceCost: { [key: string]: number } = {
       '0': 0,
@@ -135,10 +155,26 @@ export class MythicActor extends Actor {
         console.log('lifestyle3Special characteristic bonus', key, bonus);
       }
 
+      let soldierTypeCharacteristicValue = 0;
+      let soldierTypeCharacteristicAdvancement = 0;
+      if (data.soldierType) {
+        console.log('data.soldierType', data.soldierType.data.data);
+        soldierTypeCharacteristicValue =
+          data.soldierType.data.data.characteristics[key].value;
+        soldierTypeCharacteristicAdvancement =
+          data.soldierType.data.data.characteristics[key].advancement;
+      }
+
+      const advancement =
+        (characteristic.advancement || 0) +
+        soldierTypeCharacteristicAdvancement;
+
       characteristic.value =
         bonus +
+        soldierTypeCharacteristicValue +
         (characteristic.rawValue || 0) +
-        (characteristic.advancement || 0) * 5;
+        advancement * 5;
+
       characteristic.mod = Math.floor(characteristic.value / 10);
 
       experienceCost +=
@@ -278,8 +314,15 @@ export class MythicActor extends Actor {
       experienceCost += (languageCount - 1) * 150;
     }
 
-    // TODO weaponTrainings can be obtained for free trough soldier-types.
     for (const [key, training] of Object.entries(data.weaponTrainings)) {
+      const includedInSoldierType =
+        data.soldierType?.data.data.trainings.includes(key) ?? false;
+
+      if (includedInSoldierType) {
+        data.weaponTrainings[key] = true;
+        continue;
+      }
+
       switch (key) {
         case 'basic':
           if (training) experienceCost += 150;
@@ -300,6 +343,11 @@ export class MythicActor extends Actor {
       }
     }
 
+    // TODO apply faction training based on faction, this cased issues when changing factions
+    // if (data.infos.faction) {
+    //   data.factionTrainings[data.infos.faction] = true;
+    // }
+
     const factionTrainingsCount = Object.values(data.factionTrainings).filter(
       Boolean
     ).length;
@@ -314,6 +362,8 @@ export class MythicActor extends Actor {
 
     data.experienceUnspent = data.experience - experienceCost;
     data.experienceSpent = experienceCost;
+    data.autoExperienceSummary = experienceSummary;
+
     console.log('finish _prepareCharacterData', data);
   }
 

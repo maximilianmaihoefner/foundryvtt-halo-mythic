@@ -30,9 +30,26 @@ export interface WeaponData {
   reload: string;
 }
 
+interface SoldierTypeDataSource {
+  type: 'soldierType';
+  data: {
+    [key: string]: any;
+  };
+}
+
 interface WeaponDataSource {
   type: 'weapon';
   data: WeaponData;
 }
 
-export type ItemDataSource = WeaponDataSource;
+interface ItemsDataSource {
+  type: 'item';
+  data: {
+    [key: string]: any;
+  };
+}
+
+export type ItemDataSource =
+  | SoldierTypeDataSource
+  | WeaponDataSource
+  | ItemsDataSource;

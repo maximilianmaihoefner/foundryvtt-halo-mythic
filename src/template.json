@@ -302,7 +302,7 @@
     }
   },
   "Item": {
-    "types": ["weapon", "item"],
+    "types": ["weapon", "item", "soldierType"],
     "templates": {
     },
     "weapon": {
@@ -331,6 +331,71 @@
       "weight": 0,
       "description": "",
       "tag": []
+    },
+    "soldierType": {
+      "catchPhrase": "",
+      "characteristics": {
+        "str": {
+          "value": 0,
+          "advancement": 0
+        },
+        "t": {
+          "value": 0,
+          "advancement": 0
+        },
+        "ag": {
+          "value": 0,
+          "advancement": 0
+        },
+        "wfr": {
+          "value": 0,
+          "advancement": 0
+        },
+        "wfm": {
+          "value": 0,
+          "advancement": 0
+        },
+        "int": {
+          "value": 0,
+          "advancement": 0
+        },
+        "per": {
+          "value": 0,
+          "advancement": 0
+        },
+        "cr": {
+          "value": 0,
+          "advancement": 0
+        },
+        "ch": {
+          "value": 0,
+          "advancement": 0
+        },
+        "ld": {
+          "value": 0,
+          "advancement": 0
+        }
+      },
+      "mythicCharacteristics": {
+        "str": 0,
+        "t": 0,
+        "ag": 0
+      },
+      "tier": 0,
+      "expCost": 0,
+      "upbringings": [],
+      "trainings": [],
+      "height": {
+        "min": 0,
+        "max": 0
+      },
+      "weight": {
+        "min": 0,
+        "max": 0
+      },
+      "size": "",
+      "specialRules": [],
+      "equipmentPacks": []
     }
   }
 }

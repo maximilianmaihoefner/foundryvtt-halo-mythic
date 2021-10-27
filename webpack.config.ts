@@ -105,13 +105,14 @@ const config: Configuration = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'src/assets/' },
-        { from: 'src/fonts/' },
-        { from: 'src/templates/' },
+        { from: 'src/assets/', to: 'assets' },
+        { from: 'src/fonts/', to: 'fonts' },
+        { from: 'src/templates/', to: 'templates' },
         { from: 'src/system.json' },
         { from: 'src/template.json' },
         {
           from: 'src/lang/',
+          to: 'lang',
           transform(content: Buffer, absoluteFrom: string) {
             if (path.basename(absoluteFrom) === 'en.json') {
               return JSON.stringify(JSON.parse(content.toString()));
@@ -145,5 +146,4 @@ const config: Configuration = {
   },
 };
 
-// eslint-disable-next-line import/no-default-export
 export default config;

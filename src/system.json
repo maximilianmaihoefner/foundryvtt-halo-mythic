@@ -2,13 +2,13 @@
   "name": "mythic",
   "title": "Halo Mythic 4.0",
   "description": "Unoffical Halo Tabletop RPG.",
-  "version": "0.1.19",
+  "version": "0.1.0",
   "minimumCoreVersion": "0.8.6",
   "compatibleCoreVersion": "0.8.9",
   "templateVersion": 2,
   "author": "Maximilian Maihöfner",
-  "esmodules": ["mythic.js"],
-  "styles": ["mythic.css"],
+  "esmodules": ["main.bundle.js"],
+  "styles": ["styles/main.css"],
   "scripts": [],
   "packs": [{
     "name": "armory",
@@ -23,6 +23,13 @@
     "system": "mythic",
     "module": "mythic",
     "path": "/packs/items.db",
+    "entity": "Item"
+  }, {
+    "name": "humanSoldierTypes",
+    "label": "Human Soldier Types",
+    "system": "mythic",
+    "module": "mythic",
+    "path": "/packs/human-soldier-types.db",
     "entity": "Item"
   }],
   "languages": [{
