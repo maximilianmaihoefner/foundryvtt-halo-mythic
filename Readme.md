@@ -1,4 +1,5 @@
 # Foundry VTT - Halo Mythic v4.0 (Unofficial)
+[![CI](https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/actions/workflows/ci.yml/badge.svg)](https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/actions/workflows/ci.yml)
 ![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://raw.githubusercontent.com/maximilianmaihoefner/foundryvtt-halo-mythic/main/src/system.json)
 
 Implements the [Halo Mythic](https://www.reddit.com/r/HaloMythic/) role-playing game into the [Foundry Virtual Tabletop](https://foundryvtt.com).
