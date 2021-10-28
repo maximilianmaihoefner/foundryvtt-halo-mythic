@@ -26,11 +26,13 @@ tbd
 - [ ] Add compendium for weapons.
 - [ ] Add compendium for npcs.
 - [ ] Add macro support.
+- [ ] Maybe add [Quench](https://github.com/schultzcole/FVTT-Quench) Tests
 
 ## Copyright
 This project is licensed under the terms of the GNU LGPL v3 license.
 
 Halo Mythic Role-playing game created by Vorked.
 
-Halo © Microsoft Corporation.
-
+Halo © Microsoft Corporation. FoundryVTT - Halo Mythic was created under Microsoft's
+["Game Content Usage Rules"](https://www.xbox.com/en-US/developers/rules)
+using assets from Halo, and it is not endorsed by or affiliated with Microsoft.
