@@ -1,0 +1,295 @@
+@import 'colors';
+
+body {
+  //change font-family
+}
+
+h1, h2, h3, h4, h5, h6 {
+  //change font-family
+}
+
+#navigation {
+  #nav-toggle {
+
+  }
+
+  #scene-list {
+    .scene {
+      .scene-name {
+        border: none;
+        box-shadow: none;
+      }
+      &.active {
+        border: 1px solid white;
+        box-shadow: 0 0 10px white;
+      }
+
+      &.gm.view {
+        border: 1px solid white;
+        box-shadow: 0 0 2px white;
+      }
+      //&.view .scene-name {
+      //
+      //}
+      //&.gm, &.view, &.context {
+      //
+      //}
+      //ul.scene-players {
+      //
+      //}
+    }
+  }
+}
+
+#context-menu {
+  li.context-item {
+
+  }
+  li.context-item:hover {
+    text-shadow: 0 0 4px white;
+  }
+}
+
+#controls {
+  .scene-control {
+    .control-tool.toggle {
+
+    }
+
+    &.active, &:hover {
+      border: 1px solid white;
+      box-shadow: 0 0 10px white;
+    }
+
+    .control-tool {
+      &.active, &:hover {
+        border: 1px solid white;
+        box-shadow: 0 0 10px white;
+      }
+    }
+  }
+}
+
+#players {
+  h3 {
+
+  }
+
+  #player-list {
+    .player-name.self {
+
+    }
+  }
+}
+
+#hotbar {
+  .bar-control {
+
+  }
+  #hotbar-directory-controls {
+
+  }
+  #hotbar-page-controls {
+
+  }
+  #macro-list {
+
+  }
+  .macro {
+    &:hover {
+      box-shadow: 0 0 10px white inset;
+    }
+
+    &.active:hover {
+      border: 1px solid white;
+    }
+  }
+
+  .macro-key {
+
+  }
+  .tooltip {
+
+  }
+}
+
+#hud {
+
+}
+
+.placeable-hud {
+  .control-icon {
+    &.active {}
+  }
+}
+
+#token-hud {
+  .attribute {
+    &.bar1 {}
+    &.bar2 {}
+  }
+}
+
+#menu {
+  #menu-items {
+    li h4 {}
+  }
+}
+
+.app:not(#navigation, #players, #controls, #hotbar) {
+
+}
+
+a:hover {
+  text-shadow: 0 0 8px white;
+}
+
+.app, .app.sidebar-popout {
+  color: white;
+
+  input {
+    color: white;
+
+    &:hover {
+      box-shadow: 0 0 5px white;
+    }
+    &:focus {
+      box-shadow: 0 0 6px white;
+    }
+  }
+
+  textarea {
+    color: white;
+
+    &:focus {
+      box-shadow: 0 0 6px white;
+    }
+  }
+
+  select {
+    color: white;
+
+    &:focus {
+      box-shadow: 0 0 5px white;
+    }
+  }
+
+  button {
+    color: white;
+  }
+  button:hover {
+    box-shadow: 0 0 5px white;
+  }
+
+  .window-header {
+    color: white;
+    background: $headerColor;
+  }
+
+  .window-content {
+    color: white;
+    background: #374350;
+  }
+
+  .directory {
+    .directory-header {
+      .header-search {
+        input {
+          color: white;
+          background: $backgroundColor;
+        }
+      }
+    }
+
+    .directory-list {
+      a:hover {
+        text-shadow: 0 0 8px white;
+      }
+    }
+  }
+}
+
+.tabs {
+  .item.active {
+    text-shadow: 0 0 10px white;
+  }
+}
+
+#sidebar-tabs {
+  border-bottom: 1px solid white;
+  box-shadow: 0 0 10px white;
+  .item.active {
+    border: 1px solid white;
+    box-shadow: 0 0 6px inset white;
+    text-shadow: 0 0 10px white;
+  }
+  .item:hover {
+    text-shadow: 0 0 8px white;
+  }
+}
+
+#sidebar {
+  background: $backgroundColor;
+  &.collapsed {
+    #sidebar-tabs {
+      .item.active {
+        border-bottom: 1px solid white;
+      }
+    }
+  }
+
+  button {
+    background: #374350;
+  }
+
+  input {
+    color: white;
+    background: #374350;
+  }
+}
+
+#chat {
+  #chat-log {
+    .chat-message {
+      color: white;
+      background: #374350;
+
+      .message-header {
+        color: white;
+      }
+    }
+  }
+
+  #chat-controls {
+    //color: white;
+    //background: #374350;
+    select {
+      color: white;
+      background: #374350;
+    }
+  }
+
+  textarea {
+    color: white;
+    background: #374350;
+  }
+
+  textarea:hover {
+    box-shadow: 0 0 5px white;
+  }
+
+  textarea:focus {
+    box-shadow: 0 0 6px white;
+  }
+}
+
+#settings {
+  h2 {
+    background: $headerColor;
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background: $headerColor;
+  border: 1px solid white;
+}

@@ -70,6 +70,12 @@ __________________________________________________________
 
   CONFIG.Combat.initiative.formula = '1d10 + @characteristics.ag.mod';
   // Combatant.prototype._getInitiativeFormula = getInitiativeFormula;
+  CONFIG.time.roundTime = 6;
+
+  // Change Font-Families
+  // CONFIG.canvasTextStyle.fontFamily = '';
+  // CONFIG.fontFamilies.push('');
+  // CONFIG.defaultFontFamily = '';
 
   // Register custom system settings
   registerSettings();
