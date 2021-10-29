@@ -1,5 +1,6 @@
 /**
  * TODO write ngDoc
+ * Original from: https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/blob/master/packs/scripts/build.ts
  *
  * @author Maximilian Maihöfner
  * @since 06/19/2021
@@ -126,17 +127,17 @@ export class CompendiumPack {
 
           const repoImgPath = path.resolve(
             process.cwd(),
-            'static',
-            decodeURIComponent(imgPath).replace('systems/pf2e/', '')
+            'src',
+            decodeURIComponent(imgPath).replace('systems/mythic/', '')
           );
           if (!imgPath.match(/^\/?icons\/svg/) && !fs.existsSync(repoImgPath)) {
             throw PackError(
-              `${entityName} (${this.name}) has a broken image link: ${imgPath}`
+              `${entityName} (${this.name}) has a broken image link: ${imgPath}, ${repoImgPath}`
             );
           }
-          if (!(imgPath == '' || imgPath.match(/\.(?:svg|webp)$/))) {
+          if (!(imgPath == '' || imgPath.match(/\.(?:svg|webp|png)$/))) {
             throw PackError(
-              `${entityName} (${this.name}) references a non-WEBP/SVG image: ${imgPath}`
+              `${entityName} (${this.name}) references a non-WEBP/SVG/PNG image: ${imgPath}`
             );
           }
         }
@@ -201,7 +202,7 @@ export class CompendiumPack {
     }
 
     return JSON.stringify(docSource).replace(
-      /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/g,
+      /@Compendium\[mythic\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/g,
       (match, packName: string, entityName: string) => {
         const namesToIds = CompendiumPack.namesToIds.get(packName);
         const link = match.replace(/\{$/, '');
@@ -223,7 +224,7 @@ export class CompendiumPack {
           );
         }
 
-        return `@Compendium[pf2e.${packName}.${entityId}]{`;
+        return `@Compendium[mythic.${packName}.${entityId}]{`;
       }
     );
   }
@@ -290,10 +291,15 @@ const packDirPaths = fs
   .map((dirName) => path.resolve(__dirname, packsDataPath, dirName));
 
 // Loads all packs into memory for the sake of making all entity name/id mappings available
-const packs = packDirPaths.map((dirPath) => CompendiumPack.loadJSON(dirPath));
-const entityCounts = packs.map((pack) => pack.save());
+const packs = packDirPaths.map((dirPath) => {
+  if (!dirPath.replace(/\/$/, '').endsWith('.db')) {
+    return;
+  }
+  return CompendiumPack.loadJSON(dirPath);
+});
+const entityCounts = packs.map((pack) => pack?.save());
 const total = entityCounts.reduce(
-  (runningTotal, entityCount) => runningTotal + entityCount,
+  (runningTotal, entityCount) => (runningTotal ?? 0) + (entityCount ?? 0),
   0
 );
 

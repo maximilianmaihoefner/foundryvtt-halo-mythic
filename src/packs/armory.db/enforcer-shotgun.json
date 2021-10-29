@@ -1,7 +1,7 @@
 {
   "name": "DTM/Law Enforcement Series Close Assault Weapon System",
   "type": "weapon",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/mythic/assets/weapons/M90.png",
   "data": {
     "tags": ["TH", "OH", "I"],
     "alias": "Enforcer Shotgun",

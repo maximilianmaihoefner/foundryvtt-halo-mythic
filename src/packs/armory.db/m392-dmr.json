@@ -1,7 +1,7 @@
 {
   "name": "M392 Designated Marksman Rifle",
   "type": "weapon",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/mythic/assets/weapons/DMR_M392.png",
   "data": {
     "tags": ["TH", "UD", "I"],
     "alias": "DMR",

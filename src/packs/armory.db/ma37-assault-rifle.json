@@ -1,7 +1,7 @@
 {
   "name": "MA37 Assault Rifle",
   "type": "weapon",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/mythic/assets/weapons/MA37.png",
   "data": {
     "tags": ["TH", "UD", "I"],
     "alias": "Assault Carbine",

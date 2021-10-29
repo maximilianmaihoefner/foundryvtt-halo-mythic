@@ -1,7 +1,7 @@
 {
   "name": "BR55 Service Rifle",
   "type": "weapon",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/mythic/assets/weapons/BR55.png",
   "data": {
     "tags": ["TH", "UD", "I"],
     "alias": "Battle Rifle",

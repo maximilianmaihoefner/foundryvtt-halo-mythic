@@ -1,7 +1,7 @@
 {
   "name": "UNSC Close-Quarter Combat Knife",
   "type": "weapon",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/mythic/assets/weapons/Combat_Knife.png",
   "data": {
     "tags": ["OH", "SD", "PD", "I"],
     "alias": "",
