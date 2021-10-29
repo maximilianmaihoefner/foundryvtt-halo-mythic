@@ -32,7 +32,7 @@ export class MythicCharacterSheet extends ActorSheet {
   static get defaultOptions(): ActorSheet.Options {
     return mergeObject(super.defaultOptions, {
       classes: ['mythic', 'sheet', 'character'],
-      template: 'systems/mythic/templates/actor/character-sheet.html',
+      template: 'systems/mythic/templates/actor/character-sheet.hbs',
       width: 715,
       height: 600,
       tabs: [

@@ -62,15 +62,10 @@
       <select name="data.characteristics.{{key}}.advancement" style="width: 100%;" data-dtype="Number">
         {{#select characteristic.advancement}}
         <option value="0">N/A (+0)</option>
-        <!-- 200xp -->
         <option value="1">Simple (+5)</option>
-        <!-- 400xp -->
         <option value="2">Rookie (+10)</option>
-        <!-- 800xp -->
         <option value="3">Intermediate (+15)</option>
-        <!-- 1200xp -->
         <option value="4">Trained (+20)</option>
-        <!-- 1600xp -->
         <option value="5">Mastery (+25)</option>
         {{/select}}
       </select>
@@ -83,44 +78,63 @@
   </div>
 
   <div class="calculated-characteristics">
-    <div class="mythic-characteristics">
-      <h3 style="text-align: center">Mythic Characteristics</h3>
-      <div style="flex-direction: row; display: flex;">
+    <div class="mythic-characteristics" role="table">
+      <div role="rowgroup">
+        <div role="columnheader">Mythic Characteristics</div>
+      </div>
+      <div role="rowgroup">
         {{#each data.mythicCharacteristics as |characteristic key|}}
-        <div class="mythic-characteristic" style="width: 50px">
-          <input style="text-align: center" type="number" min="{{characteristic.min}}"
+        <div role="columnheader">
+<!--          {{characteristic.label}}-->
+          {{key}}
+        </div>
+        {{/each}}
+      </div>
+      <div role="rowgroup">
+        {{#each data.mythicCharacteristics as |characteristic key|}}
+        <div class="mythic-characteristic" role="cell">
+          <input type="number" min="{{characteristic.min}}"
                  name="data.mythicCharacteristics.{{key}}.value" value="{{characteristic.value}}" data-dtype="Number" />
-          <div style="text-align: center" class="resource-label">
-            {{characteristic.label}} {{key}}
-          </div>
         </div>
         {{/each}}
       </div>
     </div>
-    <div class="movement">
-      <h3 style="text-align: center">Movement</h3>
-      <div style="flex-direction: row; display: flex;">
+    <div class="movement" role="table">
+      <div role="rowgroup">
+        <div role="columnheader">Movement</div>
+      </div>
+      <div role="rowgroup">
         {{#each data.movement as |move key|}}
-        <div class="move" style="width: 50px">
+        <div role="columnheader">
+          {{key}}
+        </div>
+        {{/each}}
+      </div>
+      <div role="rowgroup">
+        {{#each data.movement as |move key|}}
+        <div role="cell">
           <input readonly style="text-align: center" type="number" min="0" name="data.movement.{{key}}" value="{{move}}"
                  data-dtype="Number" />
-          <div style="text-align: center" class="resource-label">
-            {{key}}
-          </div>
         </div>
         {{/each}}
       </div>
     </div>
-    <div class="carrying">
-      <h3 style="text-align: center">Carrying Capacity</h3>
-      <div style="flex-direction: row; display: flex;">
+    <div class="carrying" role="table">
+      <div role="rowgroup">
+        <div role="columnheader">Carrying Capacity</div>
+      </div>
+      <div role="rowgroup">
         {{#each data.carryingCapacity as |carry key|}}
-        <div class="carry" style="width: 50px">
-          <input readonly style="text-align: center" type="number" min="0" name="data.carryingCapacity.{{key}}"
+        <div role="columnheader">
+          {{key}}
+        </div>
+        {{/each}}
+      </div>
+      <div role="rowgroup">
+        {{#each data.carryingCapacity as |carry key|}}
+        <div role="cell">
+          <input readonly type="number" min="0" name="data.carryingCapacity.{{key}}"
                  value="{{carry}}" data-dtype="Number" />
-          <div style="text-align: center" class="resource-label">
-            {{key}}
-          </div>
         </div>
         {{/each}}
       </div>
