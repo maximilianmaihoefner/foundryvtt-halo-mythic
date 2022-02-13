@@ -41,7 +41,7 @@ export interface BaseCharacter {
     };
   };
   wounds: {
-    current: number;
+    value: number;
     max: number;
   };
   armor: {
@@ -49,6 +49,12 @@ export interface BaseCharacter {
     chest: number;
     arms: number;
     legs: number;
+  };
+  shields: {
+    value: number;
+    max: number;
+    delay: number;
+    charge: number;
   };
 }
 
