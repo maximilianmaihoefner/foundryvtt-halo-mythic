@@ -8,7 +8,7 @@ export class MythicWeaponItemSheet extends ItemSheet {
   static get defaultOptions(): ItemSheet.Options {
     return mergeObject(super.defaultOptions, {
       classes: ['mythic', 'sheet', 'item', 'weapon'],
-      template: 'systems/mythic/templates/items/weapon.html',
+      template: 'systems/mythic/templates/items/weapon.hbs',
       width: 520,
       height: 480,
       tabs: [
