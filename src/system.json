@@ -4,10 +4,10 @@
   "description": "Unoffical Halo Tabletop RPG.",
   "version": "0.1.0",
   "minimumCoreVersion": "0.8.6",
-  "compatibleCoreVersion": "0.8.9",
+  "compatibleCoreVersion": "9.245",
   "templateVersion": 2,
   "author": "Maximilian Maihöfner",
-  "esmodules": ["main.bundle.js"],
+  "esmodules": ["main.bundle.js", "vendor.bundle.js"],
   "styles": ["styles/main.css"],
   "scripts": [],
   "packs": [{
