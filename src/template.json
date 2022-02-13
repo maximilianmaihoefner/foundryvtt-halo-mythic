@@ -67,7 +67,7 @@
           }
         },
         "wounds": {
-          "current": 0,
+          "value": 0,
           "max": 0
         },
         "armor": {
@@ -229,19 +229,19 @@
         }
       },
       "fatigue": {
-        "current": 0,
+        "value": 0,
         "max": 0
       },
       "luck": {
-        "current": 0,
+        "value": 0,
         "max": 0
       },
       "supportPoints": {
-        "current": 0,
+        "value": 0,
         "max": 0
       },
       "shields": {
-        "current": 0,
+        "value": 0,
         "max": 0,
         "delay": 0,
         "charge": 0

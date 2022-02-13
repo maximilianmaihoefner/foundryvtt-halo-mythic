@@ -40,7 +40,7 @@
   "socket": true,
   "gridDistance": 1,
   "gridUnits": "",
-  "primaryTokenAttribute": null,
+  "primaryTokenAttribute": "wounds",
   "secondaryTokenAttribute": null,
   "manifest": "",
   "download": "",
