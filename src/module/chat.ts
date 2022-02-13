@@ -16,7 +16,7 @@ import { WeaponData } from './data/item';
  */
 export const addChatListeners = (
   message: ChatMessage,
-  html: JQuery<HTMLElement>,
+  html: JQuery,
   data: {
     message: ToObjectFalseType<
       InstanceType<ConfiguredDocumentClass<typeof ChatMessage>>
@@ -82,14 +82,14 @@ const onEvasion = async (
     return;
   }
 
-  const actor = game.actors.get(actorId);
+  const actor = game.scenes?.current?.tokens.get(actorId)?.actor;
 
   if (!actor) {
     return;
   }
 
   const combatant = game.combat?.combatants.find(
-    (c) => c.data.actorId === actorId
+    (c) => c.data.actorId === actor.id
   ) as MythicCombatant;
   const evadeCount = combatant?.data.flags.mythic.evadeCount ?? 0;
 
@@ -113,22 +113,29 @@ const onEvasion = async (
     flavor: 'Evasion',
   });
 
+  console.log('register evade attempt with combat.', game.combat, combatant);
+
   await (game.combat as MythicCombat)?.evade(combatant);
 
+  console.log('dodge result', rollResult.total);
+
   if (rollResult.total && rollResult.total >= 0) {
+    console.log('attack was dodged!');
     await ChatMessage.create({
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       sound: CONFIG.sounds.dice,
       type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-      content: 'Enemy dodged the attack.',
+      content: 'Attack was dodged.',
     });
   } else {
+    console.log('attackerId', attackerId);
     if (!attackerId) {
       return;
     }
 
     const attackerActor = game.actors.get(attackerId);
 
+    console.log('attackerActor', attackerActor, 'item:', dataset.itemId);
     if (!attackerActor || !dataset.itemId) {
       return;
     }
@@ -162,6 +169,7 @@ const onEvasion = async (
       const hitLocation = getHitLocationFromNumber(
         Number(dataset.hitLocation ?? 0)
       );
+
       await actor.takeDamage(damageRoll.total, hitLocation, piercingRollTotal);
     }
   }
