@@ -13,6 +13,7 @@ import { MythicCharacterData, Skill } from '../data/character';
 import { environments } from '../definitions/environments';
 import { lifestyles } from '../definitions/lifestyles';
 import { upbringings } from '../definitions/upbringings';
+import tippy from 'tippy.js';
 
 const flipInt = (n: number) => {
   let digit,
@@ -33,7 +34,7 @@ export class MythicCharacterSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ['mythic', 'sheet', 'character'],
       template: 'systems/mythic/templates/actor/character-sheet.hbs',
-      width: 715,
+      width: 770,
       height: 600,
       tabs: [
         {
@@ -52,6 +53,7 @@ export class MythicCharacterSheet extends ActorSheet {
     data.data = actorData.data;
     data.flags = actorData.flags;
     data.rollData = data.actor.getRollData();
+    data.data.locked = false;
 
     console.log('sheet data', data);
 
@@ -108,38 +110,56 @@ export class MythicCharacterSheet extends ActorSheet {
     }
 
     if (data.data.weaponTrainings) {
-      data.data.weaponTrainings = Object.entries(data.data.weaponTrainings).map(
-        (entry) => {
+      console.log(
+        'weaponTrainings before: ',
+        data.data.weaponTrainings,
+        data.data.weaponTrainings2
+      );
+      data.data.weaponTrainings2 = Object.entries(data.data.weaponTrainings)
+        // .filter((entry) => typeof entry[0] === 'string' && !isNumeric(entry[0]))
+        .map(([key, value]) => {
           if (!(game instanceof Game)) {
             return;
           }
           return {
-            key: entry[0],
-            value: entry[1],
-            title: game.i18n.localize(
-              `mythic.weaponTraining.${entry[0]}.title`
-            ),
+            key,
+            value,
+            title: game.i18n.localize(`mythic.weaponTraining.${key}.title`),
             examples: game.i18n.localize(
-              `mythic.weaponTraining.${entry[0]}.examples`
+              `mythic.weaponTraining.${key}.examples`
             ),
           };
-        }
+        });
+      console.log(
+        'weaponTrainings after: ',
+        data.data.weaponTrainings,
+        data.data.weaponTrainings2
       );
     }
 
     if (data.data.factionTrainings) {
-      data.data.factionTrainings = Object.entries(
-        data.data.factionTrainings
-      ).map((entry) => {
-        if (!(game instanceof Game)) {
-          return;
-        }
-        return {
-          key: entry[0],
-          value: entry[1],
-          title: game.i18n.localize(`mythic.factionTraining.${entry[0]}.title`),
-        };
-      });
+      console.log(
+        'factionTrainings before: ',
+        data.data.weaponTrainings,
+        data.data.weaponTrainings2
+      );
+      data.data.factionTrainings2 = Object.entries(data.data.factionTrainings)
+        // .filter((entry) => typeof entry[0] === 'string' && !isNumeric(entry[0]))
+        .map(([key, value]) => {
+          if (!(game instanceof Game)) {
+            return;
+          }
+          return {
+            key,
+            value,
+            title: game.i18n.localize(`mythic.factionTraining.${key}.title`),
+          };
+        });
+      console.log(
+        'factionTrainings after: ',
+        data.data.weaponTrainings,
+        data.data.weaponTrainings2
+      );
     }
 
     return data;
@@ -206,21 +226,51 @@ export class MythicCharacterSheet extends ActorSheet {
           // element.slideUp(200, () => this.render(false));
         }
       );
+
+    html
+      .find('.open-solider-types')
+      .on(
+        'click',
+        async (
+          event: JQuery.ClickEvent<
+            HTMLElement,
+            undefined,
+            HTMLElement,
+            HTMLElement
+          >
+        ) => {
+          if (game instanceof Game) {
+            console.log('showing solider types');
+            const soldierTypes = game.packs.get('mythic.humanSoldierTypes');
+            soldierTypes?.render(true);
+          }
+        }
+      );
+
+    tippy('.characteristic-header', {
+      placement: 'right',
+      followCursor: true,
+      allowHTML: true,
+    });
   }
 
-  protected _onDropItemCreate(
+  protected async _onDropItemCreate(
     itemData: ItemData['_source'][] | ItemData['_source']
   ): Promise<InstanceType<ConfiguredDocumentClass<typeof Item>>[]> {
     const itemsData = Array.isArray(itemData) ? itemData : [itemData];
 
     for (const item of itemsData) {
       if (item.type === 'soldierType') {
-        if (this.actor.items.find((e) => e.type === 'soldierType')) {
+        const soldierType = this.actor.items.find(
+          (e) => e.type === 'soldierType'
+        );
+        if (soldierType) {
+          await soldierType.delete();
           ui.notifications?.error(
             'Only one Soldier-Type is allowed per Character'
           );
 
-          itemsData.findSplice((value) => value === item);
+          // itemsData.findSplice((value) => value === item);
         }
       }
     }
@@ -236,6 +286,8 @@ export class MythicCharacterSheet extends ActorSheet {
   async _onRoll(
     event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
   ): Promise<void> {
+    console.log('this is a hmr test', event);
+    console.log('this is a hmr test', event);
     event.preventDefault();
     const element = event.currentTarget;
     const { dataset } = element;
@@ -348,7 +400,7 @@ export class MythicCharacterSheet extends ActorSheet {
           content: await renderTemplate(
             'systems/mythic/templates/chat/opponent-hit-action.hbs',
             {
-              actorId: target.actor.id,
+              actorId: target.id,
               attackerId: this.actor.id,
               evasionValue: (target.actor.data.data as MythicCharacterData)
                 .skills.evasion.value,

@@ -1,23 +1,32 @@
 <form class="{{cssClass}} character-sheet flexcol" autocomplete="off" xmlns="http://www.w3.org/1999/html">
   <header class="sheet-header">
-    <h1 class="charname">
-      <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
-    </h1>
+    <div style="display: flex; width: 100%;">
+      <h1 class="charname" style="flex: 1">
+        <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
+      </h1>
+      {{#if data.locked}}
+        <i class="fas fa-lock" style="margin: 0"></i>
+      {{/if}}
+      {{#unless data.locked}}
+        <i class="fas fa-unlock" style="margin: 0"></i>
+      {{/unless}}
+    </div>
+
     <div class="flexrow header-fields">
       <div style="text-align: right;">
         <div class="header-field-group">
           <label for="faction">Faction</label>
           <select id="faction" name="data.infos.faction" data-dtype="String">
             {{#select data.infos.faction}}
-            <option value="human">Human</option>
-            <option value="covenant">Covenant</option>
-            <option value="forerunner">Forerunner</option>
+              <option value="human">Human</option>
+              <option value="covenant">Covenant</option>
+              <option value="forerunner">Forerunner</option>
             {{/select}}
           </select>
         </div>
         <div class="header-field-group">
           <label for="soldierType">Soldier Type</label>
-          {{data.soldierType.name}}
+          <a class="open-solider-types">{{data.soldierType.name}}</a>
         </div>
         <div class="header-field-group">
           <label for="specialisation">Specialisation</label>
@@ -53,27 +62,29 @@
 
   <div class="characteristics">
     {{#each data.characteristics as |characteristic key|}}
-    <div class="characteristic" style="width: 10%">
-      <label style="width: 100%; text-align: center;" for="data.characteristics.{{key}}.value" class="resource-label">
-        {{characteristic.labelShort}}
-      </label>
-      <input type="number" min="{{characteristic.min}}" name="data.characteristics.{{key}}.rawValue"
-             value="{{characteristic.rawValue}}" data-dtype="Number" />
-      <select name="data.characteristics.{{key}}.advancement" style="width: 100%;" data-dtype="Number">
-        {{#select characteristic.advancement}}
-        <option value="0">N/A (+0)</option>
-        <option value="1">Simple (+5)</option>
-        <option value="2">Rookie (+10)</option>
-        <option value="3">Intermediate (+15)</option>
-        <option value="4">Trained (+20)</option>
-        <option value="5">Mastery (+25)</option>
-        {{/select}}
-      </select>
-      <!--      <div>{{characteristic.mod}}</div>-->
-      <button class="rollable" data-roll="floor((@characteristics.{{key}}.value + @bonus - 1d100) / 10)"
-              data-label="{{characteristic.label}}">{{characteristic.value}}
-      </button>
-    </div>
+      <div class="characteristic">
+        <div class="characteristic-header"
+             data-tippy-content="<div>{{characteristic.label}}</div><div>Mod: {{characteristic.mod}}</div>">
+          <label for="data.characteristics.{{key}}.value" class="resource-label">
+            {{characteristic.labelShort}}
+          </label>
+        </div>
+        <input type="number" min="{{characteristic.min}}" name="data.characteristics.{{key}}.rawValue"
+               value="{{characteristic.rawValue}}" data-dtype="Number" />
+        <select name="data.characteristics.{{key}}.advancement" style="width: 100%;" data-dtype="Number">
+          {{#select characteristic.advancement}}
+            <option value="0">N/A (+0)</option>
+            <option value="1">Simple (+5)</option>
+            <option value="2">Rookie (+10)</option>
+            <option value="3">Intermediate (+15)</option>
+            <option value="4">Trained (+20)</option>
+            <option value="5">Mastery (+25)</option>
+          {{/select}}
+        </select>
+        <button class="rollable" data-roll="floor((@characteristics.{{key}}.value + @bonus - 1d100) / 10)"
+                data-label="{{characteristic.label}}">{{characteristic.value}}
+        </button>
+      </div>
     {{/each}}
   </div>
 
@@ -84,18 +95,19 @@
       </div>
       <div role="rowgroup">
         {{#each data.mythicCharacteristics as |characteristic key|}}
-        <div role="columnheader">
-<!--          {{characteristic.label}}-->
-          {{key}}
-        </div>
+          <div role="columnheader">
+            <!--          {{characteristic.label}}-->
+            {{key}}
+          </div>
         {{/each}}
       </div>
       <div role="rowgroup">
         {{#each data.mythicCharacteristics as |characteristic key|}}
-        <div class="mythic-characteristic" role="cell">
-          <input type="number" min="{{characteristic.min}}"
-                 name="data.mythicCharacteristics.{{key}}.value" value="{{characteristic.value}}" data-dtype="Number" />
-        </div>
+          <div class="mythic-characteristic" role="cell">
+            <input type="number" min="{{characteristic.min}}"
+                   name="data.mythicCharacteristics.{{key}}.value" value="{{characteristic.value}}"
+                   data-dtype="Number" />
+          </div>
         {{/each}}
       </div>
     </div>
@@ -105,17 +117,12 @@
       </div>
       <div role="rowgroup">
         {{#each data.movement as |move key|}}
-        <div role="columnheader">
-          {{key}}
-        </div>
+          <div role="columnheader">{{key}}</div>
         {{/each}}
       </div>
       <div role="rowgroup">
         {{#each data.movement as |move key|}}
-        <div role="cell">
-          <input readonly style="text-align: center" type="number" min="0" name="data.movement.{{key}}" value="{{move}}"
-                 data-dtype="Number" />
-        </div>
+          <div role="cell">{{move}}</div>
         {{/each}}
       </div>
     </div>
@@ -125,139 +132,190 @@
       </div>
       <div role="rowgroup">
         {{#each data.carryingCapacity as |carry key|}}
-        <div role="columnheader">
-          {{key}}
-        </div>
+          <div role="columnheader">{{key}}</div>
         {{/each}}
       </div>
       <div role="rowgroup">
         {{#each data.carryingCapacity as |carry key|}}
-        <div role="cell">
-          <input readonly type="number" min="0" name="data.carryingCapacity.{{key}}"
-                 value="{{carry}}" data-dtype="Number" />
-        </div>
+          <div role="cell">{{carry}}</div>
         {{/each}}
       </div>
     </div>
   </div>
 
   <div class="things">
-    <div class="flexcol" style="width: 12%; justify-content: space-around;">
-      <h3>Wounds</h3>
-      <div class="flexcol entry">
-        <label for="wounds-current">Current</label>
-        <input id="wounds-current" type="number" data-dtype="Number" name="data.wounds.current"
-               value="{{data.wounds.current}}" placeholder="Current" />
+    <div class="wounds" role="table">
+      <div role="rowgroup">
+        <div role="columnheader">Wounds</div>
       </div>
-      <div class="flexcol entry">
-        <label for="wounds-max">Max</label>
-        <input id="wounds-max" type="number" data-dtype="Number" name="data.wounds.max" value="{{data.wounds.max}}"
-               placeholder="Max" />
-      </div>
-    </div>
-    <div class="flexcol" style="width: 12%">
-      <h3>Fatigue</h3>
-      <div class="flexcol entry">
-        <label for="fatigue-current">Current</label>
-        <input id="fatigue-current" type="number" data-dtype="Number" name="data.fatigue.current"
-               value="{{data.fatigue.current}}"
-               placeholder="Current" />
-      </div>
-      <div class="flexcol entry">
-        <label for="fatigue-max">Max</label>
-        <input id="fatigue-max" type="number" data-dtype="Number" name="data.fatigue.max" value="{{data.fatigue.max}}"
-               placeholder="Max" />
-      </div>
-    </div>
-    <div class="flexcol" style="width: 12%">
-      <h3>Luck</h3>
-      <div class="flexcol entry">
-        <label for="luck-current">Current</label>
-        <input id="luck-current" type="number" data-dtype="Number" name="data.luck.current"
-               value="{{data.luck.current}}"
-               placeholder="Current" />
-      </div>
-      <div class="flexcol entry">
-        <label for="luck-max">Max</label>
-        <input id="luck-max" type="number" data-dtype="Number" name="data.luck.max" value="{{data.luck.max}}"
-               placeholder="Max" />
-      </div>
-    </div>
-    <div class="flexcol" style="width: 12%">
-      <h3>Support Pts.</h3>
-      <div class="flexcol entry">
-        <label for="sup-pts-current">Current</label>
-        <input id="sup-pts-current" type="number" data-dtype="Number" name="data.supportPoints.current"
-               value="{{data.supportPoints.current}}"
-               placeholder="Current" />
-      </div>
-      <div class="flexcol entry">
-        <label for="sup-pts-max">Max</label>
-        <input id="sup-pts-max" type="number" data-dtype="Number" name="data.supportPoints.max"
-               value="{{data.supportPoints.max}}"
-               placeholder="Max" />
-      </div>
-    </div>
-    <div class="shields" style="width: 18%;">
-      <h3>Shields</h3>
-      <div class="flexrow">
-        <div class="flexrow">
-          <div class="flexcol entry">
-            <label for="shields-current">Current</label>
-            <input id="shields-current" type="number" data-dtype="Number" name="data.shields.current"
-                   value="{{data.shields.current}}"
-                   placeholder="Current" />
-          </div>
-          <div class="flexcol entry">
-            <label for="shields-charge">Charge</label>
-            <input id="shields-charge" type="number" data-dtype="Number" name="data.shields.charge"
-                   value="{{data.shields.charge}}"
-                   placeholder="Charge" />
-          </div>
+      <div role="rowgroup">
+        <div role="rowheader">
+          <label for="wounds-current">Current</label>
         </div>
-        <div class="flexrow">
-          <div class="flexcol entry">
-            <label for="shields-max">Max</label>
-            <input id="shields-max" type="number" data-dtype="Number" name="data.shields.max"
-                   value="{{data.shields.max}}"
-                   placeholder="Max" />
-          </div>
-          <div class="flexcol entry">
-            <label for="shields-delay">Delay</label>
-            <input id="shields-delay" type="number" data-dtype="Number" name="data.shields.delay"
-                   value="{{data.shields.delay}}"
-                   placeholder="Delay" />
-          </div>
+        <div role="cell" style="padding: 0">
+          <input id="wounds-current" type="number" data-dtype="Number" name="data.wounds.value"
+                 value="{{data.wounds.value}}" placeholder="Current" />
+        </div>
+      </div>
+      <div role="rowgroup">
+        <div role="rowheader">
+          <label for="wounds-max">Max</label>
+        </div>
+        <div role="cell" style="padding: 0">
+          <input id="wounds-max" type="number" data-dtype="Number" name="data.wounds.max" value="{{data.wounds.max}}"
+                 placeholder="Max" />
         </div>
       </div>
     </div>
-    <div class="armor" style="width: 18%">
-      <h3>Armor</h3>
-      <div class="flexrow">
-        <div class="flexrow">
-          <div class="flexcol entry">
-            <label for="armor-head">Head</label>
-            <input id="armor-head" type="number" data-dtype="Number" name="data.armor.head" value="{{data.armor.head}}"
-                   placeholder="Head" />
-          </div>
-          <div class="flexcol entry">
-            <label for="armor-chest">Chest</label>
-            <input id="armor-chest" type="number" data-dtype="Number" name="data.armor.chest"
-                   value="{{data.armor.chest}}"
-                   placeholder="Chest" />
-          </div>
+    <div class="fatigue" role="table">
+      <div role="rowgroup">
+        <div role="columnheader">Fatigue</div>
+      </div>
+      <div role="rowgroup">
+        <div role="rowheader">
+          <label for="fatigue-current">Current</label>
         </div>
-        <div class="flexrow">
-          <div class="flexcol entry">
-            <label for="armor-arms">Arms</label>
-            <input id="armor-arms" type="number" data-dtype="Number" name="data.armor.arms" value="{{data.armor.arms}}"
-                   placeholder="Arms" />
-          </div>
-          <div class="flexcol entry">
-            <label for="armor-legs">Legs</label>
-            <input id="armor-legs" type="number" data-dtype="Number" name="data.armor.legs" value="{{data.armor.legs}}"
-                   placeholder="Legs" />
-          </div>
+        <div role="cell" style="padding: 0">
+          <input id="fatigue-current" type="number" data-dtype="Number" name="data.fatigue.value"
+                 value="{{data.fatigue.value}}"
+                 placeholder="Current" />
+        </div>
+      </div>
+      <div role="rowgroup">
+        <div role="rowheader">
+          <label for="fatigue-max">Max</label>
+        </div>
+        <div role="cell" style="padding: 0">
+          <input id="fatigue-max" type="number" data-dtype="Number" name="data.fatigue.max" value="{{data.fatigue.max}}"
+                 placeholder="Max" />
+        </div>
+      </div>
+    </div>
+    <div class="luck" role="table">
+      <div role="rowgroup">
+        <div role="columnheader">Luck</div>
+      </div>
+      <div role="rowgroup">
+        <div role="rowheader">
+          <label for="luck-current">Current</label>
+        </div>
+        <div role="cell" style="padding: 0">
+          <input id="luck-current" type="number" data-dtype="Number" name="data.luck.value"
+                 value="{{data.luck.value}}"
+                 placeholder="Current" />
+        </div>
+      </div>
+      <div role="rowgroup">
+        <div role="rowheader">
+          <label for="luck-max">Max</label>
+        </div>
+        <div role="cell" style="padding: 0">
+          <input id="luck-max" type="number" data-dtype="Number" name="data.luck.max" value="{{data.luck.max}}"
+                 placeholder="Max" />
+        </div>
+      </div>
+    </div>
+    <div class="support-points" role="table">
+      <div role="rowgroup">
+        <div role="columnheader">Support Pts.</div>
+      </div>
+      <div role="rowgroup">
+        <div role="rowheader">
+          <label for="sup-pts-current">Current</label>
+        </div>
+        <div role="cell" style="padding: 0">
+          <input id="sup-pts-current" type="number" data-dtype="Number" name="data.supportPoints.value"
+                 value="{{data.supportPoints.value}}"
+                 placeholder="Current" />
+        </div>
+      </div>
+      <div role="rowgroup">
+        <div role="rowheader">
+          <label for="sup-pts-max">Max</label>
+        </div>
+        <div role="cell" style="padding: 0">
+          <input id="sup-pts-max" type="number" data-dtype="Number" name="data.supportPoints.max"
+                 value="{{data.supportPoints.max}}"
+                 placeholder="Max" />
+        </div>
+      </div>
+    </div>
+    <div class="shields" role="table">
+      <div role="rowgroup">
+        <div role="columnheader">Shields</div>
+      </div>
+      <div role="rowgroup">
+        <div role="rowheader">
+          <label for="shields-current">Current</label>
+        </div>
+        <div role="cell" style="padding: 0">
+          <input id="shields-current" type="number" data-dtype="Number" name="data.shields.value"
+                 value="{{data.shields.value}}"
+                 placeholder="Current" />
+        </div>
+        <div role="rowheader">
+          <label for="shields-charge">Charge</label>
+        </div>
+        <div role="cell" style="padding: 0">
+          <input id="shields-charge" type="number" data-dtype="Number" name="data.shields.charge"
+                 value="{{data.shields.charge}}"
+                 placeholder="Charge" />
+        </div>
+      </div>
+      <div role="rowgroup">
+        <div role="rowheader">
+          <label for="shields-max">Max</label>
+        </div>
+        <div role="cell" style="padding: 0;">
+          <input id="shields-max" type="number" data-dtype="Number" name="data.shields.max"
+                 value="{{data.shields.max}}"
+                 placeholder="Max" />
+        </div>
+        <div role="rowheader">
+          <label for="shields-delay">Delay</label>
+        </div>
+        <div role="cell" style="padding: 0;">
+          <input id="shields-delay" type="number" data-dtype="Number" name="data.shields.delay"
+                 value="{{data.shields.delay}}"
+                 placeholder="Delay" />
+        </div>
+      </div>
+    </div>
+    <div class="armor" role="table">
+      <div role="rowgroup">
+        <div role="columnheader">Armor</div>
+      </div>
+      <div role="rowgroup">
+        <div role="rowheader">
+          <label for="armor-head">Head</label>
+        </div>
+        <div role="cell" style="padding: 0;">
+          <input id="armor-head" type="number" data-dtype="Number" name="data.armor.head" value="{{data.armor.head}}"
+                 placeholder="Head" />
+        </div>
+        <div role="rowheader">
+          <label for="armor-chest">Chest</label>
+        </div>
+        <div role="cell" style="padding: 0;">
+          <input id="armor-chest" type="number" data-dtype="Number" name="data.armor.chest"
+                 value="{{data.armor.chest}}"
+                 placeholder="Chest" />
+        </div>
+      </div>
+      <div role="rowgroup">
+        <div role="rowheader">
+          <label for="armor-arms">Arms</label>
+        </div>
+        <div role="cell" style="padding: 0;">
+          <input id="armor-arms" type="number" data-dtype="Number" name="data.armor.arms" value="{{data.armor.arms}}"
+                 placeholder="Arms" />
+        </div>
+        <div role="rowheader">
+          <label for="armor-legs">Legs</label>
+        </div>
+        <div role="cell" style="padding: 0">
+          <input id="armor-legs" type="number" data-dtype="Number" name="data.armor.legs" value="{{data.armor.legs}}"
+                 placeholder="Legs" />
         </div>
       </div>
     </div>
@@ -273,78 +331,92 @@
 
   <section class="sheet-body">
     <div class="tab" data-group="primary" data-tab="core">
-      <div class="flexrow" style="justify-content: space-between;">
-        <div class="skills" style="width: 49%">
-          <h3 class="center-text">Skills</h3>
-          {{#each data.skills as |skill key|}}
-          <div class="skill" style="display: flex; flex-direction: row; justify-content: space-between">
-            <div class="skill-name">
-              {{skill.label}}
-              {{#if skill.adv}}
-              Adv.
-              {{/if}}
-            </div>
-            <select aria-label="Characteristic" class="skill-characteristic" name="data.skills.{{@key}}.characteristic" data-dtype="String">
-              {{#select skill.characteristic}}
-              <option disabled>─DEFAULT─</option>
-              {{#each skill.defaultCharacteristics}}
-              <option value="{{this}}">{{this}}</option>
-              {{/each}}
-              <option disabled>─GM ONLY─</option>
-              {{#each skill.otherCharacteristics}}
-              <option value="{{this}}">{{this}}</option>
-              {{/each}}
-              {{/select}}
-            </select>
-            <select aria-label="Advancement" class="skill-advancement" name="data.skills.{{@key}}.advancement" data-dtype="Number">
-              {{#select skill.advancement}}
-              <option value="0">N/A ({{#if skill.adv}}-40{{else}}-20{{/if}})</option>
-              <option value="1">Trained (+0)</option>
-              <option value="2">+10</option>
-              <option value="3">+20</option>
-              {{/select}}
-            </select>
-            <button class="skill-roll rollable"
-                    data-roll="floor((@skills.{{@key}}.value + @bonus - 1d100) / 10)"
-                    data-label="{{skill.label}}">
-              {{skill.value}}
-            </button>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <div class="skills" role="table">
+          <div role="rowgroup">
+            <div role="columnheader">Skills</div>
           </div>
-          {{/each}}
-        </div>
-        <div style="width: 49%; display: flex; flex-direction: column;">
-          <div class="educations">
-            <h3 class="center-text">Educations</h3>
-            <div>
-              {{#each data.educations as |education key|}}
-              <div style="display: flex; flex-direction: row;">
-                <input type="text" data-dtype="String" name="data.educations.{{key}}.name" value="{{education.name}}"
-                       placeholder="Name" />
-                <select name="data.educations.{{key}}.advancement" data-dtype="Number">
-                  {{#select education.advancement}}
-                  <option value="0">+5</option>
-                  <option value="1">+10</option>
+          {{#each data.skills as |skill key|}}
+            <div role="rowgroup">
+              <div role="cell" style="flex: 3; min-width: 95px;">
+                {{skill.label}}
+                {{#if skill.adv}}
+                  Adv.
+                {{/if}}
+              </div>
+              <div class="skill-characteristic" role="cell">
+                <select aria-label="Characteristic" name="data.skills.{{@key}}.characteristic" data-dtype="String">
+                  {{#select skill.characteristic}}
+                    <option disabled>─DEFAULT─</option>
+                    {{#each skill.defaultCharacteristics}}
+                      <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                    <option disabled>─GM ONLY─</option>
+                    {{#each skill.otherCharacteristics}}
+                      <option value="{{this}}">{{this}}</option>
+                    {{/each}}
                   {{/select}}
                 </select>
-                <button style="max-width: 35px;" class="remove-education" data-key="{{key}}">
-                  <i class="fas fa-trash" style="margin: 0"></i>
+              </div>
+              <div class="skill-advancement" role="cell">
+                <select aria-label="Advancement" name="data.skills.{{@key}}.advancement" data-dtype="Number">
+                  {{#select skill.advancement}}
+                    <option value="0">N/A ({{#if skill.adv}}-40{{else}}-20{{/if}})</option>
+                    <option value="1">Trained (+0)</option>
+                    <option value="2">+10</option>
+                    <option value="3">+20</option>
+                  {{/select}}
+                </select>
+              </div>
+              <div role="cell" style="flex: 1; min-width: 60px">
+                <button class="rollable"
+                        data-roll="floor((@skills.{{@key}}.value + @bonus - 1d100) / 10)"
+                        data-label="{{skill.label}}">
+                  {{skill.value}}
                 </button>
               </div>
-              {{/each}}
             </div>
+          {{/each}}
+        </div>
+        <div style="display: flex; flex-direction: column; flex: 1;">
+          <div class="educations" role="table">
+            <div role="rowgroup">
+              <div role="columnheader">Educations</div>
+            </div>
+            {{#each data.educations as |education key|}}
+              <div role="rowgroup">
+                <div role="cell" style="padding: 0">
+                  <input type="text" data-dtype="String" name="data.educations.{{key}}.name" value="{{education.name}}"
+                         placeholder="Name" />
+                </div>
+                <div role="cell">
+                  <select name="data.educations.{{key}}.advancement" data-dtype="Number">
+                    {{#select education.advancement}}
+                      <option value="0">+5</option>
+                      <option value="1">+10</option>
+                    {{/select}}
+                  </select>
+                </div>
+                <div role="cell">
+                  <button class="remove-education" data-key="{{key}}">
+                    <i class="fas fa-trash" style="margin: 0"></i>
+                  </button>
+                </div>
+              </div>
+            {{/each}}
             <button class="addEducation">Add</button>
           </div>
           <div class="languages">
             <h3 class="center-text">Languages</h3>
             <div>
               {{#each data.languages as |language key|}}
-              <div style="display: flex; flex-direction: row;">
-                <input type="text" data-dtype="String" name="data.languages.{{key}}" value="{{language}}"
-                       placeholder="Language"/>
-                <button style="max-width: 35px;" class="remove-language" data-key="{{key}}">
-                  <i class="fas fa-trash" style="margin: 0"></i>
-                </button>
-              </div>
+                <div style="display: flex; flex-direction: row;">
+                  <input type="text" data-dtype="String" name="data.languages.{{key}}" value="{{language}}"
+                         placeholder="Language" />
+                  <button style="max-width: 35px;" class="remove-language" data-key="{{key}}">
+                    <i class="fas fa-trash" style="margin: 0"></i>
+                  </button>
+                </div>
               {{/each}}
             </div>
             <button class="addLanguage">Add</button>
@@ -355,17 +427,17 @@
       <div class="abilities" style="display: flex; flex-direction: column;">
         <h3 style="text-align: center">Abilities</h3>
         {{#each data.abilities}}
-        <div class="ability flexrow">
-          <div>
-            <input name="data.abilities.{{@key}}.name" type="text" data-dtype="String" value="{{this.name}}" />
-            <textarea id="ability-{{this.name}}-description" data-dtype="String"
-                      name="data.abilities.{{@key}}.description" placeholder="Description" rows="5"
-                      style="resize: none;">{{this.description}}</textarea>
+          <div class="ability flexrow">
+            <div>
+              <input name="data.abilities.{{@key}}.name" type="text" data-dtype="String" value="{{this.name}}" />
+              <textarea id="ability-{{this.name}}-description" data-dtype="String"
+                        name="data.abilities.{{@key}}.description" placeholder="Description" rows="5"
+                        style="resize: none;">{{this.description}}</textarea>
+            </div>
+            <button style="max-width: 35px" type="button" class="remove-ability" data-key="{{@key}}">
+              <i class="fas fa-trash" style="margin: 0"></i>
+            </button>
           </div>
-          <button style="max-width: 35px" type="button" class="remove-ability" data-key="{{@key}}">
-            <i class="fas fa-trash" style="margin: 0"></i>
-          </button>
-        </div>
         {{/each}}
         <div>
           <button type="button" class="add-ability">Add Ability</button>
@@ -378,88 +450,128 @@
         <input id="credits" type="number" data-dtype="Number" name="data.credits" value="{{data.credits}}"
                placeholder="Credits" />
       </div>
-      <div class="weapons">
-        <h3>Weapons</h3>
-        {{#each items as |item key|}}
-        <div class="weapon flexrow" draggable="true" data-item-id="{{item._id}}">
-<!--          <img src="{{item.img}}" width="25" height="25" />-->
-          <div style="flex: 4" class="flexcol">
-            <div class="flexrow">
-              <h3 style="flex: 3; text-align: left;">
-                {{item.name}}
-                {{#if item.data.alias}}
-                - {{item.data.alias}}
-                {{/if}}
-              </h3>
-              <div>[{{item.data.tags}}]</div>
-            </div>
-            <div class="flexrow">
-              <div>
-                <div>Damage Roll</div>
-                <div>{{item.data.damageRoll}}</div>
-              </div>
-              <div>
-                <div>Base Damage</div>
-                <div>{{item.data.baseDamage}}</div>
-              </div>
-              <div>
-                <div>Piercing</div>
-                <div>{{item.data.piercing}}</div>
-              </div>
-            </div>
-          </div>
-          <!--          <div class="flexrow">-->
-          <!--            <div>WeaponType: {{item.data.weaponType}}</div>-->
-          <!--            <div>range: {{item.data.range}}</div>-->
-          <!--            <div>cost: {{item.data.cost}}</div>-->
-          <!--            <div>weight: {{item.data.weight}}</div>-->
-          <!--            <div>description: {{item.data.description}}</div>-->
-          <!--            <div>attachments: {{item.data.attachments}}</div>-->
-          <!--            <div>magazin: {{item.data.magazin}}</div>-->
-          <!--            <div>ammunition: {{item.data.ammunition}}</div>-->
-          <!--            <div>reload: {{item.data.reload}}</div>-->
-          <!--          </div>-->
-          <div class="flexrow">
-            <button class="weapon-hit"
-                    data-label="{{item.name}} Hit"
-                    data-item-id="{{item._id}}"
-                    data-characteristic="{{item.data.characteristic}}">
-              Hit
-            </button>
-            <button class="rollable"
-                    data-roll="{{item.data.baseDamage}} + {{item.data.damageRoll}} + @bonus"
-                    data-label="{{item.name}} Damage">
-              Damage
-            </button>
-            <button class="item-delete" data-item-id="{{item._id}}">
-              <i class="fas fa-trash" style="margin: 0"></i>
-            </button>
-          </div>
+      <div role="table" class="weapons">
+        <div role="rowgroup" style="min-width: 345px">
+          <div role="columnheader">Weapons</div>
         </div>
+        <div role="rowgroup">
+          <div role="columnheader" style="flex: 1; min-width: 65px;">&nbsp;</div>
+          <div role="columnheader" style="flex: 2; min-width: 65px;">Name</div>
+          <div role="columnheader" style="flex: 1; min-width: 65px;">Damage</div>
+          <div role="columnheader" style="flex: 1; min-width: 65px;">Piercing</div>
+          <div role="columnheader" style="flex: 2; min-width: 85px;"></div>
+        </div>
+        {{#each data.weapons as |weapon key|}}
+          <div role="rowgroup" draggable="true" data-item-id="{{weapon.id}}">
+            <div role="cell" style="flex: 1; min-width: 65px;">
+              <img src="{{weapon.img}}" width="100" style="border: 0" />
+            </div>
+            <div role="cell" style="flex: 2; min-width: 65px;">
+              <div>
+                {{weapon.name}}
+              </div>
+              {{#if weapon.data.data.alias}}
+                <div style="font-size: 0.8rem">
+                  {{weapon.data.data.alias}}
+                </div>
+              {{/if}}
+              <!--            <div>[{{weapon.data.data.tags}}]</div>-->
+            </div>
+            <div role="cell" style="flex: 1; min-width: 65px;">
+              {{weapon.data.data.damageRoll}} + {{weapon.data.data.baseDamage}}
+            </div>
+            <div role="cell" style="flex: 1; min-width: 65px;">
+              {{weapon.data.data.piercing}}
+            </div>
+            <!--          <div class="flexrow">-->
+            <!--            <div>WeaponType: {{weapon.data.data.weaponType}}</div>-->
+            <!--            <div>range: {{weapon.data.data.range}}</div>-->
+            <!--            <div>cost: {{weapon.data.data.cost}}</div>-->
+            <!--            <div>weight: {{weapon.data.data.weight}}</div>-->
+            <!--            <div>description: {{weapon.data.data.description}}</div>-->
+            <!--            <div>attachments: {{weapon.data.data.attachments}}</div>-->
+            <!--            <div>magazin: {{weapon.data.data.magazin}}</div>-->
+            <!--            <div>ammunition: {{weapon.data.data.ammunition}}</div>-->
+            <!--            <div>reload: {{weapon.data.data.reload}}</div>-->
+            <!--          </div>-->
+            <div role="cell" style="flex: 2; min-width: 85px;" class="flexrow">
+              <button class="weapon-hit"
+                      data-label="{{weapon.name}} Hit"
+                      data-item-id="{{weapon.id}}"
+                      data-characteristic="{{weapon.data.data.characteristic}}">
+                <i class="fas fa-crosshairs"></i>
+              </button>
+              <button class="rollable"
+                      data-roll="{{weapon.data.data.baseDamage}} + {{weapon.data.data.damageRoll}} + @bonus"
+                      data-label="{{weapon.name}} Damage">
+                Damage
+              </button>
+              <button class="item-delete" data-item-id="{{weapon.id}}">
+                <i class="fas fa-trash" style="margin: 0"></i>
+              </button>
+            </div>
+          </div>
         {{/each}}
       </div>
-      <div class="equipment">
-        <h3>Equipment</h3>
-        <div class="flexcol">
-          {{#each data.equipment}}
-          <div class="flexcol" style="margin: 10px 0">
-            <div class="flexrow">
-              <input style="flex: 10" placeholder="Name" type="text" name="data.equipment.{{@key}}.name" value="{{this.name}}" data-dtype="String" />
-              <input style="flex: 2" placeholder="Amount" type="number" name="data.equipment.{{@key}}.amount" value="{{this.amount}}" data-dtype="Number" />
-              <input style="flex: 2" placeholder="Cost" type="number" name="data.equipment.{{@key}}.cost" value="{{this.cost}}" data-dtype="Number" />
-              <input style="flex: 2" placeholder="Weight" type="number" name="data.equipment.{{@key}}.weight" value="{{this.weight}}" data-dtype="Number" />
+      <div role="table" class="equipment">
+        <div role="rowgroup">
+          <div role="columnheader">Equipment</div>
+        </div>
+        <div role="rowgroup">
+          <div role="columnheader">Name</div>
+          <div role="columnheader">Amount</div>
+          <div role="columnheader">Cost</div>
+          <div role="columnheader">Weight</div>
+          <div role="columnheader"></div>
+        </div>
+        {{#each data.items}}
+          <div role="rowgroup">
+            <div role="cell">{{this.name}} {{this.data.data.alias}} {{this.data.data.tags}}</div>
+            <div role="cell">
+              <input style="flex: 2" placeholder="Amount" type="number" name="data.items.{{@key}}.amount"
+                     value="{{this.data.data.amount}}" data-dtype="Number" />
+            </div>
+            <div role="cell">{{this.data.data.cost}}</div>
+            <div role="cell">{{this.data.data.weight}}</div>
+            <div role="cell">
+              <button type="button" data-key="{{@key}}">
+                <i class="fas fa-trash" style="margin: 0"></i>
+              </button>
+            </div>
+          </div>
+        {{/each}}
+
+        {{#each data.equipment}}
+          <div role="rowgroup">
+            <div role="cell">
+              <input style="flex: 10" placeholder="Name" type="text" name="data.equipment.{{@key}}.name"
+                     value="{{this.name}}" data-dtype="String" />
+            </div>
+            <div role="cell">
+              <input style="flex: 2" placeholder="Amount" type="number" name="data.equipment.{{@key}}.amount"
+                     value="{{this.amount}}" data-dtype="Number" />
+            </div>
+            <div role="cell">
+              <input style="flex: 2" placeholder="Cost" type="number" name="data.equipment.{{@key}}.cost"
+                     value="{{this.cost}}" data-dtype="Number" />
+            </div>
+            <div role="cell">
+              <input style="flex: 2" placeholder="Weight" type="number" name="data.equipment.{{@key}}.weight"
+                     value="{{this.weight}}" data-dtype="Number" />
+            </div>
+            <div role="cell">
               <button style="flex: 1" type="button" class="remove-equipment" data-key="{{@key}}">
                 <i class="fas fa-trash" style="margin: 0"></i>
               </button>
             </div>
-            <div class="flexrow">
-              <textarea id="equipment-description-{{@key}}" data-dtype="String" name="data.equipment.{{@key}}.description" placeholder="Description"
-                        rows="5"
-                        style="resize: none;">{{this.description}}</textarea>
-            </div>
           </div>
-          {{/each}}
-        </div>
+          <div class="flexrow">
+          <textarea id="equipment-description-{{@key}}" data-dtype="String" name="data.equipment.{{@key}}.description"
+                    placeholder="Description"
+                    rows="5"
+                    style="resize: none;">{{this.description}}</textarea>
+          </div>
+        {{/each}}
         <button type="button" class="add-equipment">Add Equipment</button>
       </div>
     </div>
@@ -473,9 +585,9 @@
           <label for="upbringing">Upbringing</label>
           <select id="upbringing" name="data.infos.upbringing" data-dtype="String">
             {{#select data.infos.upbringing}}
-            {{#each data.upbringings as |upbringing key|}}
-            <option value="{{upbringing.name}}">{{upbringing.name}}</option>
-            {{/each}}
+              {{#each data.upbringings as |upbringing key|}}
+                <option value="{{upbringing.name}}">{{upbringing.name}}</option>
+              {{/each}}
             {{/select}}
           </select>
         </div>
@@ -483,15 +595,15 @@
           <label for="environment">Environment</label>
           <select id="environment" name="data.infos.environment" data-dtype="String">
             {{#select data.infos.environment}}
-            {{#each data.environments as |environment key|}}
-            <option
-              value="{{environment.name}}"
-              {{attrIf
-            'disabled' environment.disabled }}
-            >
-            {{environment.name}}
-            </option>
-            {{/each}}
+              {{#each data.environments as |environment key|}}
+                <option
+                  value="{{environment.name}}"
+                  {{attrIf
+                    'disabled' environment.disabled }}
+                >
+                  {{environment.name}}
+                </option>
+              {{/each}}
             {{/select}}
           </select>
         </div>
@@ -499,46 +611,46 @@
       <div class="flexcol" style="justify-content: space-evenly; margin-top: 10px;">
         <h3>Lifestyles</h3>
         {{#each data.infos.lifestyle}}
-        <div class="flexcol">
-          <div class="flexrow">
-            <label for="lifestyle{{@key}}">Lifestyle {{@key}}</label>
-            <select id="lifestyle{{@key}}" name="data.infos.lifestyle.{{@key}}.name" data-dtype="String">
-              {{#select this.name}}
-              {{#each ../data.lifestyles}}
-              <option value="{{this.name}}">{{this.name}}</option>
-              {{/each}}
-              {{/select}}
-            </select>
-            <select name="data.infos.lifestyle.{{@key}}.result" data-dtype="Number">
-              {{#select this.result}}
-              {{#each this.outcomes}}
-              <option value="{{this.min}}">{{this.min}} - {{this.max}}: {{this.description}}</option>
-              {{/each}}
-              {{/select}}
-            </select>
-            <button
-              type="button" style="width: 75px;" class="rollable" data-roll="{{this.roll}}"
-              data-label="{{this.name}}"
-            >
-              {{this.roll}}
-            </button>
-          </div>
-          <div class="flexrow" style="justify-content: center;">
-            {{#each this.special}}
-            <div class="flexcol" style="text-align: center;max-width: 70px;margin: 10px;">
-              <select name="data.infos.lifestyle.{{@../key}}.special.{{@key}}.attribute">
-                {{#select this.attribute}}
-                {{#each this.attributes}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
+          <div class="flexcol">
+            <div class="flexrow">
+              <label for="lifestyle{{@key}}">Lifestyle {{@key}}</label>
+              <select id="lifestyle{{@key}}" name="data.infos.lifestyle.{{@key}}.name" data-dtype="String">
+                {{#select this.name}}
+                  {{#each ../data.lifestyles}}
+                    <option value="{{this.name}}">{{this.name}}</option>
+                  {{/each}}
                 {{/select}}
               </select>
-              <input type="number" disabled name="data.infos.lifestyle.{{@../key}}.special.{{@key}}.modifier"
-                     value="{{this.modifier}}" />
+              <select name="data.infos.lifestyle.{{@key}}.result" data-dtype="Number">
+                {{#select this.result}}
+                  {{#each this.outcomes}}
+                    <option value="{{this.min}}">{{this.min}} - {{this.max}}: {{this.description}}</option>
+                  {{/each}}
+                {{/select}}
+              </select>
+              <button
+                type="button" style="width: 75px;" class="rollable" data-roll="{{this.roll}}"
+                data-label="{{this.name}}"
+              >
+                {{this.roll}}
+              </button>
             </div>
-            {{/each}}
+            <div class="flexrow" style="justify-content: center;">
+              {{#each this.special}}
+                <div class="flexcol" style="text-align: center;max-width: 70px;margin: 10px;">
+                  <select name="data.infos.lifestyle.{{@../key}}.special.{{@key}}.attribute">
+                    {{#select this.attribute}}
+                      {{#each this.attributes}}
+                        <option value="{{this}}">{{this}}</option>
+                      {{/each}}
+                    {{/select}}
+                  </select>
+                  <input type="number" disabled name="data.infos.lifestyle.{{@../key}}.special.{{@key}}.modifier"
+                         value="{{this.modifier}}" />
+                </div>
+              {{/each}}
+            </div>
           </div>
-        </div>
         {{/each}}
       </div>
     </div>

@@ -9,7 +9,21 @@
  * Software License: [your license] Put your desired license here, which
  *           determines how others may use and modify your system
  */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// if (module.hot) module.hot.accept();
+
 import './mythic.scss';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/translucent.css';
+import 'tippy.js/animations/scale.css';
+import tippy, { followCursor } from 'tippy.js';
+
+tippy.setDefaultProps({
+  theme: 'mythic',
+  plugins: [followCursor],
+  followCursor: false,
+});
 
 import { DropData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin';
 import { ConfiguredDocumentClass } from '@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes';

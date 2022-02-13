@@ -2,6 +2,7 @@
 
 div[role=table] {
   border-left: solid 1px $borderColor;
+  flex: 1;
 
   div[role=rowgroup] {
     text-align: center;
@@ -9,7 +10,7 @@ div[role=table] {
     border-bottom: solid 1px $borderColor;
   }
 
-  div[role=cell], div[role=columnheader] {
+  div[role=cell], div[role=columnheader], div[role=rowheader] {
     border-right: solid 1px $borderColor;
     padding: 0.5em 0.5em;
     flex: 1;
@@ -29,40 +30,110 @@ div[role=table] {
 }
 
 .mythic.character.sheet {
-  .skill {
-    align-items: center;
-    padding: 4px;
+  .characteristic {
+    width: 10%;
+
+    .characteristic-header {
+      background: $headerColor;
+    }
   }
 
-  .skill-name {
-    width: 80%;
+  .calculated-characteristics {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    gap: 10px 5px;
+
+    .mythic-characteristics {
+      flex: 1;
+      min-width: 155px;
+
+      .mythic-characteristic {
+        padding: 0;
+
+        input {
+          height: 31px;
+          border-radius: 0;
+        }
+      }
+    }
+
+    .movement {
+      flex: 2 1;
+      min-width: 280px;
+
+      div {
+        min-width: 40px;
+      }
+    }
+
+    .carrying {
+      flex: 1;
+      min-width: 126px;
+
+      div {
+        min-width: 42px;
+      }
+    }
+  }
+
+  .things {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 5px;
+    margin-bottom: 20px;
+
+    input {
+      height: 31px;
+      border-radius: 0;
+    }
+
+    div[role=rowheader] {
+      min-width: 61px;
+    }
+
+    div[role=cell] {
+      min-width: 20px;
+    }
+
+    .wounds, .fatigue, .luck, .support-points {
+      min-width: 90px;
+    }
+
+    .shields, .armor {
+      flex: 2;
+      min-width: 180px;
+    }
+  }
+
+  .sheet-tabs {
+    background: $headerColor;
+  }
+
+  .skills {
+    flex: 1;
+    min-width: 335px;
     margin-right: 5px;
-  }
+    .skill-characteristic {
+      flex: 1;
+      min-width: 60px;
 
-  .skill-characteristic {
-    width: 50px;
-    margin-right: 5px;
-  }
+      select {
+        width: 45px;
+      }
+    }
 
-  .skill-advancement {
-    width: 100px;
-    margin-right: 5px;
-  }
-
-  .skill-roll {
-    width: 75px;
-    height: 29px;
-    line-height: 29px;
+    .skill-advancement {
+      flex: 2;
+      min-width: 120px;
+    }
   }
 
   .weapons {
     display: flex;
     flex-direction: column;
     margin: 10px 0;
-
-    .weapon {
-      margin: 10px 0;
-    }
   }
 
   .equipment {
@@ -77,6 +148,20 @@ div[role=table] {
     }
   }
 
+  .experience {
+    .add-exp-expense {
+      margin: 0;
+      border-radius: 0;
+      border: 1px solid $borderColor;
+      border-top: 0;
+    }
+
+    .remove-exp-expense {
+      height: 100%;
+      margin: 0;
+      border: 0;
+    }
+  }
   .experience-summary {
     input {
       border: none;
@@ -180,65 +265,5 @@ div[role=table] {
     flex: 0;
     margin-bottom: 20px;
     text-align: center;
-  }
-
-  .calculated-characteristics {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 20px;
-
-    .mythic-characteristics {
-      flex: 1;
-      min-width: 155px;
-    }
-    .movement {
-      flex: 2 1;
-      min-width: 305px;
-    }
-    .carrying {
-      flex: 1;
-      min-width: 125px;
-    }
-  }
-
-  .things {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    text-align: center;
-
-    h3 {
-      margin: 0;
-    }
-
-    input {
-      width: 60px;
-      margin: 0 12.5%;
-    }
-
-    .entry {
-      margin: 1px;
-    }
-  }
-
-  .shields {
-    display: flex;
-    flex-direction: column;
-
-    input {
-      margin: 0;
-    }
-  }
-
-  .armor {
-    display: flex;
-    flex-direction: column;
-
-    input {
-      margin: 0;
-    }
   }
 }

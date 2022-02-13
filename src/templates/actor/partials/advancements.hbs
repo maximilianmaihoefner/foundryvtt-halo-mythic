@@ -1,42 +1,48 @@
 <div>
   <div class="experience">
-    <h3>Experience</h3>
-    <div class="flexrow">
-      <div class="flexrow">
-        <label for="experience">Experience</label>
-        <input id="experience" type="number" name="data.experience" value="{{data.experience}}" data-dtype="Number" />
+    <div role="table">
+      <div role="rowgroup">
+        <div role="columnheader">Experience</div>
       </div>
-      <div>
-        experienceUnspent: {{data.experienceUnspent}}
-      </div>
-      <div>
-        experienceSpent: {{data.experienceSpent}}
+      <div role="rowgroup">
+        <div role="cell">
+          <label for="experience">Experience</label>
+          <input id="experience" type="number" name="data.experience" value="{{data.experience}}" data-dtype="Number" />
+        </div>
+        <div role="cell">
+          <div>experienceUnspent</div>
+          <div>{{data.experienceUnspent}}</div>
+        </div>
+        <div role="cell">
+          <div>experienceSpent</div>
+          <div>{{data.experienceSpent}}</div>
+        </div>
       </div>
     </div>
     <div class="experience-summary" role="table">
       <div role="rowgroup">
-        <div role="columnheader" style="flex: 7">
+        <div role="columnheader" style="flex: 7; min-width: 100px;">
           Name
         </div>
-        <div role="columnheader" style="flex: 2">
+        <div role="columnheader" style="flex: 2; min-width: 55px;">
           Cost
         </div>
-        <div role="columnheader" style="flex: 1">&nbsp;</div>
+        <div role="columnheader" style="flex: 1; min-width: 50px; padding: 0;">&nbsp;</div>
       </div>
       {{#each data.autoExperienceSummary as |summary key|}}
         <div role="rowgroup">
-          <div role="cell" style="flex: 7">
+          <div role="cell" style="flex: 7; min-width: 100px;">
             {{summary.name}}
           </div>
-          <div role="cell" style="flex: 2">
+          <div role="cell" style="flex: 2; min-width: 55px;">
             {{summary.cost}}
           </div>
-          <div role="cell" style="flex: 1"></div>
+          <div role="cell" style="flex: 1; min-width: 50px; padding: 0;"></div>
         </div>
       {{/each}}
       {{#each data.experienceSummary as |summary key|}}
         <div role="rowgroup">
-          <div role="cell" style="flex: 7">
+          <div role="cell" style="flex: 7; min-width: 100px;">
             <input
               type="text"
               data-dtype="String"
@@ -45,7 +51,7 @@
               placeholder="Name"
             />
           </div>
-          <div role="cell" style="flex: 2">
+          <div role="cell" style="flex: 2; min-width: 55px;">
             <input
               type="number"
               data-dtype="Number"
@@ -53,7 +59,7 @@
               value="{{summary.cost}}"
             />
           </div>
-          <div role="cell" style="flex: 1">
+          <div role="cell" style="flex: 1; min-width: 50px; padding: 0;">
             <button type="button" class="remove-exp-expense" data-key="{{@key}}">
               <i class="fas fa-trash" style="margin: 0"></i>
             </button>
@@ -61,44 +67,47 @@
         </div>
       {{/each}}
     </div>
-    <br />
     <button type="button" class="add-exp-expense">Add Expense</button>
   </div>
-  <div>
-    <h3>Faction Trainings</h3>
-    <div style="display: flex;">
-    {{#each data.factionTrainings as |training key|}}
-      <div style="flex: 1; text-align: center">
-        <label>
-          <span style="margin: auto">{{training.title}}</span>
-          <input
-            type="checkbox"
-            data-dtype="Boolean"
-            name="data.factionTrainings.{{training.key}}"
-            value="{{training.value}}"
-            {{#if training.value}}
-            checked
-            {{/if}}
-          />
-        </label>
-      </div>
-    {{/each}}
+  <br />
+  <div role="table">
+    <div role="rowgroup">
+      <div role="columnheader">Faction Trainings</div>
+    </div>
+    <div role="rowgroup" style="flex-wrap: wrap">
+      {{#each data.factionTrainings2 as |training key|}}
+        <div role="cell" style="display: flex; min-width: 100px">
+          <div style="flex: 3; margin: auto;">{{training.title}}</div>
+          <div style="flex: 1">
+            <input
+              type="checkbox"
+              data-dtype="Boolean"
+              name="data.factionTrainings.{{training.key}}"
+              value="{{training.value}}"
+              {{#if training.value}}
+              checked
+              {{/if}}
+            />
+          </div>
+        </div>
+      {{/each}}
     </div>
   </div>
   <br />
-  <div>
-    <h3>Weapon Trainings</h3>
-    <div role="table">
+  <div role="table">
+    <div role="rowgroup">
+      <div role="columnheader" style="min-width: 235px">Weapon Trainings</div>
+    </div>
+    <div role="rowgroup">
+      <div role="columnheader" style="flex: 2; min-width: 75px;">Name</div>
+      <div role="columnheader" style="flex: 7; min-width: 100px;">Weapon Examples</div>
+      <div role="columnheader" style="flex: 1; min-width: 60px;">Trained</div>
+    </div>
+    {{#each data.weaponTrainings2 as |training key|}}
       <div role="rowgroup">
-        <div role="columnheader" style="flex: 2">Name</div>
-        <div role="columnheader" style="flex: 7">Weapon Examples</div>
-        <div role="columnheader" style="flex: 1">Trained</div>
-      </div>
-      {{#each data.weaponTrainings as |training key|}}
-      <div role="rowgroup">
-        <div role="cell" style="flex: 2">{{training.title}}</div>
-        <div role="cell" style="flex: 7">{{training.examples}}</div>
-        <div role="cell" style="flex: 1">
+        <div role="cell" style="flex: 2; min-width: 75px;">{{training.title}}</div>
+        <div role="cell" style="flex: 7; min-width: 100px;">{{training.examples}}</div>
+        <div role="cell" style="flex: 1; min-width: 60px;">
           <input
             type="checkbox"
             data-dtype="Boolean"
@@ -111,6 +120,5 @@
         </div>
       </div>
     {{/each}}
-    </div>
   </div>
 </div>
