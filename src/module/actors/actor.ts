@@ -3,6 +3,7 @@
  *
  * @since 06/12/2021
  */
+import { MythicCombatant } from '../combat/mythicCombat';
 import { BaseCharacter, Characteristic } from '../data/actor';
 import { MythicCharacterData, Lifestyle } from '../data/character';
 import { NpcData } from '../data/npc';
@@ -48,9 +49,9 @@ export class MythicActor extends Actor {
     console.log('_prepareCharacterData', data);
 
     // Split Items
-    data.soldierType = this.data.items.find((e) => e.type === 'soldierType');
-    data.weapons = this.data.items.filter((e) => e.type === 'weapon');
-    data.items = this.data.items.filter((e) => e.type === 'item');
+    data.soldierType = this.items.find((e) => e.type === 'soldierType');
+    data.weapons = this.items.filter((e) => e.type === 'weapon');
+    data.items = this.items.filter((e) => e.type === 'item');
 
     let experienceCost = data.soldierType?.data.data.expCost ?? 0;
     Object.entries(data.experienceSummary).forEach(
@@ -406,25 +407,60 @@ export class MythicActor extends Actor {
         break;
     }
 
+    // TODO add shield rules (Page 99)
+    if (data.shields.value > 0) {
+      await this.update({
+        'data.shields.value': data.shields.value - damage,
+      });
+      return;
+    }
+
     // damage resistance = armor at location + toughness modifier
     const damageResistance =
       armor + data.characteristics.t.mod + data.mythicCharacteristics.t.value;
-    const wounds = damageResistance - pierce - damage;
-    const currentWounds = data.wounds.current + wounds;
+
+    const remainingDamageResistance = Math.clamped(
+      damageResistance - pierce,
+      0,
+      damageResistance > 0 ? damageResistance : 0
+    );
+
+    const wounds = Math.clamped(damage - remainingDamageResistance, 0, damage);
+    const currentWounds = data.wounds.value - wounds;
+
     console.log(
       'dealing amount of damage',
       damageResistance,
+      remainingDamageResistance,
       damage,
       hitLocation,
       pierce,
       wounds
     );
 
-    if (currentWounds > 0) {
+    // TODO according to the rules, a character is only unconscious when hitting 0 hp and only dies after receiving
+    //      their max hp in damage again, so maxWounds * 2
+    if (currentWounds <= 0) {
+      // await ChatMessage.create({
+      //   speaker: ChatMessage.getSpeaker({ actor: this }),
+      //   sound: CONFIG.sounds.dice,
+      //   type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+      //   content: 'Character reached wound maximum!',
+      // });
+
+      if (game instanceof Game && this.id) {
+        const combatant = game.combat?.combatants.find(
+          (c) => c.data.actorId === this.id
+        ) as MythicCombatant;
+        console.log('marking combatant as defeated', combatant);
+        await combatant?.update({
+          defeated: true,
+        });
+      }
       // TODO implement character death.
     }
     await this.update({
-      'data.wounds.current': currentWounds,
+      'data.wounds.value': currentWounds,
     });
   }
 }
