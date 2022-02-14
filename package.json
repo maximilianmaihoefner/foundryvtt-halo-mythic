@@ -14,7 +14,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "author": "",
-  "license": "",
+  "license": "GPL-3.0-only",
   "devDependencies": {
     "@league-of-foundry-developers/foundry-vtt-types": "^9.249.2",
     "@types/node": "^17.0.17",
