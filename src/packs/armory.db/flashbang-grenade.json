@@ -1,0 +1,28 @@
+{
+  "name": "Flashbang Grenade",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["UD", "I"],
+    "alias": "Flashbang",
+    "characteristic": "wfm",
+    "fireModes": {},
+    "weaponType": "Grenade",
+    "damageRoll": "1d5",
+    "baseDamage": "",
+    "piercing": "",
+    "range": "Blast 8",
+    "cost": "9",
+    "weight": "0.6",
+    "description": "Dark Green Matte finish. The Flashbang Grenade has a 4-second fuse. Once released, the grenade will detonate at the beginning of the Character’s next Turn. Flashbang Special Rule, no Police cR upcharge.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dG1ZJhbbjJkR2fbg"
+}

@@ -64,8 +64,30 @@
       "max": 104
     },
     "size": "normal",
-    "specialRules": [],
-    "equipmentPacks": []
+    "specialRules": [
+      "The Policeman begins with the Human Weaponry Racial Training at Character Creation.",
+      "The Policeman begins with one Skill of their choosing at +10 at Character Creation.",
+      "The Policeman begins with the Human Law Education at Character Creation.",
+      "Police cannot Purchase anything from the Covenant and Forerunner Armories. Anything purchased from the UNSC Armory is at double the Price, unless the weapon specifies otherwise.",
+      "<b>PROTECT AND SERVE</b>: When around Civilians in distress or in danger, Policemen gain a +20 Bonus in Courage.",
+      "<b>CRISIS</b>: In times of Crisis, the Policeman gains access to the time period’s UNSC Standard BDU Armor. During this, the Character also has the option to replace their two Flashbang Grenades with two M9 Dual-Purpose Grenades. The is not permanent, and only lasts during major events, such as Covenant invasions, Insurrectionist Attacks, and other GM-specified events.",
+      "<b>SQUAD UP</b>: When with others from the United Earth Government Police Force; these Characters gain a +5 Bonus to Courage. The Characters also gain a +10 Bonus to Warfare Melee and Warfare Range Tests when taking Combined Actions."
+    ],
+    "equipmentPacks": [{
+      "name": "Point Man Equipment",
+      "equipment": [{
+        "0": "dG2ZJhbbjJkR6pxc"
+      }, {
+        "0": "dG6ZJhbbjJkRapxc",
+        "1": "dG6ZJhbbjJkRcpxc"
+      }]
+    }, {
+      "name": "Close-Range Equipment"
+    }, {
+      "name": "CQC Equipment"
+    }, {
+      "name": "Marksman Equipment"
+    }]
   },
   "effects": [],
   "sort": 0,

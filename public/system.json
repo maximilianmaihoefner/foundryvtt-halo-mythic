@@ -7,8 +7,8 @@
   "compatibleCoreVersion": "9.245",
   "templateVersion": 2,
   "author": "Maximilian Maihöfner",
-  "esmodules": ["main.bundle.js", "vendor.bundle.js"],
-  "styles": ["styles/main.css"],
+  "esmodules": ["mythic.es.js"],
+  "styles": ["style.css"],
   "scripts": [],
   "packs": [{
     "name": "armory",
@@ -31,6 +31,20 @@
     "module": "mythic",
     "path": "/packs/human-soldier-types.db",
     "entity": "Item"
+  }, {
+    "name": "covenant",
+    "label": "Covenant Beasts",
+    "system": "mythic",
+    "module": "mythic",
+    "path": "/packs/covenant-bestiary.db",
+    "entity": "Actor"
+  }, {
+    "name": "combat",
+    "label": "Combat",
+    "system": "mythic",
+    "module": "mythic",
+    "path": "/packs/combat-macros.db",
+    "entity": "Macro"
   }],
   "languages": [{
     "lang": "en",

@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character", "npc"],
+    "types": ["character", "npc", "vehicle"],
     "templates": {
       "base": {
         "characteristics": {
@@ -290,9 +290,9 @@
     },
     "npc": {
       "templates": [
-        "base",
-        "skills"
+        "base"
       ],
+      "catchPhrase": "",
       "infos": {
         "faction": "",
         "height": "",
@@ -300,10 +300,72 @@
         "gender": "",
         "race": ""
       }
+    },
+    "vehicle": {
+      "faction": "",
+      "type": "",
+      "cost": 0,
+      "combatExp": 0,
+      "dimensions": {
+        "length": 0,
+        "width": 0,
+        "height": 0,
+        "weight": 0
+      },
+      "movement": {
+        "accelerate": 0,
+        "brake": 0,
+        "topSpeed": 0,
+        "maneuver": 0,
+
+        "vertical": 0,
+        "takeoff": 0,
+        "targetRange": 0,
+        "targeting": 0
+      },
+      "seats": {
+        "pilot": 0,
+        "gunner": 0,
+        "complement": 0
+      },
+      "hull": "",
+      "breakPoints": {
+        "wep": 0,
+        "mob": 0,
+        "eng": 0,
+        "op": 0,
+        "crew": 0
+      },
+      "armor": {
+        "front": 0,
+        "back": 0,
+        "side": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "sizePoints": 0,
+      "weaponPoints": 0,
+      "things": {
+        "wheels": 0,
+        "threads": 0,
+        "jets": 0,
+        "arms": 0,
+        "legs": 0
+      },
+      "specialRules": {
+        "neuralInterface": false,
+        "openTop": "",
+        "heavyPlating": false,
+        "allTerrain": false,
+        "boost": 0,
+        "walkerStomp": false,
+        "antiGravitational": false
+      },
+      "variants": []
     }
   },
   "Item": {
-    "types": ["weapon", "item", "soldierType"],
+    "types": ["weapon", "item", "soldierType", "armor"],
     "templates": {
     },
     "weapon": {
@@ -397,6 +459,47 @@
       "size": "",
       "specialRules": [],
       "equipmentPacks": []
+    },
+    "armor": {
+      "size": 0,
+      "weight": 0,
+      "cost": 0,
+      "material": 0,
+      "rating": {
+        "head": 0,
+        "arms": 0,
+        "chest": 0,
+        "legs": 0
+      },
+      "shields": {
+        "integrity": 0,
+        "delay": 0,
+        "recharge": 0
+      },
+      "abilities": {
+        "activeCamo": false
+      },
+      "equipment": [],
+      "specialRules": {
+        "bunkerDown": false,
+        "exposedLocations": false
+      },
+      "extra": {
+        "oxygen": 0,
+        "holdsOwnWeight": false,
+        "mythic": {
+          "str": 0,
+          "ag": 0
+        },
+        "characteristics": {
+          "str": 0,
+          "ag": 0
+        },
+        "skills": {
+          "evasion": 0
+        },
+        "wounds": 0
+      }
     }
   }
 }

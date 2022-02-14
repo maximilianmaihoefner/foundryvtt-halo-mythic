@@ -1,0 +1,33 @@
+{
+  "name": "Sniper Rifle System 99 Anti-Material",
+  "type": "weapon",
+  "img": "systems/mythic/assets/weapons/BR55.png",
+  "data": {
+    "tags": ["HW", "TH", "UD", "I"],
+    "alias": "SRS99 Sniper Rifle",
+    "characteristic": "wfr",
+    "fireModes": {
+      "semiAuto": 1
+    },
+    "weaponType": "Sniper Rifle",
+    "damageRoll": "4d10",
+    "baseDamage": "13",
+    "piercing": "17",
+    "magazin": "4",
+    "range": "50-1900",
+    "ammunition": "14.5x114mm",
+    "cost": "132",
+    "reload": "8",
+    "weight": "15.7",
+    "description": "Comes with a built-in Bipod and a removable Oracle N-Variant Scope. Headshot Special Rule. No Police cR upcharge. Penetrating Special Rule. Sniper\nRifles gain no Close Range benefits when within 50 Meters of the Target, as well as taking a -20 Penalty To Hit when used within 20 Meters of the Target.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dG5ZJhbbjJkR5srs"
+}

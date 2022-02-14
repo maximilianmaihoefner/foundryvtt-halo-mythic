@@ -63,7 +63,7 @@ export class CompendiumPack {
   private static namesToIds = new Map<string, Map<string, string>>();
 
   private static packsMetadata = JSON.parse(
-    fs.readFileSync('src/system.json', 'utf-8')
+    fs.readFileSync('public/system.json', 'utf-8')
   ).packs as PackMetadata[];
 
   private static worldItemLinkPattern = new RegExp(
@@ -127,7 +127,7 @@ export class CompendiumPack {
 
           const repoImgPath = path.resolve(
             process.cwd(),
-            'src',
+            'public',
             decodeURIComponent(imgPath).replace('systems/mythic/', '')
           );
           if (!imgPath.match(/^\/?icons\/svg/) && !fs.existsSync(repoImgPath)) {

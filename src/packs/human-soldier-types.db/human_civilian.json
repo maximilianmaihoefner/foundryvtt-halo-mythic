@@ -1,0 +1,82 @@
+{
+  "name": "Human Civilian",
+  "type": "soldierType",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "catchPhrase": "I’m not sitting by and watching my world, and everything in it, go to hell.",
+    "characteristics": {
+      "str": {
+        "value": 25,
+        "advancement": 0
+      },
+      "t": {
+        "value": 25,
+        "advancement": 0
+      },
+      "ag": {
+        "value": 25,
+        "advancement": 0
+      },
+      "wfr": {
+        "value": 25,
+        "advancement": 0
+      },
+      "wfm": {
+        "value": 25,
+        "advancement": 0
+      },
+      "int": {
+        "value": 25,
+        "advancement": 0
+      },
+      "per": {
+        "value": 25,
+        "advancement": 0
+      },
+      "cr": {
+        "value": 25,
+        "advancement": 0
+      },
+      "ch": {
+        "value": 25,
+        "advancement": 0
+      },
+      "ld": {
+        "value": 25,
+        "advancement": 0
+      }
+    },
+    "mythicCharacteristics": {
+      "str": 0,
+      "t": 0,
+      "ag": 0
+    },
+    "tier": 0,
+    "expCost": 0,
+    "upbringings": [],
+    "trainings": [],
+    "height": {
+      "min": 170,
+      "max": 193
+    },
+    "weight": {
+      "min": 58,
+      "max": 104
+    },
+    "size": "normal",
+    "specialRules": [
+      "Purchasing anything from Covenant or Forerunner Armories are impossible. UNSC Weapons are at triple the price, while weapons with the Insurrectionist Tag [I] are at double the price.",
+      "The Civilian may begin with up to 2 Educations at half their Experience Cost.",
+      "<b>SQUAD UP</b>: When with other Civilians, the Civilian gains +5 Courage.",
+      "The Civilian does not select from any Specializations."
+    ],
+    "equipmentPacks": []
+  },
+  "effects": [],
+  "sort": 0,
+  "flags": {},
+  "permission": {
+    "default": 0
+  },
+  "_id": "dG1ZJhbbjJkR3pxc"
+}
