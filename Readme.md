@@ -1,13 +1,19 @@
 # Foundry VTT - Halo Mythic v4.0 (Unofficial)
 [![CI](https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/actions/workflows/ci.yml/badge.svg)](https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/actions/workflows/ci.yml)
 ![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://raw.githubusercontent.com/maximilianmaihoefner/foundryvtt-halo-mythic/main/src/system.json)
+![Repository License](https://img.shields.io/github/license/maximilianmaihoefner/foundryvtt-halo-mythic)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/issues)
 
 Implements the [Halo Mythic](https://www.reddit.com/r/HaloMythic/) role-playing game into the [Foundry Virtual Tabletop](https://foundryvtt.com).
 
-This System is unofficial
+This System implementation, as well as Halo Mythic itself, are unofficial and are not endorsed by or affiliated with Microsoft.
 
 ## Features
 tbd
+
+## Inconsistencies
+- This implementation of Halo Mythic interprets Wounds in a more traditional Hit Point way, meaning, it is
+  good to have high current Wounds and bad to lose Wounds.
 
 ## Installation
 tbd
@@ -26,16 +32,13 @@ tbd
 - [X] ~~Auto calculate Damage for players and enemies.~~
 - [ ] Add compendium for weapons.
 - [ ] Add compendium for npcs.
+- [ ] Consume Ammo when Weapons are shot.
+- [ ] Implement reload rules.
 - [ ] Add macro support.
+- [ ] Create Player Character Macro (a wizard for creating player characters)
+- [ ] Create Npc Macro
+- [ ] Create Encounter Macro
 - [ ] Maybe add [Quench](https://github.com/schultzcole/FVTT-Quench) Tests
-
-### Missing Images
-- MA6
-- Napalm Grenade
-- Police Baton
-- Smoke Screen Grenade
-- Taser Gun
-
 
 ## Copyright
 This project is licensed under the terms of the GNU LGPL v3 license.
@@ -56,3 +59,22 @@ using assets from Halo, and it is not endorsed by or affiliated with Microsoft.
 - [M9 Image](https://halo.fandom.com/wiki/M9_High-Explosive_Dual-Purpose_grenade?file=H2A_M9Frag.png) from Halo Alpha User [LazyReader](https://halo.fandom.com/wiki/User:LazyReader)
 - [MA37 Image](https://halo.fandom.com/wiki/MA37_Individual_Combat_Weapon_System?file=HaloReach_-_MA37.png) from Halo Alpha User [Shazamikaze](https://www.halopedia.org/User:Shazamikaze)
 - [Combat Knife Image](https://www.halopedia.org/File:Combat_Knife.png) from Halopedia User [Subtank](https://www.halopedia.org/User:Subtank)
+
+### Missing Images
+- M6A
+- Napalm Grenade
+- Police Baton
+- Smoke Screen Grenade
+- Taser Gun
+
+## Contributing
+
+### Build
+```bash
+npm run build
+```
+
+### Tests
+```bash
+npm run test
+```
