@@ -1,7 +1,8 @@
+/// <reference types="vitest" />
 import path from 'path';
-import type { UserConfig as UC } from 'vite';
+import { defineConfig } from 'vite';
 
-const config: UC = {
+export default defineConfig({
   root: 'src/',
   publicDir: path.resolve(__dirname, 'public'),
   base: '/systems/mythic/',
@@ -33,6 +34,8 @@ const config: UC = {
       fileName: 'mythic',
     },
   },
-};
-
-export default config;
+  test: {
+    globals: true,
+    setupFiles: ['tests/setup.ts'],
+  },
+});
