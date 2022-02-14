@@ -1,6 +1,7 @@
 # Foundry VTT - Halo Mythic v4.0 (Unofficial)
 [![CI](https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/actions/workflows/ci.yml/badge.svg)](https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/actions/workflows/ci.yml)
 ![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://raw.githubusercontent.com/maximilianmaihoefner/foundryvtt-halo-mythic/main/src/system.json)
+![Latest Release Download Count](https://img.shields.io/github/downloads/maximilianmaihoefner/foundryvtt-halo-mythic/latest/mythic.zip)
 ![Repository License](https://img.shields.io/github/license/maximilianmaihoefner/foundryvtt-halo-mythic)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/issues)
 
@@ -16,7 +17,20 @@ tbd
   good to have high current Wounds and bad to lose Wounds.
 
 ## Installation
-tbd
+
+> This System is not complete and should be considered alpha software.
+  Things might break or are simply not working at all. If you encounter any issues please
+  feel free to create an [Issue](https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/issues/new/choose).
+
+> Make sure to create a Backup of your existing Worlds if you are updating to a newer Version.
+  Things might break in irreversible ways, so make sure to always have a Backup on Hand.
+
+- Open up Foundry and navigate to the Setup Screen.
+- Select "Game Systems" and then click on the "Install System"-Button on the lower left part of the window.
+- Enter: `https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/releases/latest/download/system.json`
+  into the "Manifest URL"-Field and click the "Install"-Button.
+- Foundry will now download the lastest Version of Halo Mythic.
+- Now you can set up a world using the "Halo Mythic 4.0"-System like you would do with every other System.
 
 ## TODO
 - [ ] Add 'Appearance'-Box to Biography-Tab
