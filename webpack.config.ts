@@ -85,6 +85,10 @@ const config: Configuration = {
         ],
       },
       {
+        test: /\.css$/i,
+        use: ['css-loader'],
+      },
+      {
         loader: 'thread-loader',
         options: {
           workers: os.cpus().length + 1,
@@ -137,7 +141,7 @@ const config: Configuration = {
       '@system': path.resolve(__dirname, 'src/module/system'),
       '@util': path.resolve(__dirname, 'src/util'),
     },
-    extensions: ['.ts'],
+    extensions: ['.ts', '.js'],
   },
   output: {
     clean: true,
