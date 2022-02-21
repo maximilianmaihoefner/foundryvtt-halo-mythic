@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed rolling from Character Sheet.
 - Fixed bonus not being applied when rolling To-Hit.
 - Fixed styling for To-Hit Bonus Input.
+- Fixed Foundry style overwrite for headlines and labels.
 
 ## [0.1.0] - 2021-02-14
 
