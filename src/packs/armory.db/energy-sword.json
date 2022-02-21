@@ -1,0 +1,28 @@
+{
+  "name": "Energy Sword",
+  "type": "weapon",
+  "img": "icons/svg/item-bag.svg",
+  "data": {
+    "tags": ["OH", "UD"],
+    "alias": "",
+    "characteristic": "wfm",
+    "fireModes": {},
+    "weaponType": "Sword",
+    "damageRoll": "2d10",
+    "baseDamage": "@characteristics.str.mod / 2 + 12",
+    "piercing": "@characteristics.str.mod + 25",
+    "range": "+1",
+    "cost": "299",
+    "weight": "2.3",
+    "description": "Cauterize Special Rule. Deactivates when not held. 128cm blade when activated.",
+    "attachments": []
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "permission": {
+    "default": 0
+  },
+  "flags": {},
+  "_id": "dG7ZJesbjJkR2hsd"
+}
