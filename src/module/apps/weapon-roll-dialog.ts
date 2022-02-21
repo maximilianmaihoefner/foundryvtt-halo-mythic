@@ -11,7 +11,7 @@ export class WeaponRollDialog extends Dialog {
     } = {}
   ): Promise<{ characteristic: 'wfr' | 'wfm'; bonus: number }> {
     const template = await renderTemplate(
-      'systems/mythic/templates/apps/weapon-roll-dialog.html',
+      'systems/mythic/templates/apps/weapon-roll-dialog.hbs',
       templateData
     );
 
