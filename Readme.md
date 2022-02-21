@@ -1,6 +1,6 @@
 # Foundry VTT - Halo Mythic v4.0 (Unofficial)
 [![CI](https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/actions/workflows/ci.yml/badge.svg)](https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/actions/workflows/ci.yml)
-![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://raw.githubusercontent.com/maximilianmaihoefner/foundryvtt-halo-mythic/main/src/system.json)
+![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://raw.githubusercontent.com/maximilianmaihoefner/foundryvtt-halo-mythic/main/public/system.json)
 ![Latest Release Download Count](https://img.shields.io/github/downloads/maximilianmaihoefner/foundryvtt-halo-mythic/latest/mythic.zip)
 ![Repository License](https://img.shields.io/github/license/maximilianmaihoefner/foundryvtt-halo-mythic)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/issues)
