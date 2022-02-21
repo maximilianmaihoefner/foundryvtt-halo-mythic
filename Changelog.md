@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added Energy Sword to Armory.
 
+### Fixed
+- Fix rolling from Character Sheet.
+
 
 ## [0.1.0] - 2021-02-14
 

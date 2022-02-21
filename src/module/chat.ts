@@ -106,7 +106,7 @@ const onEvasion = async (
     { async: true }
   );
 
-  const rollResult = await roll.roll({ async: true });
+  const rollResult = await roll.roll();
 
   await rollResult.toMessage({
     speaker: ChatMessage.getSpeaker({ actor: actor }),
@@ -151,26 +151,29 @@ const onEvasion = async (
       { bonus: 0, ...weaponData },
       { async: true }
     );
-    const damageResult = await damageRoll.roll({ async: true });
+    const damageResult = await damageRoll.roll();
     await damageResult.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: attackerActor }),
       flavor: 'Dealing Damage',
     });
 
     if (damageRoll.total) {
-      const piercingRollTotal = (
-        await new Roll(
-          `${weaponData.piercing}`,
-          { ...attackerActor.data.data },
-          { async: true }
-        ).roll({ async: true })
-      ).total;
+      const piercingRoll = new Roll(
+        `${weaponData.piercing}`,
+        { ...attackerActor.data.data },
+        { async: true }
+      );
+      const piercingRollResult = await piercingRoll.roll();
 
       const hitLocation = getHitLocationFromNumber(
         Number(dataset.hitLocation ?? 0)
       );
 
-      await actor.takeDamage(damageRoll.total, hitLocation, piercingRollTotal);
+      await actor.takeDamage(
+        damageRoll.total,
+        hitLocation,
+        piercingRollResult.total
+      );
     }
   }
 };

@@ -286,8 +286,6 @@ export class MythicCharacterSheet extends ActorSheet {
   async _onRoll(
     event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
   ): Promise<void> {
-    console.log('this is a hmr test', event);
-    console.log('this is a hmr test', event);
     event.preventDefault();
     const element = event.currentTarget;
     const { dataset } = element;
@@ -298,9 +296,10 @@ export class MythicCharacterSheet extends ActorSheet {
       const rollDialog = await RollDialog.create();
       const rollData = { ...this.getData().data, bonus: rollDialog.bonus };
 
-      const roll = new Roll(dataset.roll, rollData);
       const label = dataset.label ? `Rolling ${dataset.label}` : '';
-      await roll.roll().toMessage({
+      const roll = new Roll(dataset.roll, rollData, { async: true });
+      const rollResult = await roll.roll();
+      await rollResult.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
       });
@@ -334,13 +333,13 @@ export class MythicCharacterSheet extends ActorSheet {
     const rollData = { ...this.getData().data, bonus: rollDialog.bonus };
 
     // If the roll is equal to or less than the modified characteristic, the attack hits
-    const roll = new Roll(
+    const hitRoll = new Roll(
       `1d100`,
       // `1d100 < (@characteristics.${rollDialog.characteristic}.value + @bonus)`,
       rollData,
       { async: true }
     );
-    const hitResult = await roll.roll({ async: true });
+    const hitResult = await hitRoll.roll();
 
     const chosenWarfareCharacteristic =
       this.actor.data.data.characteristics[rollDialog.characteristic].value;
@@ -378,7 +377,7 @@ export class MythicCharacterSheet extends ActorSheet {
     // If the player has a target selected, we roll its evasion.
     // TODO GM may choose other roll, see page 70, STEP THREE: OPPONENT OPPOSES THE ATTACK
     if (game instanceof Game && game.user?.targets) {
-      for (const target of game.user?.targets) {
+      for (const target of game.user.targets) {
         if (!target.actor) {
           continue;
         }
