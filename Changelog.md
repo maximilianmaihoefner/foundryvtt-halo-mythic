@@ -11,8 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Energy Sword to Armory.
 
 ### Fixed
-- Fix rolling from Character Sheet.
-
+- Fixed rolling from Character Sheet.
+- Fixed bonus not being applied when rolling To-Hit.
 
 ## [0.1.0] - 2021-02-14
 

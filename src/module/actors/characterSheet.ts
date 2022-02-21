@@ -334,7 +334,7 @@ export class MythicCharacterSheet extends ActorSheet {
 
     // If the roll is equal to or less than the modified characteristic, the attack hits
     const hitRoll = new Roll(
-      `1d100`,
+      `1d100 - @bonus`,
       // `1d100 < (@characteristics.${rollDialog.characteristic}.value + @bonus)`,
       rollData,
       { async: true }
