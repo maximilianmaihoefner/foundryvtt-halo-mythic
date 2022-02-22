@@ -27,7 +27,7 @@ tbd
 
 - Open up Foundry and navigate to the Setup Screen.
 - Select "Game Systems" and then click on the "Install System"-Button on the lower left part of the window.
-- Enter: `https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/releases/latest/download/system.json`
+- Enter: `https://raw.githubusercontent.com/maximilianmaihoefner/foundryvtt-halo-mythic/main/public/system.json`
   into the "Manifest URL"-Field and click the "Install"-Button.
 - Foundry will now download the lastest Version of Halo Mythic.
 - Now you can set up a world using the "Halo Mythic 4.0"-System like you would do with every other System.
