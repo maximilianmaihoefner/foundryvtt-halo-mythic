@@ -58,7 +58,7 @@
   "secondaryTokenAttribute": null,
   "license": "GPL-3.0-only",
   "url": "https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic",
-  "manifest": "https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/releases/download/0.1.1/system.json",
+  "manifest": "https://raw.githubusercontent.com/maximilianmaihoefner/foundryvtt-halo-mythic/main/public/system.json",
   "download": "https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/releases/download/0.1.1/mythic.zip",
   "bugs": "https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/issues/new/choose",
   "readme": "https://github.com/maximilianmaihoefner/foundryvtt-halo-mythic/blob/main/Readme.md",
